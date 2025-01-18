@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/18 19:59:06 by ldick            ###   ########.fr       */
+/*   Created: 2024/03/06 16:22:56 by ldick             #+#    #+#             */
+/*   Updated: 2024/03/08 17:32:04 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	*safe_malloc(size_t size, t_cub_data *cub)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	void	*ptr;
+	int			i;
+	char		*srcc;
+	char		*dstt;
 
-	ptr = malloc(size);
-	if (!ptr)
+	i = 0;
+	srcc = (char *)src;
+	dstt = dst;
+	if (dst == src || n == 0)
+		return (dst);
+	if (!dst && !src)
+		return (0);
+	while (n--)
 	{
-		printf("malloc error\n");
-		clean_all(cub);
-		exit (EXIT_FAILURE);
+		dstt[i] = srcc[i];
+		i++;
 	}
-	return (ptr);
+	return (dst);
 }

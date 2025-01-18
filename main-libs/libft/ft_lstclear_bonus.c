@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/18 19:59:06 by ldick            ###   ########.fr       */
+/*   Created: 2024/03/13 15:18:37 by ldick             #+#    #+#             */
+/*   Updated: 2024/03/13 16:01:11 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	*safe_malloc(size_t size, t_cub_data *cub)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	void	*ptr;
+	t_list	*tmp;
 
-	ptr = malloc(size);
-	if (!ptr)
+	while (*lst)
 	{
-		printf("malloc error\n");
-		clean_all(cub);
-		exit (EXIT_FAILURE);
+		tmp = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = tmp;
 	}
-	return (ptr);
+	free(*lst);
+	*lst = NULL;
 }

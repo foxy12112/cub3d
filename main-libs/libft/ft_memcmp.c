@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/18 19:59:06 by ldick            ###   ########.fr       */
+/*   Created: 2024/03/06 11:39:55 by ldick             #+#    #+#             */
+/*   Updated: 2024/03/06 17:16:59 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	*safe_malloc(size_t size, t_cub_data *cub)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	void	*ptr;
+	const unsigned char	*ss1;
+	const unsigned char	*ss2;
+	size_t				i;
 
-	ptr = malloc(size);
-	if (!ptr)
+	i = 0;
+	ss1 = (const unsigned char *)s1;
+	ss2 = (const unsigned char *)s2;
+	while (i < n)
 	{
-		printf("malloc error\n");
-		clean_all(cub);
-		exit (EXIT_FAILURE);
+		if (ss1[i] != ss2[i])
+			return (ss1[i] - ss2[i]);
+		i++;
 	}
-	return (ptr);
+	return (0);
 }

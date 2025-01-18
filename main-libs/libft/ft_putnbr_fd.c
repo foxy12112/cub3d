@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/18 19:59:06 by ldick            ###   ########.fr       */
+/*   Created: 2024/03/10 13:27:52 by ldick             #+#    #+#             */
+/*   Updated: 2024/03/10 14:27:17 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	*safe_malloc(size_t size, t_cub_data *cub)
+void	ft_putnbr_fd(int n, int fd)
 {
-	void	*ptr;
-
-	ptr = malloc(size);
-	if (!ptr)
+	if (n == -2147483648)
 	{
-		printf("malloc error\n");
-		clean_all(cub);
-		exit (EXIT_FAILURE);
+		write(fd, "-2147483648", 11);
+		return ;
 	}
-	return (ptr);
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		n = -n;
+	}
+	if (n >= 10)
+	{
+		ft_putnbr_fd (n / 10, fd);
+	}
+	ft_putchar_fd (n % 10 + '0', fd);
 }

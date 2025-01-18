@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/18 19:59:06 by ldick            ###   ########.fr       */
+/*   Created: 2024/03/06 12:02:43 by ldick             #+#    #+#             */
+/*   Updated: 2024/03/08 17:54:01 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	*safe_malloc(size_t size, t_cub_data *cub)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	void	*ptr;
+	size_t	i;
+	size_t	src_len;
 
-	ptr = malloc(size);
-	if (!ptr)
+	i = 0;
+	src_len = ft_strlen(src);
+	if (!dstsize)
+		return (src_len);
+	while (src[i] != '\0' && i < dstsize - 1)
 	{
-		printf("malloc error\n");
-		clean_all(cub);
-		exit (EXIT_FAILURE);
+		dst[i] = src[i];
+		i++;
 	}
-	return (ptr);
+	if (dstsize < src_len)
+		dst[dstsize - 1] = '\0';
+	else if (dstsize != 0)
+		dst[i] = '\0';
+	return (src_len);
 }

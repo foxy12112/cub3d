@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/18 19:59:06 by ldick            ###   ########.fr       */
+/*   Created: 2024/03/09 09:53:54 by ldick             #+#    #+#             */
+/*   Updated: 2024/03/13 18:33:22 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	*safe_malloc(size_t size, t_cub_data *cub)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	void	*ptr;
+	char			*s2;
+	size_t			s_len;
 
-	ptr = malloc(size);
-	if (!ptr)
-	{
-		printf("malloc error\n");
-		clean_all(cub);
-		exit (EXIT_FAILURE);
-	}
-	return (ptr);
+	if (s == NULL)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if ((size_t)start >= ft_strlen(s))
+		return (ft_strdup(""));
+	if (len > (s_len - start))
+		len = s_len - start;
+	s2 = (char *)malloc(len + 1);
+	if (!s2)
+		return (NULL);
+	ft_strlcpy(s2, s + start, len + 1);
+	return (s2);
 }

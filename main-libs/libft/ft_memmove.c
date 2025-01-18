@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/18 19:59:06 by ldick            ###   ########.fr       */
+/*   Created: 2024/03/06 16:31:39 by ldick             #+#    #+#             */
+/*   Updated: 2024/03/06 17:15:57 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	*safe_malloc(size_t size, t_cub_data *cub)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	void	*ptr;
+	char	*d;
+	char	*s;
+	int		i;
 
-	ptr = malloc(size);
-	if (!ptr)
+	i = 0;
+	d = (char *)dst;
+	s = (char *)src;
+	if (dst == src)
+		return (dst);
+	if (s < d)
 	{
-		printf("malloc error\n");
-		clean_all(cub);
-		exit (EXIT_FAILURE);
+		while (len--)
+			*(d + len) = *(s + len);
+		return (dst);
 	}
-	return (ptr);
+	while (len--)
+	{
+		d[i] = s[i];
+		i++;
+	}
+	return (dst);
 }

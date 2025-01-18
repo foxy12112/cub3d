@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   ft_wordconut.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/18 19:59:06 by ldick            ###   ########.fr       */
+/*   Created: 2024/05/24 07:56:04 by ldick             #+#    #+#             */
+/*   Updated: 2024/05/24 08:05:34 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-void	*safe_malloc(size_t size, t_cub_data *cub)
+int	ft_wordcount(char *str, int delimiter)
 {
-	void	*ptr;
+	int	count;
+	int	in_word;
 
-	ptr = malloc(size);
-	if (!ptr)
+	if (!str)
+		return (0);
+	count = 0;
+	in_word = 0;
+	while (*str)
 	{
-		printf("malloc error\n");
-		clean_all(cub);
-		exit (EXIT_FAILURE);
+		if (*str == delimiter)
+			in_word = 0;
+		else if (!in_word)
+		{
+			in_word = 1;
+			count++;
+		}
+		str++;
 	}
-	return (ptr);
+	return (count);
 }

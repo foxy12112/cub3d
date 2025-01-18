@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/18 19:59:06 by ldick            ###   ########.fr       */
+/*   Created: 2024/03/07 10:25:37 by ldick             #+#    #+#             */
+/*   Updated: 2024/03/08 18:36:11 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	*safe_malloc(size_t size, t_cub_data *cub)
+void	*ft_calloc(size_t count, size_t size)
 {
 	void	*ptr;
+	size_t	i;
 
-	ptr = malloc(size);
+	i = 0;
+	ptr = malloc(size * count);
 	if (!ptr)
+		return (NULL);
+	while (i != size * count)
 	{
-		printf("malloc error\n");
-		clean_all(cub);
-		exit (EXIT_FAILURE);
+		ft_bzero(ptr, count * size);
+		i++;
 	}
 	return (ptr);
 }

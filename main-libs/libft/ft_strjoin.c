@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/18 19:59:06 by ldick            ###   ########.fr       */
+/*   Created: 2024/03/09 11:19:23 by ldick             #+#    #+#             */
+/*   Updated: 2024/03/10 14:28:33 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	*safe_malloc(size_t size, t_cub_data *cub)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	void	*ptr;
+	char	*output;
+	size_t	total_len;
 
-	ptr = malloc(size);
-	if (!ptr)
-	{
-		printf("malloc error\n");
-		clean_all(cub);
-		exit (EXIT_FAILURE);
-	}
-	return (ptr);
+	total_len = ft_strlen(s1) + ft_strlen(s2);
+	output = (char *)malloc (total_len + 1);
+	if (!output)
+		return (NULL);
+	if (!s1 || !s2)
+		return (NULL);
+	ft_memcpy(output, s1, ft_strlen(s1));
+	ft_memcpy(output + ft_strlen(s1), s2, ft_strlen(s2));
+	output[total_len] = '\0';
+	return (output);
 }

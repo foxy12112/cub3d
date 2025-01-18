@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/18 19:59:06 by ldick            ###   ########.fr       */
+/*   Created: 2024/03/06 17:18:54 by ldick             #+#    #+#             */
+/*   Updated: 2024/03/09 09:28:15 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	*safe_malloc(size_t size, t_cub_data *cub)
+char	*ft_strchr(const char *s, int c)
 {
-	void	*ptr;
+	int		i;
+	int		len;
 
-	ptr = malloc(size);
-	if (!ptr)
+	len = ft_strlen(s) + 1;
+	i = 0;
+	while (i < len)
 	{
-		printf("malloc error\n");
-		clean_all(cub);
-		exit (EXIT_FAILURE);
+		if (s[i] == (char)c)
+			return ((char *)s + i);
+		i++;
 	}
-	return (ptr);
+	return (NULL);
 }

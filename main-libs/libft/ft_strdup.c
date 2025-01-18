@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/18 19:59:06 by ldick            ###   ########.fr       */
+/*   Created: 2024/03/07 11:45:33 by ldick             #+#    #+#             */
+/*   Updated: 2025/01/09 07:54:17 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	*safe_malloc(size_t size, t_cub_data *cub)
+char	*ft_strdup(const char *s1)
 {
-	void	*ptr;
+	char		*dest;
+	size_t		i;
 
-	ptr = malloc(size);
-	if (!ptr)
+	i = 0;
+	while (s1[i])
+		i++;
+	dest = (char *)malloc(sizeof(*dest) * i + 1);
+	if (dest == NULL)
+		return (NULL);
+	i = 0;
+	while (s1[i])
 	{
-		printf("malloc error\n");
-		clean_all(cub);
-		exit (EXIT_FAILURE);
+		dest[i] = s1[i];
+		i++;
 	}
-	return (ptr);
+	dest[i] = '\0';
+	return (dest);
 }

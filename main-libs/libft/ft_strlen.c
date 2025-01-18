@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/18 19:59:06 by ldick            ###   ########.fr       */
+/*   Created: 2024/04/26 12:59:13 by ldick             #+#    #+#             */
+/*   Updated: 2024/06/10 10:07:09 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	*safe_malloc(size_t size, t_cub_data *cub)
+size_t	ft_strlen(const char *s)
 {
-	void	*ptr;
+	size_t	i;
 
-	ptr = malloc(size);
-	if (!ptr)
-	{
-		printf("malloc error\n");
-		clean_all(cub);
-		exit (EXIT_FAILURE);
-	}
-	return (ptr);
+	i = 0;
+	if (s == NULL)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
 }

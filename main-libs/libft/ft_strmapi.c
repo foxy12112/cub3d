@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/18 19:59:06 by ldick            ###   ########.fr       */
+/*   Created: 2024/03/10 19:33:04 by ldick             #+#    #+#             */
+/*   Updated: 2024/03/10 19:53:36 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	*safe_malloc(size_t size, t_cub_data *cub)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	void	*ptr;
+	char			*result;
+	unsigned int	i;
 
-	ptr = malloc(size);
-	if (!ptr)
+	i = 0;
+	if (!(*s) || !(*f))
+		return (ft_strdup(""));
+	result = (char *)malloc(ft_strlen(s) + 1);
+	if (!result)
+		return (NULL);
+	while (i < ft_strlen(s))
 	{
-		printf("malloc error\n");
-		clean_all(cub);
-		exit (EXIT_FAILURE);
+		result[i] = f(i, s[i]);
+		i++;
 	}
-	return (ptr);
+	result[i] = '\0';
+	return (result);
 }
