@@ -6,7 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/01/18 19:35:20 by ldick            ###   ########.fr        #
+#    Updated: 2025/01/19 18:09:13 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ NC			:= \033[0m
 COMPILER	=	cc
 INCLUDES	=	-I includes -I main-libs
 SUBMODULE	=	main-libs/Makefile
-LIB_FLAGS	=	-ls -Lmain-libs
+LIB_FLAGS	=	-ls -Lmain-libs ./MLX42/build/libmlx42.a
 CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address
 EXTRA_FLAGS	=	
 ERROR_FILE	=	error.log
@@ -41,45 +41,54 @@ ERROR_FILE	=	error.log
 #											Sources												#
 #################################################################################################
 
-# _EXECUTION		=	execute_builtins.c execute_command.c execute_redirects.c execute_pipes.c exec.c
-# EXECUTION		=	$(addprefix execution/, $(_EXECUTION))
+_PARSING		=	parsing_utils.c parsing.c
+PARSING			=	$(addprefix parsing/, $(_PARSING))
 
-# _PARSING		=	parse_errors.c expander.c redirect_parse.c redirect_parse_utils.c cmd_parse.c pipe_split.c quotes_utils.c
-# PARSING			=	$(addprefix parsing/, $(_PARSING))
+_MATH			=	color.c raytracing.c
+MATH			=	$(addprefix math/, $(_MATH))
 
-# _REDIRECTS		=	heredoc_utils.c redirect_in.c redirect_out.c redirect_out_append.c redirect_in_heredoc.c redirect_to_terminal.c
-# REDIRECTS		=	$(addprefix redirects/, $(_REDIRECTS))
+_UTILS			=	init.c tmp.c
+UTILS			=	$(addprefix utils/, $(_UTILS))
 
-# _UTILS			=	free_linked_lists.c print_test_files.c history.c ft_split_delimiters.c ft_split_delimiters_utils.c unclosed_quotes.c env_init.c free.c utils.c intialize.c variables.c loop_utils.c ft_split_byfirstequal.c ft_split_whitespaces.c ft_split_quotes.c signal.c
-# UTILS			=	$(addprefix utils/, $(_UTILS))
+_ERROR			=	error_utils.c error.c
+ERROR			=	$(addprefix error/, $(_ERROR))
 
-# _BUILTINS		=	cd.c echo.c env.c exit.c export.c export_utils.c pwd.c unset.c
-# BUILTINS		=	$(addprefix builtins/, $(_BUILTINS))
-
-_SRCS			=	main.c $(BUILTINS) $(UTILS) $(REDIRECTS) $(PARSING) $(EXECUTION)
+_SRCS			=	cub3d.c $(ERROR) $(UTILS) $(MATH) $(PARSING)
 SRCS			=	$(addprefix srcs/, $(_SRCS))
 
 OBJS			=	$(SRCS:srcs/%.c=bin/%.o)
 LIBRARY			=	main-libs/libs.a
 
 #################################################################################################
+#											MLX													#
+#################################################################################################
+
+USER = $(shell whoami)
+# OS = $(shell uname)
+OS = ("MINISHELL");
+
+ifeq ($(OS),Linux)
+		MLX_FLAGS = MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+else ifeq ($(OS),Darwin)
+		MLX_FLAGS = -framework Cocoa -framework OpenGl -framework IOKit -lglfw -L"/Users/$(USER)/.breq.opt/glfw/lib"
+endif
+
+#################################################################################################
 #											Rules												#
 #################################################################################################
 
-all:			$(NAME)
+all:			MLX42 $(NAME)
 
 bin:
 				@echo "\t\t\t$(BLUE) Making bin directory"
 				@echo "\t\t\t$(BOLD_BLUE) mkdir -p bin/utils"
-				@echo "\t\t\t$(BOLD_BLUE) mkdir -p bin/builtins"
-				@echo "\t\t\t$(BOLD_BLUE) mkdir -p bin/redirects"
+				@echo "\t\t\t$(BOLD_BLUE) mkdir -p bin/math"
+				@echo "\t\t\t$(BOLD_BLUE) mkdir -p bin/error"
 				@echo "\t\t\t$(BOLD_BLUE) mkdir -p bin/parsing"
-				@echo "\t\t\t$(BOLD_BLUE) mkdir -p bin/execution"
 				@mkdir -p bin/utils
-				@mkdir -p bin/builtins
-				@mkdir -p bin/redirects
+				@mkdir -p bin/math
+				@mkdir -p bin/error
 				@mkdir -p bin/parsing
-				@mkdir -p bin/execution
 
 bin/%.o:		srcs/%.c | bin
 				@echo "$(GREEN) Compiling $(Compiler) $(CLR_RMV) -c -o $(YELLOW) $@ $(CYAN) $^ $(GREEN) $(EXTRA_FLAGS) $(CFLAGS) $(GREEN) $(INCLUDES) $(NC)"
@@ -96,18 +105,24 @@ $(NAME): $(LIBRARY) $(OBJS)
 				@echo "\t\t\t\t$(RED) compilation success :3$(NC)"
 				@mkdir -p .git/permanent_history
 
+MLX42:
+				@if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42.git; fi
+				@cd MLX42 && cmake -B build && cmake --build build -j4
+
 clean:
 				@rm -rf bin
 				@rm -f $(ERROR_FILE)
-				@rm -f output*.log
+				@make fclean -C main-libs --silent
 
 fclean:			clean
-				@make fclean -C main-libs --silent
 				@rm -f $(NAME)
+				@rm -rf MLX42
 
 history:		clean
 				@rm -rf .git/permanent_history
 
 re:				fclean all
+
+re_s:			clean all
 
 .PHONY:			all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/01/18 19:58:48 by ldick            ###   ########.fr       */
+/*   Updated: 2025/01/19 18:55:22 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,27 @@
 # include <string.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include "libs.h"
+
+
+typedef struct s_texture_data
+{
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	char		*floor;
+	char		*ceiling;
+}				t_texture_data;
 
 typedef struct s_cub_data
 {
-	char		**map;
-	
+	char			**map;
+	t_texture_data	*texture;
 }				t_cub_data;
 
 
-int	initialize(char *argv[], t_cub_data *cub);
-void	clean_all(t_cub_data *cub);
+int			parsing(char *argv[], t_cub_data *cub);
+void		clean_all(t_cub_data *cub);
 
 #endif
