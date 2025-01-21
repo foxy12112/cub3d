@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/01/19 18:55:22 by ldick            ###   ########.fr       */
+/*   Updated: 2025/01/20 19:25:14 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,9 @@ typedef struct s_cub_data
 
 int			parsing(char *argv[], t_cub_data *cub);
 void		clean_all(t_cub_data *cub);
+void		*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
+void		ft_error(void);
+int			init(char *argv[], t_cub_data *cub);
+int			add_texture(int i, t_texture_data *texture, char *line);
 
 #endif

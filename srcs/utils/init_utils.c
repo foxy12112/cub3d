@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmp.c                                              :+:      :+:    :+:   */
+/*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/20 17:10:54 by ldick            ###   ########.fr       */
+/*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
+/*   Updated: 2025/01/20 19:25:04 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	*safe_malloc(size_t size, t_cub_data *cub, const char *func_name)
+int	add_texture(int i, t_texture_data *texture, char *line)
 {
-	void	*ptr;
-
-	ptr = malloc(size);
-	if (!ptr)
-	{
-		printf("malloc error in funciton %s\n", func_name);
-		clean_all(cub);
-		exit (EXIT_FAILURE);
-	}
-	return (ptr);
+	if (ft_strncmp(line, "NO", 2) == 0)
+		texture->no = ft_strdup(line + 2);
+	else if (ft_strncmp(line, "SO", 2) == 0)
+		texture->so = ft_strdup(line + 2);
+	else if (ft_strncmp(line, "WE", 2) == 0)
+		texture->we = ft_strdup(line + 2);
+	else if (ft_strncmp(line, "EA", 2) == 0)
+		texture->ea = ft_strdup(line + 2);
+	else
+		return (i);
+	return (i + 1);
 }

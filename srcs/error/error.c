@@ -6,11 +6,16 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:50:58 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/19 15:30:12 by ldick            ###   ########.fr       */
+/*   Updated: 2025/01/20 17:19:41 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ft_error(void)
+{
+	return ;
+}
 
 void	clean_all(t_cub_data *cub)
 {

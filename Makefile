@@ -6,7 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/01/19 18:09:13 by ldick            ###   ########.fr        #
+#    Updated: 2025/01/20 19:26:00 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ PARSING			=	$(addprefix parsing/, $(_PARSING))
 _MATH			=	color.c raytracing.c
 MATH			=	$(addprefix math/, $(_MATH))
 
-_UTILS			=	init.c tmp.c
+_UTILS			=	init.c init_utils.c tmp.c
 UTILS			=	$(addprefix utils/, $(_UTILS))
 
 _ERROR			=	error_utils.c error.c
