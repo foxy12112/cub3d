@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: foxy <foxy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/20 19:28:43 by ldick            ###   ########.fr       */
+/*   Updated: 2025/01/23 19:21:36 by foxy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@ int	init(char *argv[], t_cub_data *cub)
 	i = 0;
 	fd = open(argv[1], O_RDONLY);
 	line = get_next_line(fd);
-	while (i < 4)
+	while (i < 6)
 	{
-		i = add_texture(i, cub->texture, line);
+		i = add_texture(i, cub->texture, rm_s(line));
+		if (i == 720)
+			break ;
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -50,5 +52,8 @@ int	init(char *argv[], t_cub_data *cub)
 	printf("so %s\n", cub->texture->so);
 	printf("we %s\n", cub->texture->we);
 	printf("ea %s\n", cub->texture->ea);
+	printf("Floor %s\n", cub->texture->floor);
+	printf("Ceiling %s\n", cub->texture->ceiling);
+
 	return (1);
 }

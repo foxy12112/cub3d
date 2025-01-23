@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: foxy <foxy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/01/20 19:25:14 by ldick            ###   ########.fr       */
+/*   Updated: 2025/01/23 19:21:17 by foxy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ void		*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
 void		ft_error(void);
 int			init(char *argv[], t_cub_data *cub);
 int			add_texture(int i, t_texture_data *texture, char *line);
+char		*rm_s(char *str);
 
 #endif
