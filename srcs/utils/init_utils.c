@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/24 18:07:25 by ldick            ###   ########.fr       */
+/*   Updated: 2025/01/25 12:27:09 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	add_texture(int i, t_texture_data *texture, char *line)
 	else if ((line)[0] == '\n')
 		return (i);
 	else
-		return (ft_error(), 720);
+		return (720);
 	return (i + 1);
 }
 
@@ -86,4 +86,15 @@ int	init_color(t_texture_data *texture)
 	texture->floor->g = ft_atoi(tmp[1]);
 	texture->floor->b = ft_atoi(tmp[2]);
 	return (free(tmp), 1);
+}
+
+void	malloc_all(t_cub_data *cub)
+{
+	cub->map = safe_malloc(1, cub, __func__);
+	cub->texture->ceiling->ceiling = safe_malloc(1, cub, __func__);
+	cub->texture->floor->floor = safe_malloc(1, cub, __func__);
+	cub->texture->ea = safe_malloc(1, cub, __func__);
+	cub->texture->we = safe_malloc(1, cub, __func__);
+	cub->texture->no = safe_malloc(1, cub, __func__);
+	cub->texture->so = safe_malloc(1, cub, __func__);
 }

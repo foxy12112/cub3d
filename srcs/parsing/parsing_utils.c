@@ -1,0 +1,75 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/25 13:11:53 by ldick             #+#    #+#             */
+/*   Updated: 2025/01/25 17:58:19 by ldick            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+static int	check_player(t_cub_data *cub)
+{
+	int	i;
+	int	j;
+	int	player_count;
+
+	player_count = 0;
+	i = 0;
+	j = 0;
+	while (cub->map[i])
+	{
+		while (cub->map[i][j])
+		{
+			if (cub->map[i][j] == 'N' || cub->map[i][j] == 'S'
+				|| cub->map[i][j] == 'E' || cub->map[i][j] == 'W')
+			{
+				player_count++;
+				cub->p->start_x = j;
+				cub->p->start_y = i;
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	if (player_count != 1)
+		return (1);
+	return (0);
+}
+
+int	check_textures(t_cub_data *cub)
+{
+	// if (open(cub->texture->no, O_RDONLY) == -1)
+	// 	return (1);
+	(void)cub;
+	return (0);
+}
+
+int	is_closed(t_cub_data *cub)
+{
+	int	y;
+	int	x;
+
+	x = 0;
+	y = 0;
+
+	check_top(cub);
+	check_bottom(cub);
+	check_sides(cub);
+	printf("map is closed :)\n");
+	return (0);
+}
+
+int	check_map(t_cub_data *cub)
+{
+	if (check_player(cub) == 1)
+		ft_error(cub, "muultiple or no player positions");
+	if (is_closed(cub) == 1)
+		ft_error(cub, "error: map not closed");
+	return (0);
+}

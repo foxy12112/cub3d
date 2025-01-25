@@ -6,7 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/01/20 19:26:00 by ldick            ###   ########.fr        #
+#    Updated: 2025/01/25 17:41:43 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ ERROR_FILE	=	error.log
 #											Sources												#
 #################################################################################################
 
-_PARSING		=	parsing_utils.c parsing.c
+_PARSING		=	parsing_utils.c parsing.c map_parse_utils.c
 PARSING			=	$(addprefix parsing/, $(_PARSING))
 
 _MATH			=	color.c raytracing.c
@@ -64,8 +64,8 @@ LIBRARY			=	main-libs/libs.a
 #################################################################################################
 
 USER = $(shell whoami)
-# OS = $(shell uname)
-OS = ("MINISHELL");
+OS = $(shell uname)
+# OS = ("MINISHELL");
 
 ifeq ($(OS),Linux)
 		MLX_FLAGS = MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:36:02 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/24 18:05:23 by ldick            ###   ########.fr       */
+/*   Updated: 2025/01/25 13:24:09 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	main(int argc, char *argv[])
 	if (!cub)
 		return (printf("Malloc error: cub\n"), EXIT_FAILURE);
 	if (init(argv, cub) == 1)
-		return (ft_error(), EXIT_FAILURE);
-	// if (parsing(argv, cub) == 1)
-	// 	return (ft_error(), EXIT_FAILURE);
+		return (ft_error(cub, "error in init"), EXIT_FAILURE);
+	if (parsing(cub) == 1)
+		return (ft_error(cub, "error in parsing"), EXIT_FAILURE);
 	print_2(cub);
 	// if (game_loop(cub) == 1)
 	// 	return (ft_error(), EXIT_FAILURE);

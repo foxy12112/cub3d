@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/24 18:06:56 by ldick            ###   ########.fr       */
+/*   Updated: 2025/01/25 17:49:39 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	init(char *argv[], t_cub_data *cub)
 	int		i;
 
 	i = 0;
+	cub->p = safe_malloc(sizeof(t_player_data), cub, __func__);
 	cub->texture = safe_malloc(sizeof(t_texture_data), cub, __func__);
 	cub->texture->ceiling = safe_malloc(sizeof(t_ceiling_data), cub, __func__);
 	cub->texture->floor = safe_malloc(sizeof(t_floor_data), cub, __func__);
@@ -45,7 +46,7 @@ int	init(char *argv[], t_cub_data *cub)
 	{
 		i = add_texture(i, cub->texture, rm_s(line));
 		if (i == 720)
-			break ;
+			return (free(line), 1);
 		free(line);
 		line = get_next_line(fd);
 	}

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/01/24 18:06:48 by ldick            ###   ########.fr       */
+/*   Updated: 2025/01/25 17:57:47 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,34 @@ typedef struct s_texture_data
 	t_ceiling_data		*ceiling;
 }						t_texture_data;
 
+typedef struct s_player_data
+{
+	int					start_x;
+	int					start_y;
+}						t_player_data;
+
 typedef struct s_cub_data
 {
 	char				**map;
 	t_texture_data		*texture;
+	t_player_data		*p;
 }						t_cub_data;
 
 
 void		clean_all(t_cub_data *cub);
 void		*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
-void		ft_error(void);
+void		ft_error(t_cub_data *cub, char *error_msg);
 int			init(char *argv[], t_cub_data *cub);
 int			add_texture(int i, t_texture_data *texture, char *line);
 char		*rm_s(char *str);
 int			init_map(t_cub_data *cub, int fd, char *line);
 int			init_color(t_texture_data *texture);
+void		malloc_all(t_cub_data *cub);
+int			check_textures(t_cub_data *cub);
+int			parsing(t_cub_data *cub);
+int			check_map(t_cub_data *cub);
+int			check_bottom(t_cub_data *cub);
+int			check_top(t_cub_data *cub);
+int			check_sides(t_cub_data *cub);
 
 #endif
