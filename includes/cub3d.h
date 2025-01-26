@@ -6,13 +6,14 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/01/25 17:57:47 by ldick            ###   ########.fr       */
+/*   Updated: 2025/01/26 15:14:54 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include "../MLX42/include/MLX42/MLX42.h"
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -54,11 +55,18 @@ typedef struct s_player_data
 	int					start_y;
 }						t_player_data;
 
+typedef struct s_mlx
+{
+	mlx_t				*mlx;
+	mlx_image_t			*img;
+}						t_mlx;
+
 typedef struct s_cub_data
 {
 	char				**map;
 	t_texture_data		*texture;
 	t_player_data		*p;
+	t_mlx				*mlx;
 }						t_cub_data;
 
 
@@ -77,5 +85,7 @@ int			check_map(t_cub_data *cub);
 int			check_bottom(t_cub_data *cub);
 int			check_top(t_cub_data *cub);
 int			check_sides(t_cub_data *cub);
+void		game_loop(t_cub_data *cub);
+int			get_color(int r, int g, int b, int a);
 
 #endif

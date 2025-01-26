@@ -6,7 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/01/25 17:41:43 by ldick            ###   ########.fr        #
+#    Updated: 2025/01/26 14:58:23 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,10 @@ UTILS			=	$(addprefix utils/, $(_UTILS))
 _ERROR			=	error_utils.c error.c
 ERROR			=	$(addprefix error/, $(_ERROR))
 
-_SRCS			=	cub3d.c $(ERROR) $(UTILS) $(MATH) $(PARSING)
+_GAME			=	game.c
+GAME			=	$(addprefix game/, $(_GAME))
+
+_SRCS			=	cub3d.c $(ERROR) $(UTILS) $(MATH) $(PARSING) $(GAME)
 SRCS			=	$(addprefix srcs/, $(_SRCS))
 
 OBJS			=	$(SRCS:srcs/%.c=bin/%.o)
@@ -70,7 +73,7 @@ OS = $(shell uname)
 ifeq ($(OS),Linux)
 		MLX_FLAGS = MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 else ifeq ($(OS),Darwin)
-		MLX_FLAGS = -framework Cocoa -framework OpenGl -framework IOKit -lglfw -L"/Users/$(USER)/.breq.opt/glfw/lib"
+		MLX_FLAGS = -framework Cocoa -framework OpenGl -framework IOKit -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib"
 endif
 
 #################################################################################################
@@ -89,6 +92,7 @@ bin:
 				@mkdir -p bin/math
 				@mkdir -p bin/error
 				@mkdir -p bin/parsing
+				@mkdir -p bin/game
 
 bin/%.o:		srcs/%.c | bin
 				@echo "$(GREEN) Compiling $(Compiler) $(CLR_RMV) -c -o $(YELLOW) $@ $(CYAN) $^ $(GREEN) $(EXTRA_FLAGS) $(CFLAGS) $(GREEN) $(INCLUDES) $(NC)"
@@ -101,7 +105,7 @@ $(SUBMODULE):
 				@git submodule update --init --recursive
 
 $(NAME): $(LIBRARY) $(OBJS)
-				@$(COMPILER) -o $(NAME) $(OBJS) $(LIB_FLAGS) $(EXTRA_FLAGS) $(CFLAGS)
+				@$(COMPILER) -o $(NAME) $(OBJS) $(LIB_FLAGS) $(MLX_FLAGS) $(EXTRA_FLAGS) $(CFLAGS)
 				@echo "\t\t\t\t$(RED) compilation success :3$(NC)"
 				@mkdir -p .git/permanent_history
 
