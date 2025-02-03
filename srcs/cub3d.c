@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:36:02 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/26 15:00:36 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/03 11:18:22 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int argc, char *argv[])
 	if (parsing(cub) == 1)
 		return (ft_error(cub, "error in parsing"), EXIT_FAILURE);
 	// print_2(cub);
-	game_loop(cub);
+	// game_loop(cub);
 	// if (game_loop(cub) == 1)
 	// 	return (ft_error(), EXIT_FAILURE);
 	// initialize(argv, cub);

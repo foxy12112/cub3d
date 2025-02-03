@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/25 12:27:09 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/03 14:54:22 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,28 @@ int	add_texture(int i, t_texture_data *texture, char *line)
 	else
 		return (720);
 	return (i + 1);
+}
+
+void	*malloc_map(t_cub_data *cub, char *map)
+{
+	int		fd;
+	char	*line;
+	int		len;
+	int		row;
+
+	row = 0;
+	fd = open(map, O_RDONLY);
+	line = get_next_line(fd);
+	len = ft_strlen(line);
+	while(line)
+	{
+		if (len < ft_strlen(line))
+			len = ft_strlen(line);
+		free(line);
+		get_next_line(fd);
+	}
+	close(fd);
+	
 }
 
 int	init_map(t_cub_data *cub, int fd, char *line)
