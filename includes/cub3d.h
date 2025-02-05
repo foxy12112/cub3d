@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/01/26 15:14:54 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/05 16:33:59 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct s_mlx
 typedef struct s_cub_data
 {
 	char				**map;
+	int					*x;
+	int					*y;
 	t_texture_data		*texture;
 	t_player_data		*p;
 	t_mlx				*mlx;
@@ -76,7 +78,7 @@ void		ft_error(t_cub_data *cub, char *error_msg);
 int			init(char *argv[], t_cub_data *cub);
 int			add_texture(int i, t_texture_data *texture, char *line);
 char		*rm_s(char *str);
-int			init_map(t_cub_data *cub, int fd, char *line);
+int			init_map(t_cub_data *cub, int fd);
 int			init_color(t_texture_data *texture);
 void		malloc_all(t_cub_data *cub);
 int			check_textures(t_cub_data *cub);
@@ -87,5 +89,6 @@ int			check_top(t_cub_data *cub);
 int			check_sides(t_cub_data *cub);
 void		game_loop(t_cub_data *cub);
 int			get_color(int r, int g, int b, int a);
+void		floodfill(char **map, int x, int y);
 
 #endif

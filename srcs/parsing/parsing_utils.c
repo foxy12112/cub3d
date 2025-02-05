@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:11:53 by ldick             #+#    #+#             */
-/*   Updated: 2025/01/25 17:58:19 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/05 16:36:27 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	check_player(t_cub_data *cub)
 	player_count = 0;
 	i = 0;
 	j = 0;
+	
 	while (cub->map[i])
 	{
 		while (cub->map[i][j])
@@ -61,6 +62,8 @@ int	is_closed(t_cub_data *cub)
 	check_top(cub);
 	check_bottom(cub);
 	check_sides(cub);
+	floodfill(cub->map, x, y);
+	printMap(map);
 	printf("map is closed :)\n");
 	return (0);
 }
