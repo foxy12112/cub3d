@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/05 16:33:59 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/05 19:01:02 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_mlx
 {
 	mlx_t				*mlx;
 	mlx_image_t			*img;
+	int					width;
+	int					height;
 }						t_mlx;
 
 typedef struct s_cub_data
@@ -66,6 +68,7 @@ typedef struct s_cub_data
 	char				**map;
 	int					*x;
 	int					*y;
+	int					ceiling;
 	t_texture_data		*texture;
 	t_player_data		*p;
 	t_mlx				*mlx;
@@ -89,6 +92,7 @@ int			check_top(t_cub_data *cub);
 int			check_sides(t_cub_data *cub);
 void		game_loop(t_cub_data *cub);
 int			get_color(int r, int g, int b, int a);
-void		floodfill(char **map, int x, int y);
+int			check_leaks(char **map, t_cub_data *cub);
+void		printMap(char **map);
 
 #endif

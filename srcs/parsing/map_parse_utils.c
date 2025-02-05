@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:35:29 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/05 16:36:10 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/05 17:31:53 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,41 @@ void printMap(char **map) {
 // 	return (0);
 // }
 
-void	floodfill(char **map, int x, int y)
-{
+// void	floodfill(char **map, int x, int y)
+// {
 
-	if (map && y >= 0 && map[y] && x >= 0 && x <= (int)ft_strlen(map[y]) && map[y][x] && map[y][x] != '0' && map[y][x] != '*')
+// 	if (map && y >= 0 && map[y] && x >= 0 && x <= (int)ft_strlen(map[y]) && map[y][x] && map[y][x] != '0' && map[y][x] != '*')
+// 	{
+// 		map[y][x] = '*';
+// 		floodfill(map, x, y + 1);
+// 		floodfill(map, x - 1, y);
+// 		floodfill(map, x, y - 1);
+// 		floodfill(map, x + 1, y);
+// 	}
+// }
+
+int		check_leaks(char **map, t_cub_data *cub)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while(map[y])
 	{
-		map[y][x] = '*';
-		// printMap(map);
-		floodfill(map, x, y + 1);
-		floodfill(map, x - 1, y);
-		floodfill(map, x, y - 1);
-		floodfill(map, x + 1, y);
+		while(map[y][x])
+		{
+			if (map[y][x] == '0')
+			{
+				if (!map[y - 1] || !map[y + 1] || !map[y - 1][x] || !map[y + 1][x])
+					return (ft_error(cub, "overhang not closed"), false);
+			}
+			x++;
+		}
+		y++;
+		x = 0;
 	}
+	return (true);
 }
 
 int	check_sides(t_cub_data *cub)

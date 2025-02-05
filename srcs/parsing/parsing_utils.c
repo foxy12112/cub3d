@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:11:53 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/05 16:36:27 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/05 18:14:21 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ int	is_closed(t_cub_data *cub)
 	check_top(cub);
 	check_bottom(cub);
 	check_sides(cub);
-	floodfill(cub->map, x, y);
-	printMap(map);
+	check_leaks(cub->map, cub);
 	printf("map is closed :)\n");
 	return (0);
 }
