@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/05 19:01:02 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/07 16:37:01 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,7 @@ void		game_loop(t_cub_data *cub);
 int			get_color(int r, int g, int b, int a);
 int			check_leaks(char **map, t_cub_data *cub);
 void		printMap(char **map);
+void		event_handler(mlx_key_data_t mkd, void *param);
+
 
 #endif
