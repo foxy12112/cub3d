@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/07 16:37:01 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/08 15:52:57 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ typedef struct s_texture_data
 	char				*so;
 	char				*we;
 	char				*ea;
+	mlx_texture_t		*no_tex;
+	mlx_texture_t		*so_tex;
+	mlx_texture_t		*we_tex;
+	mlx_texture_t		*ea_tex;
 	t_floor_data		*floor;
 	t_ceiling_data		*ceiling;
 }						t_texture_data;
@@ -66,12 +70,14 @@ typedef struct s_mlx
 typedef struct s_cub_data
 {
 	char				**map;
-	int					*x;
-	int					*y;
+	int					x;
+	int					y;
+	int					floor;
 	int					ceiling;
 	t_texture_data		*texture;
 	t_player_data		*p;
-	t_mlx				*mlx;
+	mlx_t				*mlx;
+	mlx_image_t			*img;
 }						t_cub_data;
 
 

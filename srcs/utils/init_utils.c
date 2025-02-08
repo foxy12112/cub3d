@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/05 19:03:47 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/08 14:29:30 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,15 @@ int	init_map(t_cub_data *cub, int fd)
 	cub->map = safe_malloc(sizeof (char *) * 1024, cub, __func__);
 	while (line)
 	{
+		// if ((int)ft_strlen(line) > cub->x)
+		// 	cub->x = (int)ft_strlen(line);
 		newline = ft_strchr(line, '\n');
 		if (newline)
 			*newline = '\0';
 		cub->map[i++] = ft_strdup(line);
 		free(line);
 		line = get_next_line(fd);
+		// cub->y++;
 	}
 	cub->map[i] = NULL;
 	return (EXIT_SUCCESS);

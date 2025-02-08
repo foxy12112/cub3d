@@ -6,7 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/02/07 16:37:51 by ldick            ###   ########.fr        #
+#    Updated: 2025/02/08 14:22:19 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ INCLUDES	=	-I includes -I main-libs
 SUBMODULE	=	main-libs/Makefile
 LIB_FLAGS	=	-ls -Lmain-libs ./MLX42/build/libmlx42.a
 CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address
-EXTRA_FLAGS	=	
+EXTRA_FLAGS	=	-O3 -ffast-math
 ERROR_FILE	=	error.log
 
 #################################################################################################

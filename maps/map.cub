@@ -1,11 +1,11 @@
-NO textures/arctic_Monkeys.png
+NO textures/alex.png
 SO textures/metro_boomin.png
 WE textures/IAM_IWAS.png
 EA textures/3.jpg
 
 
-F 85,40,33
-C 0,255,0
+F 0,255,0
+C 0,0,255
 
         1111111111111111111111
         1000000000110000000001
