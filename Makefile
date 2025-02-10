@@ -6,7 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/02/08 14:22:19 by ldick            ###   ########.fr        #
+#    Updated: 2025/02/10 17:11:12 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,13 +47,13 @@ PARSING			=	$(addprefix parsing/, $(_PARSING))
 _MATH			=	color.c raytracing.c
 MATH			=	$(addprefix math/, $(_MATH))
 
-_UTILS			=	init.c init_utils.c tmp.c
+_UTILS			=	init.c init_utils.c tmp.c ft_ftoa.c
 UTILS			=	$(addprefix utils/, $(_UTILS))
 
 _ERROR			=	error_utils.c error.c
 ERROR			=	$(addprefix error/, $(_ERROR))
 
-_GAME			=	game.c event.c
+_GAME			=	game.c event.c map/map.c player/player.c
 GAME			=	$(addprefix game/, $(_GAME))
 
 _SRCS			=	cub3d.c $(ERROR) $(UTILS) $(MATH) $(PARSING) $(GAME)
@@ -84,15 +84,12 @@ all:			MLX42 $(NAME)
 
 bin:
 				@echo "\t\t\t$(BLUE) Making bin directory"
-				@echo "\t\t\t$(BOLD_BLUE) mkdir -p bin/utils"
-				@echo "\t\t\t$(BOLD_BLUE) mkdir -p bin/math"
-				@echo "\t\t\t$(BOLD_BLUE) mkdir -p bin/error"
-				@echo "\t\t\t$(BOLD_BLUE) mkdir -p bin/parsing"
 				@mkdir -p bin/utils
 				@mkdir -p bin/math
 				@mkdir -p bin/error
 				@mkdir -p bin/parsing
-				@mkdir -p bin/game
+				@mkdir -p bin/game/map
+				@mkdir -p bin/game/player
 
 bin/%.o:		srcs/%.c | bin
 				@echo "$(GREEN) Compiling $(Compiler) $(CLR_RMV) -c -o $(YELLOW) $@ $(CYAN) $^ $(GREEN) $(EXTRA_FLAGS) $(CFLAGS) $(GREEN) $(INCLUDES) $(NC)"

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/08 15:52:57 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/10 17:10:14 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_player_data
 {
 	int					start_x;
 	int					start_y;
+	float				x;
+	float				y;
 }						t_player_data;
 
 typedef struct s_mlx
@@ -66,6 +68,12 @@ typedef struct s_mlx
 	int					width;
 	int					height;
 }						t_mlx;
+
+typedef struct s_minimap
+{
+	mlx_t				*mlx;
+	mlx_image_t			*img;
+}						t_minimap;
 
 typedef struct s_cub_data
 {
@@ -78,6 +86,7 @@ typedef struct s_cub_data
 	t_player_data		*p;
 	mlx_t				*mlx;
 	mlx_image_t			*img;
+	t_minimap			*minimap;
 }						t_cub_data;
 
 
@@ -101,6 +110,9 @@ int			get_color(int r, int g, int b, int a);
 int			check_leaks(char **map, t_cub_data *cub);
 void		printMap(char **map);
 void		event_handler(mlx_key_data_t mkd, void *param);
-
+void		map(t_cub_data *cub);
+void		event(mlx_key_data_t mkd, void *param);
+void		ft_ftoa(float n, char *res, int afterpoint);
+void		draw_player(t_cub_data *cub);
 
 #endif
