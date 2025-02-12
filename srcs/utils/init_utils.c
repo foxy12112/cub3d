@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/08 14:29:30 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/12 18:14:54 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ int	init_map(t_cub_data *cub, int fd)
 	cub->map = safe_malloc(sizeof (char *) * 1024, cub, __func__);
 	while (line)
 	{
-		// if ((int)ft_strlen(line) > cub->x)
-		// 	cub->x = (int)ft_strlen(line);
+		if ((int)ft_strlen(line) > cub->minimap->size_x)
+			cub->minimap->size_x = (int)ft_strlen(line);
 		newline = ft_strchr(line, '\n');
 		if (newline)
 			*newline = '\0';
 		cub->map[i++] = ft_strdup(line);
 		free(line);
 		line = get_next_line(fd);
-		// cub->y++;
+		cub->minimap->size_y++;
 	}
 	cub->map[i] = NULL;
 	return (EXIT_SUCCESS);
@@ -95,11 +95,12 @@ int	init_color(t_texture_data *texture)
 
 void	malloc_all(t_cub_data *cub)
 {
-	cub->map = safe_malloc(1, cub, __func__);
-	cub->texture->ceiling->ceiling = safe_malloc(1, cub, __func__);
-	cub->texture->floor->floor = safe_malloc(1, cub, __func__);
-	cub->texture->ea = safe_malloc(1, cub, __func__);
-	cub->texture->we = safe_malloc(1, cub, __func__);
-	cub->texture->no = safe_malloc(1, cub, __func__);
-	cub->texture->so = safe_malloc(1, cub, __func__);
+	(void)cub;
+	// cub->map = safe_malloc(1, cub, __func__);
+	// cub->texture->ceiling->ceiling = safe_malloc(1, cub, __func__);
+	// cub->texture->floor->floor = safe_malloc(1, cub, __func__);
+	// cub->texture->ea = safe_malloc(1, cub, __func__);
+	// cub->texture->we = safe_malloc(1, cub, __func__);
+	// cub->texture->no = safe_malloc(1, cub, __func__);
+	// cub->texture->so = safe_malloc(1, cub, __func__);
 }

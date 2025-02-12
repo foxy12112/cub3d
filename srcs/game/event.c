@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:30:21 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/10 17:16:38 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/12 18:27:18 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,22 @@ void	event_handler(mlx_key_data_t mkd, void *param)
 		mlx_set_window_size(cub->mlx, cub->mlx->width - 10, cub->mlx->height - 10);
 }
 
+// void	minimap_event(mlx_key_data_t mkd, void *param)
+// {
+// 	t_cub_data *cub = (t_cub_data *)param;
+// 	if (mkd.key == MLX_KEY_W)
+// 		cub->minimap->p_img->instances[0].y -= 5;
+// 	else if (mkd.key == MLX_KEY_S)
+// 		cub->minimap->p_img->instances[0].y += 5;
+// 	if (mkd.key == MLX_KEY_A)
+// 		cub->minimap->p_img->instances[0].x -= 5;
+// 	else if (mkd.key == MLX_KEY_D)
+// 		cub->minimap->p_img->instances[0].x += 5;
+// }
+
 void	event(mlx_key_data_t mkd, void *param)
 {
 	event_handler(mkd, param);
 	player_event(mkd, param);
+	// minimap_event(mkd, param);
 }

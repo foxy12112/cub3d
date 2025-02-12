@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/10 14:40:50 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/12 18:00:23 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	init(char *argv[], t_cub_data *cub)
 	cub->texture->ceiling = safe_malloc(sizeof(t_ceiling_data), cub, __func__);
 	cub->texture->floor = safe_malloc(sizeof(t_floor_data), cub, __func__);
 	cub->minimap = safe_malloc(sizeof(t_minimap), cub, __func__);
+	cub->minimap->size_x = 0;
+	cub->minimap->size_y = 0;
 	fd = open(argv[1], O_RDONLY);
 	line = get_next_line(fd);
 	while (i < 6)
@@ -58,5 +60,5 @@ int	init(char *argv[], t_cub_data *cub)
 
 int	get_color(int r, int g, int b, int a)
 {
-	return (r << 24 | g << 16 | b << 8 | a << 0);
+	return ((r & 0xff) << 24 | (g & 0xff) << 16 | (b & 0xff) << 8 | (a & 0xff) << 0);
 }

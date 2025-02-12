@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/10 17:10:14 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/12 16:40:10 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,13 @@ typedef struct s_mlx
 
 typedef struct s_minimap
 {
-	mlx_t				*mlx;
 	mlx_image_t			*img;
+	mlx_image_t			*p_img;
+	float				scale_x;
+	float				scale_y;
+	float				scale;
+	int					size_x;
+	int					size_y;
 }						t_minimap;
 
 typedef struct s_cub_data

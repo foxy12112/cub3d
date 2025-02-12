@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:01:07 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/10 18:36:06 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/12 16:24:39 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,38 +29,29 @@
 // 	mlx_put_pixel(cub->img, cx - x, cy - y, 0xfffff);
 // }
 
-static void	draw_circle(t_cub_data *cub, int cx, int cy, int r)
+void	draw_play(t_cub_data *cub)
 {
-	int x;
-	int y;
-	int p;
+	int	i;
+	int	j;
 
-	p = r * -1;
-	x = 0;
-	y = r * -1;
-	while(x < -y)
+	i = 0;
+	j = 0;
+	while(i <= 20)
 	{
-		if (p > 0)
+		while(j <= 20)
 		{
-			y++;
-			p += x*y*2 + 1;
+			mlx_put_pixel(cub->minimap->p_img, i, j, 0xfffff);
+			j++;
 		}
-		else
-			p += 2*x + 1;
-		mlx_put_pixel(cub->img, cx + x, cy + y, 0xfffff);
-		mlx_put_pixel(cub->img, cx - x, cy + y, 0xfffff);
-		mlx_put_pixel(cub->img, cx + x, cy - y, 0xfffff);
-		mlx_put_pixel(cub->img, cx - x, cy - y, 0xfffff);
-		mlx_put_pixel(cub->img, cx + x, cy + y, 0xfffff);
-		mlx_put_pixel(cub->img, cx + x, cy - y, 0xfffff);
-		mlx_put_pixel(cub->img, cx - x, cy + y, 0xfffff);
-		mlx_put_pixel(cub->img, cx - x, cy - y, 0xfffff);
-		x++;
+		j = 0;
+		i++;
 	}
 }
 
 void	draw_player(t_cub_data *cub)
 {
-	draw_circle(cub, 500, 500, 50);
+	cub->minimap->p_img = mlx_new_image(cub->mlx, 20, 20);
+	mlx_image_to_window(cub->mlx, cub->minimap->p_img, 130, 220);
+	draw_play(cub);
 	return ;
 }
