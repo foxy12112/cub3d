@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/12 18:00:23 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/13 08:32:25 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	init(char *argv[], t_cub_data *cub)
 	cub->texture->ceiling = safe_malloc(sizeof(t_ceiling_data), cub, __func__);
 	cub->texture->floor = safe_malloc(sizeof(t_floor_data), cub, __func__);
 	cub->minimap = safe_malloc(sizeof(t_minimap), cub, __func__);
+	cub->text = safe_malloc(sizeof(t_textbox), cub, __func__);
 	cub->minimap->size_x = 0;
 	cub->minimap->size_y = 0;
 	fd = open(argv[1], O_RDONLY);

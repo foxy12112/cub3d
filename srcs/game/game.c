@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/12 18:43:37 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/13 10:46:47 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int check_wall_collision(void *param)
 void ft_hook(void* param)
 {
     t_cub_data* cub = (t_cub_data*)param;
-
     // Check for wall collisions
     check_wall_collision(param);
 
@@ -127,6 +126,7 @@ void	game_loop(t_cub_data *cub)
 	cub->img->instances->z = 0;
 	map(cub);
 	draw_player(cub);
+	draw_textbox(cub);
 	mlx_resize_hook(cub->mlx, &resize_callback, cub);
 	mlx_key_hook(cub->mlx, event, cub);
 	mlx_loop_hook(cub->mlx, ft_hook, cub);

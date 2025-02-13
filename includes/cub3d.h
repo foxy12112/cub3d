@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/12 16:40:10 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/13 09:39:44 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ typedef struct s_minimap
 	int					size_y;
 }						t_minimap;
 
+typedef struct s_textbox
+{
+	mlx_image_t			*img;
+}						t_textbox;
+
 typedef struct s_cub_data
 {
 	char				**map;
@@ -92,6 +97,7 @@ typedef struct s_cub_data
 	mlx_t				*mlx;
 	mlx_image_t			*img;
 	t_minimap			*minimap;
+	t_textbox			*text;
 }						t_cub_data;
 
 
@@ -119,5 +125,8 @@ void		map(t_cub_data *cub);
 void		event(mlx_key_data_t mkd, void *param);
 void		ft_ftoa(float n, char *res, int afterpoint);
 void		draw_player(t_cub_data *cub);
+void		draw_textbox(t_cub_data *cub);
+void		textblock_mouse(double x, double y, void *param);
+int			is_in_box(int x, int y, mlx_image_t *img);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:30:21 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/12 18:27:18 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/13 10:46:59 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	player_event(mlx_key_data_t mkd, void *param)
 {
-	t_cub_data *cub = (t_cub_data *)param;
+	t_cub_data	*cub;
 
+	cub = (t_cub_data *)param;
 	if (mkd.key == MLX_KEY_W)
 		cub->p->y += 0.5;
 	else if (mkd.key == MLX_KEY_S)
@@ -28,8 +29,9 @@ void	player_event(mlx_key_data_t mkd, void *param)
 
 void	event_handler(mlx_key_data_t mkd, void *param)
 {
-	t_cub_data *cub = (t_cub_data *)param;
+	t_cub_data	*cub;
 
+	cub = (t_cub_data *)param;
 	if (mkd.key == MLX_KEY_ESCAPE)
 	{
 		mlx_terminate(cub->mlx);
@@ -40,7 +42,8 @@ void	event_handler(mlx_key_data_t mkd, void *param)
 	else if (mkd.key == MLX_KEY_8)
 		mlx_set_window_size(cub->mlx, cub->mlx->width, cub->mlx->height + 1);
 	else if (mkd.key == MLX_KEY_KP_SUBTRACT)
-		mlx_set_window_size(cub->mlx, cub->mlx->width - 10, cub->mlx->height - 10);
+		mlx_set_window_size(cub->mlx, cub->mlx->width - 10, cub->mlx->height
+			- 10);
 }
 
 // void	minimap_event(mlx_key_data_t mkd, void *param)
@@ -56,9 +59,20 @@ void	event_handler(mlx_key_data_t mkd, void *param)
 // 		cub->minimap->p_img->instances[0].x += 5;
 // }
 
+// void	textblock(mlx_key_data_t mkd, void *param)
+// {
+// 	t_cub_data	*cub;
+
+// 	cub = param;
+// 	if (mkd.key == MLX_KEY_ENTER)
+// 	{
+// 		if (mkd.key >= MLX_KEY_A && mkd)
+// 	}
+// }
+
 void	event(mlx_key_data_t mkd, void *param)
 {
 	event_handler(mkd, param);
 	player_event(mkd, param);
-	// minimap_event(mkd, param);
+	// textblock(mkd, param);
 }
