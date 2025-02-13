@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/13 09:39:44 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/13 12:41:28 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ typedef struct s_minimap
 typedef struct s_textbox
 {
 	mlx_image_t			*img;
+	int					active;
+	char				text[256];
 }						t_textbox;
 
 typedef struct s_cub_data
