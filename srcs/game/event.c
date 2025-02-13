@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:30:21 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/13 12:46:14 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/13 21:22:21 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,11 @@ void	textblock(mlx_key_data_t mkd, void *param)
 	t_cub_data	*cub;
 	size_t		len;
 
-	len = 0;
+	len = ft_strlen(cub->text->text);
 	cub = param;
-	if (mkd.key == MLX_KEY_ENTER)
+	if (mkd.action == MLX_PRESS && mkd.key == MLX_KEY_ENTER)
 	{
-		if ((mkd.key >= MLX_KEY_A && mkd.key <= MLX_KEY_Z) || (mkd.key >= MLX_KEY_0 && mkd.key <= MLX_KEY_9))
-		{
-			if (len < sizeof(cub->text->text) - 1)
-			{
-				cub->text->text[len] = (char)mkd.key;
-				cub->text->text[len + 1] = '\0';
-			}
-		}
+		
 	}
 }
 
