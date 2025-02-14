@@ -6,7 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/02/13 08:28:05 by ldick            ###   ########.fr        #
+#    Updated: 2025/02/14 19:38:21 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ UTILS			=	$(addprefix utils/, $(_UTILS))
 _ERROR			=	error_utils.c error.c
 ERROR			=	$(addprefix error/, $(_ERROR))
 
-_GAME			=	game.c event.c map/map.c player/player.c textbox/textbox.c
+_GAME			=	game.c event.c map/map.c player/player.c
 GAME			=	$(addprefix game/, $(_GAME))
 
 _SRCS			=	cub3d.c $(ERROR) $(UTILS) $(MATH) $(PARSING) $(GAME)
@@ -90,7 +90,6 @@ bin:
 				@mkdir -p bin/parsing
 				@mkdir -p bin/game/map
 				@mkdir -p bin/game/player
-				@mkdir -p bin/game/textbox
 
 bin/%.o:		srcs/%.c | bin
 				@echo "$(GREEN) Compiling $(Compiler) $(CLR_RMV) -c -o $(YELLOW) $@ $(CYAN) $^ $(GREEN) $(EXTRA_FLAGS) $(CFLAGS) $(GREEN) $(INCLUDES) $(NC)"

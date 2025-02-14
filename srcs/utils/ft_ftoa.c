@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:52:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/10 16:00:27 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/14 19:37:58 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ int	intToStr(int x, char str[], int d)
 	return (i);
 }
 
-void	ft_ftoa(float n, char *res, int afterpoint)
+void	ft_ftoa(double n, char *res, int afterpoint)
 {
 	int		ipart;
-	float	fpart;
+	double	fpart;
 	int		i;
 
 	ipart = (int)n;
-	fpart = n - (float)ipart;
+	fpart = n - (double)ipart;
 	i = intToStr(ipart, res, 0);
 	if (afterpoint != 0)
 	{

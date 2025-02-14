@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/13 08:32:25 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/14 19:48:37 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@
 // 	}
 // 	return (1);
 // }
+
+void	init_texture(t_cub_data *cub)
+{
+	cub->texture->ea_tex = create_image(cub, cub->texture->ea);
+	cub->texture->no_tex = create_image(cub, cub->texture->no);
+	cub->texture->so_tex = create_image(cub, cub->texture->so);
+	cub->texture->we_tex = create_image(cub, cub->texture->we);
+}
 
 int	init(char *argv[], t_cub_data *cub)
 {

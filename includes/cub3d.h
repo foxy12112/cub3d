@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/13 12:41:28 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/14 19:49:08 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ typedef struct s_player_data
 {
 	int					start_x;
 	int					start_y;
-	float				x;
-	float				y;
+	double				x;
+	double				y;
 }						t_player_data;
 
 typedef struct s_mlx
@@ -73,9 +73,9 @@ typedef struct s_minimap
 {
 	mlx_image_t			*img;
 	mlx_image_t			*p_img;
-	float				scale_x;
-	float				scale_y;
-	float				scale;
+	double				scale_x;
+	double				scale_y;
+	double				scale;
 	int					size_x;
 	int					size_y;
 }						t_minimap;
@@ -84,7 +84,7 @@ typedef struct s_textbox
 {
 	mlx_image_t			*img;
 	int					active;
-	char				text[256];
+	char				*text;
 }						t_textbox;
 
 typedef struct s_cub_data
@@ -111,7 +111,7 @@ int			add_texture(int i, t_texture_data *texture, char *line);
 char		*rm_s(char *str);
 int			init_map(t_cub_data *cub, int fd);
 int			init_color(t_texture_data *texture);
-void		malloc_all(t_cub_data *cub);
+void		*create_image(t_cub_data *cub, char *str);
 int			check_textures(t_cub_data *cub);
 int			parsing(t_cub_data *cub);
 int			check_map(t_cub_data *cub);
@@ -125,10 +125,7 @@ void		printMap(char **map);
 void		event_handler(mlx_key_data_t mkd, void *param);
 void		map(t_cub_data *cub);
 void		event(mlx_key_data_t mkd, void *param);
-void		ft_ftoa(float n, char *res, int afterpoint);
+void		ft_ftoa(double n, char *res, int afterpoint);
 void		draw_player(t_cub_data *cub);
-void		draw_textbox(t_cub_data *cub);
-void		textblock_mouse(double x, double y, void *param);
-int			is_in_box(int x, int y, mlx_image_t *img);
 
 #endif

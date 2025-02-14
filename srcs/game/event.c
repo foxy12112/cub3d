@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:30:21 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/13 21:22:21 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/14 19:35:42 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,8 @@ void	event_handler(mlx_key_data_t mkd, void *param)
 			- 10);
 }
 
-
-void	textblock(mlx_key_data_t mkd, void *param)
-{
-	t_cub_data	*cub;
-	size_t		len;
-
-	len = ft_strlen(cub->text->text);
-	cub = param;
-	if (mkd.action == MLX_PRESS && mkd.key == MLX_KEY_ENTER)
-	{
-		
-	}
-}
-
 void	event(mlx_key_data_t mkd, void *param)
 {
 	event_handler(mkd, param);
 	player_event(mkd, param);
-	textblock(mkd, param);
 }

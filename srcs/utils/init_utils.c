@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/12 18:14:54 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/14 19:47:20 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,15 @@ int	init_color(t_texture_data *texture)
 	return (free(tmp), 1);
 }
 
-void	malloc_all(t_cub_data *cub)
+void	*create_image(t_cub_data *cub, char *str)
 {
-	(void)cub;
-	// cub->map = safe_malloc(1, cub, __func__);
-	// cub->texture->ceiling->ceiling = safe_malloc(1, cub, __func__);
-	// cub->texture->floor->floor = safe_malloc(1, cub, __func__);
-	// cub->texture->ea = safe_malloc(1, cub, __func__);
-	// cub->texture->we = safe_malloc(1, cub, __func__);
-	// cub->texture->no = safe_malloc(1, cub, __func__);
-	// cub->texture->so = safe_malloc(1, cub, __func__);
+	mlx_texture_t	*texture;
+	mlx_image_t		*image;
+
+	texture = mlx_load_png(str);
+	if (!texture)
+		ft_error(cub, "texture loading failed");
+	image = mlx_texture_to_image(cub->mlx, texture);
+	mlx_delete_texture(texture);
+	return (image);
 }

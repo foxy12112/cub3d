@@ -6,13 +6,13 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:08:20 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/12 18:24:59 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/14 19:37:58 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// // void draw_square(t_cub_data *cub, int wall, int x, int y, float scale)
+// // void draw_square(t_cub_data *cub, int wall, int x, int y, double scale)
 // // {
 // // 	int color;
 // // 	int rect_size;
@@ -35,7 +35,7 @@
 // // 	}
 // // }
 
-// void draw_square(t_cub_data *cub, int wall, int x, int y, float scale)
+// void draw_square(t_cub_data *cub, int wall, int x, int y, double scale)
 // {
 // 	int color;
 // 	int rect_size;
@@ -98,14 +98,14 @@
 
 // // void	map(t_cub_data *cub)
 // // {
-// // 	cub->minimap->scale_x = 1000 / (float)cub->minimap->size_x;
-// // 	cub->minimap->scale_y = 2000 / (float)cub->minimap->size_y;
+// // 	cub->minimap->scale_x = 1000 / (double)cub->minimap->size_x;
+// // 	cub->minimap->scale_y = 2000 / (double)cub->minimap->size_y;
 // // 	cub->minimap->scale = (cub->minimap->scale_x < cub->minimap->scale_y) ? cub->minimap->scale_x : cub->minimap->scale_y;
 // // 	cub->minimap->img = mlx_new_image(cub->mlx, 1000, 2000);
 // // 	mlx_image_to_window(cub->mlx, cub->minimap->img, 50, 50);
 // // 	draw_map(cub);
-// // 	cub->p->x = (float)cub->p->start_x;
-// // 	cub->p->y = (float)cub->p->start_y;
+// // 	cub->p->x = (double)cub->p->start_x;
+// // 	cub->p->y = (double)cub->p->start_y;
 // // 	printf("%.6f,--%.6f\n", cub->p->x, cub->p->y);
 // // }
 
@@ -115,8 +115,8 @@
 //     printf("Map dimensions: %d (width) x %d (height)\n", cub->minimap->size_x, cub->minimap->size_y);
 
 //     // Calculate the scale of the minimap
-//     cub->minimap->scale_x = 1000 / (float)cub->minimap->size_x; // Width of minimap
-//     cub->minimap->scale_y = 2000 / (float)cub->minimap->size_y; // Height of minimap
+//     cub->minimap->scale_x = 1000 / (double)cub->minimap->size_x; // Width of minimap
+//     cub->minimap->scale_y = 2000 / (double)cub->minimap->size_y; // Height of minimap
 //     cub->minimap->scale = (cub->minimap->scale_x < cub->minimap->scale_y) ? cub->minimap->scale_x : cub->minimap->scale_y;
 
 //     // Debug: Print scale
@@ -135,12 +135,12 @@
 //     draw_map(cub);
 
 //     // Set the player's starting position
-//     cub->p->x = (float)cub->p->start_x;
-//     cub->p->y = (float)cub->p->start_y;
+//     cub->p->x = (double)cub->p->start_x;
+//     cub->p->y = (double)cub->p->start_y;
 //     printf("Player starting position: %.6f, %.6f\n", cub->p->x, cub->p->y);
 // }
 
-void draw_square(t_cub_data *cub, int wall, int x, int y, float scale)
+void draw_square(t_cub_data *cub, int wall, int x, int y, double scale)
 {
     int color;
     int rect_size;
@@ -225,8 +225,8 @@ void map(t_cub_data *cub)
     printf("Map dimensions: %d (width) x %d (height)\n", cub->minimap->size_x, cub->minimap->size_y);
 
     // Calculate the scale of the minimap
-    cub->minimap->scale_x = 1000 / (float)cub->minimap->size_x; // Width of minimap
-    cub->minimap->scale_y = 2000 / (float)cub->minimap->size_y; // Height of minimap
+    cub->minimap->scale_x = 1000 / (double)cub->minimap->size_x; // Width of minimap
+    cub->minimap->scale_y = 2000 / (double)cub->minimap->size_y; // Height of minimap
     cub->minimap->scale = (cub->minimap->scale_x < cub->minimap->scale_y) ? cub->minimap->scale_x : cub->minimap->scale_y;
 
     // Debug: Print scale
@@ -245,7 +245,7 @@ void map(t_cub_data *cub)
     draw_map(cub);
 
     // Set the player's starting position
-    cub->p->x = (float)cub->p->start_x;
-    cub->p->y = (float)cub->p->start_y;
+    cub->p->x = (double)cub->p->start_x;
+    cub->p->y = (double)cub->p->start_y;
     printf("Player starting position: %.6f, %.6f\n", cub->p->x, cub->p->y);
 }
