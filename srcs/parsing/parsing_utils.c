@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:11:53 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/10 15:05:53 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:57:41 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static int	check_player(t_cub_data *cub)
 	}
 	if (player_count != 1)
 		return (1);
+	cub->p->x = (double)cub->p->start_x;
+	cub->p->y = (double)cub->p->start_y;
 	return (0);
 }
 

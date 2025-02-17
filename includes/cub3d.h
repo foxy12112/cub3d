@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/14 19:49:08 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/17 18:41:15 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <unistd.h>
 # include "libs.h"
 
-
+# define RECTANGLE 20
 typedef struct s_floor_data
 {
 	char				*floor;
@@ -127,5 +127,7 @@ void		map(t_cub_data *cub);
 void		event(mlx_key_data_t mkd, void *param);
 void		ft_ftoa(double n, char *res, int afterpoint);
 void		draw_player(t_cub_data *cub);
+int			percent(double value, double total);
+void		scaling(t_cub_data *cub);
 
 #endif

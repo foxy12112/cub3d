@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/14 19:37:58 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/17 17:50:47 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void ft_hook(void* param)
     // int p_y = cub->minimap->p_img->instances[0].y;
 
     // Calculate the player's movement speed based on the minimap scale
-    double move_speed = 5.0f; // Base movement speed (in pixels)
+    double move_speed = 5.0; // Base movement speed (in pixels)
     double scale = cub->minimap->scale; // Minimap scale factor
 
     // Adjust movement speed based on the minimap scale
@@ -126,6 +126,7 @@ void	game_loop(t_cub_data *cub)
 	cub->img->instances->z = 0;
 	map(cub);
 	draw_player(cub);
+	scaling(cub);
 	mlx_resize_hook(cub->mlx, &resize_callback, cub);
 	mlx_key_hook(cub->mlx, event, cub);
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
