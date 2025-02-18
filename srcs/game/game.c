@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/17 17:50:47 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/18 18:40:45 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,37 +82,32 @@ void ft_hook(void* param)
     // int p_y = cub->minimap->p_img->instances[0].y;
 
     // Calculate the player's movement speed based on the minimap scale
-    double move_speed = 5.0; // Base movement speed (in pixels)
-    double scale = cub->minimap->scale; // Minimap scale factor
+    double move_speed = 1.0; // Base movement speed (in pixels)
 
     // Adjust movement speed based on the minimap scale
-    double adjusted_speed = move_speed / scale;
 
     // Handle player movement
     if (mlx_is_key_down(cub->mlx, MLX_KEY_UP))
     {
         cub->minimap->p_img->instances[0].y -= move_speed; // Move up on minimap
-        cub->p->y -= adjusted_speed; // Update actual player position
     }
-    if (mlx_is_key_down(cub->mlx, MLX_KEY_DOWN))
+    if (mlx_is_key_down(cub->mlx, MLX_KEY_DOWN) && !collision(cub))
     {
         cub->minimap->p_img->instances[0].y += move_speed; // Move down on minimap
-        cub->p->y += adjusted_speed; // Update actual player position
     }
     if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
     {
         cub->minimap->p_img->instances[0].x -= move_speed; // Move left on minimap
-        cub->p->x -= adjusted_speed; // Update actual player position
     }
     if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
     {
         cub->minimap->p_img->instances[0].x += move_speed; // Move right on minimap
-        cub->p->x += adjusted_speed; // Update actual player position
     }
-
+	cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / (double)(22);
+	cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)(22);
     // Debug: Print player's position on the minimap and actual map
     // printf("Minimap position: (%d, %d)\n", p_x, p_y);
-    // printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
+    printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
 }
 
 void	game_loop(t_cub_data *cub)
