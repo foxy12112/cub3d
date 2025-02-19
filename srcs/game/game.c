@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/18 18:40:45 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/19 17:29:33 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,68 +41,20 @@ void	draw_c_f(t_cub_data *cub)
 	}
 }
 
-void resize_callback(int32_t width, int32_t height, void* param)
-{
-	t_cub_data *cub = param;
-
-	draw_c_f(cub);
-	printf("Window resized to width: %d, height: %d\n", width, height);
-}
-
-// void	add_images(t_cub_data *#include "cub3d.h"
-
-// Callback function for mlx_loop_hook
-int check_wall_collision(void *param)
-{
-    t_cub_data *cub = (t_cub_data *)param;
-    int player_x = (int)cub->p->x; // Player's x position in the map
-    int player_y = (int)cub->p->y; // Player's y position in the map
-
-    // Check if the player is touching a wall
-    if (cub->map[player_y][player_x] == '1')
-    {
-        printf("hi\n"); // Player is touching a wall
-    }
-    else
-    {
-        printf("bye\n"); // Player is not touching a wall
-    }
-
-    return (0); // Return 0 to continue the loop
-}
-
 void ft_hook(void* param)
 {
     t_cub_data* cub = (t_cub_data*)param;
-    // Check for wall collisions
-    // check_wall_collision(param);
-
-    // Get the player's position on the minimap
-    // int p_x = cub->minimap->p_img->instances[0].x;
-    // int p_y = cub->minimap->p_img->instances[0].y;
-
-    // Calculate the player's movement speed based on the minimap scale
-    double move_speed = 1.0; // Base movement speed (in pixels)
-
-    // Adjust movement speed based on the minimap scale
+    double move_speed = 1.0;
 
     // Handle player movement
-    if (mlx_is_key_down(cub->mlx, MLX_KEY_UP))
-    {
+    if (mlx_is_key_down(cub->mlx, MLX_KEY_UP) && !collision_top(cub))
         cub->minimap->p_img->instances[0].y -= move_speed; // Move up on minimap
-    }
-    if (mlx_is_key_down(cub->mlx, MLX_KEY_DOWN) && !collision(cub))
-    {
+    if (mlx_is_key_down(cub->mlx, MLX_KEY_DOWN) && !collision_bottom(cub))
         cub->minimap->p_img->instances[0].y += move_speed; // Move down on minimap
-    }
-    if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
-    {
+    if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT) && !collision_left(cub))
         cub->minimap->p_img->instances[0].x -= move_speed; // Move left on minimap
-    }
-    if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
-    {
+    if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT) && !collision_right(cub))
         cub->minimap->p_img->instances[0].x += move_speed; // Move right on minimap
-    }
 	cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / (double)(22);
 	cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)(22);
     // Debug: Print player's position on the minimap and actual map
@@ -119,10 +71,10 @@ void	game_loop(t_cub_data *cub)
 	cub->img = mlx_new_image(cub->mlx, 2880, 1620);
 	mlx_image_to_window(cub->mlx, cub->img, 0, 0);
 	cub->img->instances->z = 0;
+	draw_c_f(cub);
 	map(cub);
 	draw_player(cub);
-	scaling(cub);
-	mlx_resize_hook(cub->mlx, &resize_callback, cub);
+	mlx_image_to_window(cub->mlx, cub->texture->no_tex, 50, 50);
 	mlx_key_hook(cub->mlx, event, cub);
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
 	mlx_loop(cub->mlx);

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/14 19:48:37 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/19 18:02:59 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@
 
 void	init_texture(t_cub_data *cub)
 {
+	cub->texture->ea[ft_strlen(cub->texture->ea) - 1] = '\0';
+	cub->texture->no[ft_strlen(cub->texture->no) - 1] = '\0';
+	cub->texture->so[ft_strlen(cub->texture->so) - 1] = '\0';
+	cub->texture->we[ft_strlen(cub->texture->we) - 1] = '\0';
 	cub->texture->ea_tex = create_image(cub, cub->texture->ea);
 	cub->texture->no_tex = create_image(cub, cub->texture->no);
 	cub->texture->so_tex = create_image(cub, cub->texture->so);
@@ -64,6 +68,7 @@ int	init(char *argv[], t_cub_data *cub)
 	}
 	init_map(cub, fd);
 	init_color(cub->texture);
+	init_texture(cub);
 	return (0);
 }
 

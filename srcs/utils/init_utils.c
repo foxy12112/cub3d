@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/14 19:47:20 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/19 18:07:33 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	*create_image(t_cub_data *cub, char *str)
 {
 	mlx_texture_t	*texture;
 	mlx_image_t		*image;
-
 	texture = mlx_load_png(str);
 	if (!texture)
 		ft_error(cub, "texture loading failed");

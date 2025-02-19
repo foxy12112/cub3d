@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:08:20 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/18 13:38:43 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/19 17:20:47 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,28 +76,6 @@ void	draw_map(t_cub_data *cub)
 		x = 0;
 		y++;
 	}
-}
-
-void	scaling(t_cub_data *cub)
-{
-	double	size_x;
-	double	size_y;
-	float	speed;
-
-	size_x = ((double)cub->mlx->width / 100 * 10) * 2;
-	size_y = ((double)cub->mlx->height / 100 * 10) * 2;
-	speed = (double)cub->mlx->width / (double)cub->mlx->height;
-	// printf("%d, %f, %d, %f, speed: %f\n", cub->minimap->size_x, size_x, cub->mlx->width, size_y, speed);
-	printf("%f--%f, %d\n", cub->p->x, cub->p->y, cub->minimap->p_img->instances[0].x);
-	// mlx_image_t *img = mlx_new_image(cub->mlx, size_x, size_y);
-	// mlx_image_to_window(cub->mlx, img, 500, 500);
-	// for (int i = 0; i <= size_x; i++)
-	// {
-	// 	for(int j = 0; j <= size_y; j++)
-	// 	{
-	// 		mlx_put_pixel(img, i, j, 0xffffff);
-	// 	}
-	// }
 }
 
 void map(t_cub_data *cub)

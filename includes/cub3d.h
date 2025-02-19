@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/18 18:29:47 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/19 17:29:20 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ typedef struct s_texture_data
 	char				*so;
 	char				*we;
 	char				*ea;
-	mlx_texture_t		*no_tex;
-	mlx_texture_t		*so_tex;
-	mlx_texture_t		*we_tex;
-	mlx_texture_t		*ea_tex;
+	mlx_image_t			*no_tex;
+	mlx_image_t			*so_tex;
+	mlx_image_t			*we_tex;
+	mlx_image_t			*ea_tex;
 	t_floor_data		*floor;
 	t_ceiling_data		*ceiling;
 }						t_texture_data;
@@ -130,6 +130,12 @@ void		ft_ftoa(double n, char *res, int afterpoint);
 void		draw_player(t_cub_data *cub);
 int			percent(double value, double total);
 void		scaling(t_cub_data *cub);
-int			collision(t_cub_data *cub);
+// int			collision(t_cub_data *cub);
+bool		collision_left(t_cub_data *cub);
+bool		collision_right(t_cub_data *cub);
+bool		collision_top(t_cub_data *cub);
+bool		collision_bottom(t_cub_data *cub);
+void		scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height);
+
 
 #endif

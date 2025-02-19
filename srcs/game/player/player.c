@@ -6,25 +6,99 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:01:07 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/18 18:51:53 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/19 15:33:16 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	collision(t_cub_data *cub)
+bool	collision_top(t_cub_data *cub)
 {
 	double	x;
 	double	y;
 
 	x = cub->p->x;
-	y = cub->p->y;
-	printf("%d--%d--%f--%f\n", (int)x, (int)y, x, y);
-	printf("%c\n", cub->map[(int)(y - 0.6)][(int)x]);
-	if (cub->map[(int)(y - 0.6)][(int)x] == '1')
-		return (1);
-	return (0);
+	y = cub->p->y - 0.05;
+
+	while(x <= cub->p->x + 0.56)
+	{
+		if (cub->map[(int)y][(int)x] == '1')
+			return (true);
+		x += 0.05;
+	}
+	return (false);
 }
+
+bool	collision_bottom(t_cub_data *cub)
+{
+	double	x;
+	double	y;
+
+	x = cub->p->x;
+	y = cub->p->y - 0.05;
+
+	while(x <= cub->p->x + 0.56)
+	{
+		if (cub->map[(int)(y + 0.65)][(int)x] == '1')
+			return (true);
+		x += 0.05;
+	}
+	return (false);
+}
+
+bool	collision_left(t_cub_data *cub)
+{
+	double	x;
+	double	y;
+
+	x = cub->p->x - 0.05;
+	y = cub->p->y;
+
+	while(y <= cub->p->y + (double)0.55)
+	{
+		if (cub->map[(int)y][(int)x] == '1')
+			return (true);
+		y += 0.05;
+	}
+	return (false);
+}
+
+bool	collision_right(t_cub_data *cub)
+{
+	double	x;
+	double	y;
+
+	x = cub->p->x - 0.05;
+	y = cub->p->y;
+
+	while(y <= cub->p->y + 0.56)
+	{
+		if (cub->map[(int)y][(int)(x + 0.65)] == '1')
+			return (true);
+		y += 0.05;
+	}
+	return (false);
+}
+
+// int	collision(t_cub_data *cub)
+// {
+// 	double	x;
+// 	double	y;
+
+// 	x = cub->p->x;
+// 	y = cub->p->y;
+// 	printf("%d--%d--%f--%f\n", (int)x, (int)y, x, y);
+// 	printf("%c\n", cub->map[(int)(y - 0.6)][(int)x]);
+// 	if (cub->map[(int)(y + 0.65)][(int)x] == '1')
+// 		return (1);
+// 	else if (cub->map[(int)(y - 0.05)][(int)x] == '1')
+// 		return (2);
+// 	if (cub->map[(int)y][(int)(x - 0.05)] == '1')
+// 		return (3);
+// 	else if (cub->map[(int)y][(int)(x - 0.65)] == '1')
+// 		return (4);
+// 	return (0);
+// }
 
 void	draw_play(t_cub_data *cub)
 {
