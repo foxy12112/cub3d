@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/19 18:07:33 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/20 17:43:17 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,40 @@ int	init_color(t_texture_data *texture)
 	return (free(tmp), 1);
 }
 
+mlx_texture_t	*scale_tex(mlx_texture_t *texture, int width, int height)
+{
+	mlx_texture_t	*dst;
+	
+	dst = malloc(sizeof(mlx_texture_t));
+	if (!dst)
+		return (NULL); //change functino for ft_error
+	dst->width = width;
+	dst->height = height;
+	dst->pixels = malloc(width * height * 4);
+	if (!dst->pixels)
+	{
+		free(dst);
+		return (NULL);
+	}
+	scale(dst, texture, width, height);
+	return (dst);
+}
+
 void	*create_image(t_cub_data *cub, char *str)
 {
 	mlx_texture_t	*texture;
+	// mlx_texture_t	*temp;
 	mlx_image_t		*image;
-	texture = mlx_load_png(str);
+	
+	// texture = mlx_load_png(str);
+	// if (!texture)
+	// 	ft_error(cub, "texture loading failed");
+	texture = scale_tex(mlx_load_png(str), 300, 200);
 	if (!texture)
-		ft_error(cub, "texture loading failed");
+		ft_error(cub, "scaling failed");
 	image = mlx_texture_to_image(cub->mlx, texture);
+	if (!image)
+		ft_error(cub, "texture to image failed");
 	mlx_delete_texture(texture);
 	return (image);
 }

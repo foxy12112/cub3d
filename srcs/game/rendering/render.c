@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/19 17:19:53 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/20 17:41:54 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height)
 	int	src;
 	int	dst;
 	int	temp;
-	
+
 	y = 0;
 	while(y < height)
 	{
@@ -35,7 +35,7 @@ void	scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height)
 		while(x < width)
 		{
 			temp = x * tex->width / width;
-			src = ((y * tex->width / height) * tex->width + temp * 4);
+			src = ((y * tex->height / height) * tex->width + temp) * 4;
 			dst = (y * width + x) * 4;
 			copy_pixels(&new->pixels[dst], &tex->pixels[src]);
 			x++;

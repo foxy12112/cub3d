@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/19 17:29:20 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/20 10:52:17 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,38 +104,39 @@ typedef struct s_cub_data
 }						t_cub_data;
 
 
-void		clean_all(t_cub_data *cub);
-void		*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
-void		ft_error(t_cub_data *cub, char *error_msg);
-int			init(char *argv[], t_cub_data *cub);
-int			add_texture(int i, t_texture_data *texture, char *line);
-char		*rm_s(char *str);
-int			init_map(t_cub_data *cub, int fd);
-int			init_color(t_texture_data *texture);
-void		*create_image(t_cub_data *cub, char *str);
-int			check_textures(t_cub_data *cub);
-int			parsing(t_cub_data *cub);
-int			check_map(t_cub_data *cub);
-int			check_bottom(t_cub_data *cub);
-int			check_top(t_cub_data *cub);
-int			check_sides(t_cub_data *cub);
-void		game_loop(t_cub_data *cub);
-int			get_color(int r, int g, int b, int a);
-int			check_leaks(char **map, t_cub_data *cub);
-void		printMap(char **map);
-void		event_handler(mlx_key_data_t mkd, void *param);
-void		map(t_cub_data *cub);
-void		event(mlx_key_data_t mkd, void *param);
-void		ft_ftoa(double n, char *res, int afterpoint);
-void		draw_player(t_cub_data *cub);
-int			percent(double value, double total);
-void		scaling(t_cub_data *cub);
+void			clean_all(t_cub_data *cub);
+void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
+void			ft_error(t_cub_data *cub, char *error_msg);
+int				init(char *argv[], t_cub_data *cub);
+int				add_texture(int i, t_texture_data *texture, char *line);
+char			*rm_s(char *str);
+int				init_map(t_cub_data *cub, int fd);
+int				init_color(t_texture_data *texture);
+void			*create_image(t_cub_data *cub, char *str);
+int				check_textures(t_cub_data *cub);
+int				parsing(t_cub_data *cub);
+int				check_map(t_cub_data *cub);
+int				check_bottom(t_cub_data *cub);
+int				check_top(t_cub_data *cub);
+int				check_sides(t_cub_data *cub);
+void			game_loop(t_cub_data *cub);
+int				get_color(int r, int g, int b, int a);
+int				check_leaks(char **map, t_cub_data *cub);
+void			printMap(char **map);
+void			event_handler(mlx_key_data_t mkd, void *param);
+void			map(t_cub_data *cub);
+void			event(mlx_key_data_t mkd, void *param);
+void			ft_ftoa(double n, char *res, int afterpoint);
+void			draw_player(t_cub_data *cub);
+int				percent(double value, double total);
+void			scaling(t_cub_data *cub);
 // int			collision(t_cub_data *cub);
-bool		collision_left(t_cub_data *cub);
-bool		collision_right(t_cub_data *cub);
-bool		collision_top(t_cub_data *cub);
-bool		collision_bottom(t_cub_data *cub);
-void		scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height);
+bool			collision_left(t_cub_data *cub);
+bool			collision_right(t_cub_data *cub);
+bool			collision_top(t_cub_data *cub);
+bool			collision_bottom(t_cub_data *cub);
+void			scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height);
+mlx_texture_t	*scale_tex(mlx_texture_t *texture, int width, int height);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/19 17:29:33 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/20 10:04:05 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ void ft_hook(void* param)
 
 void	game_loop(t_cub_data *cub)
 {
-	mlx_set_setting(MLX_MAXIMIZED, true);
-	cub->mlx = mlx_init(2880, 1620, "cub3d", true);
 	cub->ceiling = get_color(cub->texture->ceiling->r, cub->texture->ceiling->g, cub->texture->ceiling->b, 255);
 	cub->floor = get_color(cub->texture->floor->r, cub->texture->floor->g, cub->texture->floor->b, 255);
 	cub->img = mlx_new_image(cub->mlx, 2880, 1620);
