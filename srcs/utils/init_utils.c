@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/20 17:43:17 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/21 09:24:57 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,8 @@ mlx_texture_t	*scale_tex(mlx_texture_t *texture, int width, int height)
 void	*create_image(t_cub_data *cub, char *str)
 {
 	mlx_texture_t	*texture;
-	// mlx_texture_t	*temp;
 	mlx_image_t		*image;
-	
-	// texture = mlx_load_png(str);
-	// if (!texture)
-	// 	ft_error(cub, "texture loading failed");
+
 	texture = scale_tex(mlx_load_png(str), 300, 200);
 	if (!texture)
 		ft_error(cub, "scaling failed");

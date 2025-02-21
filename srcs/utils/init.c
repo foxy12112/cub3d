@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/20 09:59:31 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/21 09:47:01 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	init(char *argv[], t_cub_data *cub)
 	cub->minimap->size_x = 0;
 	cub->minimap->size_y = 0;
 	mlx_set_setting(MLX_MAXIMIZED, true);
-	cub->mlx = mlx_init(2880, 1620, "cub3d", true);
 	fd = open(argv[1], O_RDONLY);
 	line = get_next_line(fd);
 	while (i < 6)

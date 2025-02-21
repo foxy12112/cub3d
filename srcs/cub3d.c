@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:36:02 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/20 09:54:25 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/21 09:47:17 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	main(int argc, char *argv[])
 		return (printf("Malloc error: cub\n"), EXIT_FAILURE);
 	if (argc != 2)
 		return (free(cub), printf("Wrogn number of Arguments\n"), 1);
+	cub->mlx = mlx_init(2880, 1620, "cub3d", true);
 	if (init(argv, cub) == 1)
 		return (ft_error(cub, "error in init"), EXIT_FAILURE);
 	if (parsing(cub) == 1)

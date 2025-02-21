@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/20 10:52:17 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/21 09:28:20 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 # define RECTANGLE 20
 # define PSIZE 10
+
 typedef struct s_floor_data
 {
 	char				*floor;

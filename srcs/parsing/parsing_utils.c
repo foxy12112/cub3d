@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:11:53 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/17 11:57:41 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/21 09:53:46 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,6 @@ int	check_textures(t_cub_data *cub)
 
 int	is_closed(t_cub_data *cub)
 {
-	int	y;
-	int	x;
-
-	x = 0;
-	y = 0;
-
 	check_top(cub);
 	check_bottom(cub);
 	check_sides(cub);
