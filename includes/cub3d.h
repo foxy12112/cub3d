@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: foxy <foxy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/21 09:28:20 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/22 17:32:04 by foxy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 # define RECTANGLE 20
 # define PSIZE 10
+# define FOV 90
 
 typedef struct s_floor_data
 {
@@ -61,6 +62,8 @@ typedef struct s_player_data
 	int					start_y;
 	double				x;
 	double				y;
+	double				dir_x;
+	double				dir_y;
 }						t_player_data;
 
 typedef struct s_mlx

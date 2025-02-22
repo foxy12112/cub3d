@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: foxy <foxy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/21 09:57:34 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/22 17:25:15 by foxy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,19 @@ void ft_hook(void* param)
 		cub->minimap->p_img->instances[0].x += move_speed; // Move right on minimap
 	cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / (double)(22);
 	cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)(22);
-	printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
+	// printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
 }
 
 void	game_loop(t_cub_data *cub)
 {
 	cub->ceiling = get_color(cub->texture->ceiling->r, cub->texture->ceiling->g, cub->texture->ceiling->b, 255);
 	cub->floor = get_color(cub->texture->floor->r, cub->texture->floor->g, cub->texture->floor->b, 255);
-	cub->img = mlx_new_image(cub->mlx, 2880, 1620);
+	cub->img = mlx_new_image(cub->mlx, cub->mlx->width, cub->mlx->height);
 	mlx_image_to_window(cub->mlx, cub->img, 0, 0);
 	cub->img->instances->z = 0;
 	draw_c_f(cub);
 	map(cub);
 	draw_player(cub);
-	mlx_image_to_window(cub->mlx, cub->texture->no_tex, 50, 50);
 	mlx_key_hook(cub->mlx, event, cub);
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
 	mlx_loop(cub->mlx);
