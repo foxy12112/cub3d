@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:01:07 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/19 15:33:16 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/25 11:38:41 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,3 +133,16 @@ void	draw_player(t_cub_data *cub)
 	draw_play(cub);
 	return ;
 }
+
+
+// void	rotate_player(t_cub_data *cub, mlx_key_data_t *mkd)
+// {
+// 	if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
+// 	{
+// 		cub->minimap->p_img->instances
+// 	}
+// 	else if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
+// 	{
+		
+// 	}
+// }

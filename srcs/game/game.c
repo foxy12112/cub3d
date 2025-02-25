@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: foxy <foxy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/22 17:25:15 by foxy             ###   ########.fr       */
+/*   Updated: 2025/02/25 15:14:56 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,22 @@ void ft_hook(void* param)
     double move_speed = 1.0;
 
 	// Handle player movement
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_UP) && !collision_top(cub))
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_W) && !collision_top(cub))
 		cub->minimap->p_img->instances[0].y -= move_speed; // Move up on minimap
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_DOWN) && !collision_bottom(cub))
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_S) && !collision_bottom(cub))
 		cub->minimap->p_img->instances[0].y += move_speed; // Move down on minimap
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT) && !collision_left(cub))
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_A) && !collision_left(cub))
 		cub->minimap->p_img->instances[0].x -= move_speed; // Move left on minimap
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT) && !collision_right(cub))
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_D) && !collision_right(cub))
 		cub->minimap->p_img->instances[0].x += move_speed; // Move right on minimap
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
+		cub->p->dir--;
+	else if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
+		cub->p->dir++;
 	cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / (double)(22);
 	cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)(22);
 	// printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
+	printf("%.5f\n", cub->p->dir);
 }
 
 void	game_loop(t_cub_data *cub)
@@ -70,6 +75,7 @@ void	game_loop(t_cub_data *cub)
 	draw_c_f(cub);
 	map(cub);
 	draw_player(cub);
+	draw_line(500, 500, 1001, 1000, cub);
 	mlx_key_hook(cub->mlx, event, cub);
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
 	mlx_loop(cub->mlx);

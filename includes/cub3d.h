@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: foxy <foxy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/22 17:32:04 by foxy             ###   ########.fr       */
+/*   Updated: 2025/02/25 14:35:36 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # define RECTANGLE 20
 # define PSIZE 10
 # define FOV 90
+# define NORTH 0
+# define WEST 270
+# define SOUTH 180
+# define EAST 90
 
 typedef struct s_floor_data
 {
@@ -62,8 +66,7 @@ typedef struct s_player_data
 	int					start_y;
 	double				x;
 	double				y;
-	double				dir_x;
-	double				dir_y;
+	double				dir;
 }						t_player_data;
 
 typedef struct s_mlx
@@ -141,6 +144,8 @@ bool			collision_top(t_cub_data *cub);
 bool			collision_bottom(t_cub_data *cub);
 void			scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height);
 mlx_texture_t	*scale_tex(mlx_texture_t *texture, int width, int height);
-
+void			draw_c_f(t_cub_data *cub);
+void			draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub);
+void			ft_swap(void *a, void *b, size_t size);
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: foxy <foxy@student.42.fr>                  +#+  +:+       +#+         #
+#    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/02/22 17:08:29 by foxy             ###   ########.fr        #
+#    Updated: 2025/02/25 12:47:14 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ INCLUDES	=	-I includes -I main-libs
 SUBMODULE	=	main-libs/Makefile
 LIB_FLAGS	=	-ls -Lmain-libs ./MLX42/build/libmlx42.a
 CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address
-EXTRA_FLAGS	=	-O3 -ffast-math
+EXTRA_FLAGS	=	-ffast-math #-0fast
 ERROR_FILE	=	error.log
 
 #################################################################################################
@@ -109,7 +109,7 @@ $(NAME): $(LIBRARY) $(OBJS)
 
 MLX42:
 				@if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42.git; fi
-				@cd MLX42 && cmake -B build && cmake --build build -j4
+				@cd MLX42 && cmake -B build -DDEBUG=1 && cmake --build build -j4 
 
 clean:
 				@rm -rf bin
