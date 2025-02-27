@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/25 14:35:36 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/27 10:08:12 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void			event(mlx_key_data_t mkd, void *param);
 void			ft_ftoa(double n, char *res, int afterpoint);
 void			draw_player(t_cub_data *cub);
 int				percent(double value, double total);
-void			scaling(t_cub_data *cub);
+void			draw_ray(t_cub_data *cub);
 // int			collision(t_cub_data *cub);
 bool			collision_left(t_cub_data *cub);
 bool			collision_right(t_cub_data *cub);

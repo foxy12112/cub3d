@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/25 15:14:56 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/27 10:22:20 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,14 @@ void ft_hook(void* param)
 		cub->p->dir--;
 	else if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
 		cub->p->dir++;
+	if (cub->p->dir > 360)
+		cub->p->dir = 0;
+	if (cub->p->dir < 0)
+		cub->p->dir = 360;
 	cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / (double)(22);
 	cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)(22);
 	// printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
+	draw_ray(cub);
 	printf("%.5f\n", cub->p->dir);
 }
 
@@ -75,7 +80,6 @@ void	game_loop(t_cub_data *cub)
 	draw_c_f(cub);
 	map(cub);
 	draw_player(cub);
-	draw_line(500, 500, 1001, 1000, cub);
 	mlx_key_hook(cub->mlx, event, cub);
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
 	mlx_loop(cub->mlx);

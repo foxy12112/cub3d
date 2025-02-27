@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/25 15:16:07 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/27 12:59:07 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		p = 2 * dy - dx;
 		while(i < dx + 1)
 		{
-			mlx_put_pixel(cub->img, x0 + i, y, 0xff);
+			mlx_put_pixel(cub->img, x0 + i, y, 0x64);
 			if (p >= 0)
 			{
 				y += dir;
@@ -85,10 +85,31 @@ void	draw_ray(t_cub_data *cub)
 {
 	int x1;
 	int	y1;
-	float angle;
+	int	x;
+	int	y;
+	double angle;
 
-	angle = cub->p->dir * (M_PI / 180.0) daemon
+	angle = cub->p->dir * (M_PI / 180.0);
 	x1 = cub->minimap->p_img->instances[0].x + 50;
 	y1 = cub->minimap->p_img->instances[0].y + 50;
-	draw_line(cub->minimap->p_img->instances[0].x, cub->minimap->p_img->instances[0].y, x1, y1, cub);
+	printf("%0.5f\n", angle);
+	x = x1 + cos(angle) * 200;
+	y = y1 + sin(angle) * 200;
+	draw_line(x1, y1, x, y, cub);
+}
+
+void	draw_fov(t_cub_data *cub)
+{
+	int x1;
+	int	y1;
+	int	x;
+	int	y;
+	double angle;
+
+	angle = cub->p->dir * (M_PI / 180.0);
+	x1 = cub->minimap->p_img->instances[0].x + 50;
+	y1 = cub->minimap->p_img->instances[0].y + 50;
+	x = x1 + cos(angle) * 200;
+	y = y1 + sin(angle) * 200;
+	draw_line(x1, y1, x, y, cub);
 }
