@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:01:07 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/25 11:38:41 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/28 15:22:14 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	draw_play(t_cub_data *cub)
 	{
 		while(j <= PSIZE)
 		{
-			mlx_put_pixel(cub->minimap->p_img, i, j, 0xfffff);
+			mlx_put_pixel(cub->minimap->p_img, i, j, 0xff32c8ff);
 			j++;
 		}
 		j = 0;

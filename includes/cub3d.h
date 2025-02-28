@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/27 10:08:12 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/28 17:19:01 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,5 +147,7 @@ mlx_texture_t	*scale_tex(mlx_texture_t *texture, int width, int height);
 void			draw_c_f(t_cub_data *cub);
 void			draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub);
 void			ft_swap(void *a, void *b, size_t size);
+int				ft_abs(int value);
+void			draw_fov(t_cub_data *cub);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/25 11:13:03 by ldick            ###   ########.fr       */
+/*   Updated: 2025/02/28 16:49:08 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,9 @@ void	ft_swap(void *a, void *b, size_t size)
 		ft_memcpy(b, tmp, size);
 		free(tmp);
 	}
+}
+
+int		ft_abs(int value)
+{
+	return ((value < 0) ? -value : value);
 }
