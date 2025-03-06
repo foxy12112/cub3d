@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:08:20 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/28 15:20:35 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/06 14:23:44 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void map(t_cub_data *cub)
     mlx_image_to_window(cub->mlx, cub->minimap->img, 50, 50);
 
     // Draw the map
-    // draw_map(cub);
+    draw_map(cub);
 
 	for (int i = cub->minimap->img->instances[0].x + ((cub->p->x + 2) * 20); i < cub->minimap->img->instances[0].x + ((cub->p->x + 2) * 20) + 20; i++)
 		for( int j = cub->minimap->img->instances[0].y + ((cub->p->y + 2) * 20); j < cub->minimap->img->instances[0].y + ((cub->p->y + 2) * 20) + 20; j++)

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/28 17:24:21 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/06 15:52:59 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,18 @@ void	scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height)
 	}
 }
 
+int is_wall(t_cub_data *cub, int x, int y)
+{
+	int map_y = (float)y / (cub->minimap->scale);
+	int map_x = (float)x / (cub->minimap->scale);
+
+	if (map_x < 0 || map_y < 0 || map_y >= cub->minimap->size_y || map_x >= cub->minimap->size_x)
+		return 0;
+	if (cub->map[map_y][map_x] == '1')
+		return (1);
+	return (0);
+}
+
 void	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
 	int	dx;
@@ -68,7 +80,9 @@ void	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		y = y0;
 		while(i < dx + 1)
 		{
-			mlx_put_pixel(cub->img, x0 + i, y, 0x64);
+			if (is_wall(cub, x0 + i, y) == 1)
+				break ;
+			mlx_put_pixel(cub->minimap->img, x0 + i - 50, y - 50, 0x64);
 			if (p >= 0)
 			{
 				y += dir;
@@ -79,6 +93,7 @@ void	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		}
 	}
 }
+
 
 void	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
@@ -104,7 +119,9 @@ void	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		x = x0;
 		while(i < dy + 1)
 		{
-			mlx_put_pixel(cub->img, x, y0 + i, 0x64);
+			if (is_wall(cub, x, y0 + i) == 1)
+				break ;
+			mlx_put_pixel(cub->minimap->img, x - 50, y0 + i - 50, 0x64);
 			if (p >= 0)
 			{
 				x += dir;
