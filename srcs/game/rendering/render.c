@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/06 15:52:59 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/07 13:03:36 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,34 @@ void	scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height)
 	}
 }
 
-int is_wall(t_cub_data *cub, int x, int y)
+int	is_wall(t_cub_data *cub, int x, int y)
 {
-	int map_y = (float)y / (cub->minimap->scale);
-	int map_x = (float)x / (cub->minimap->scale);
+    int	map_x;
+    int	map_y;
 
-	if (map_x < 0 || map_y < 0 || map_y >= cub->minimap->size_y || map_x >= cub->minimap->size_x)
-		return 0;
-	if (cub->map[map_y][map_x] == '1')
-		return (1);
-	return (0);
+    // Translate the minimap coordinates to map coordinates
+    map_x = (x) / (RECTANGLE);
+    map_y = (y) / (RECTANGLE);
+
+    // Check if the coordinates are within the map boundaries
+    if (map_x < 0 || map_x >= cub->minimap->size_x || map_y < 0 || map_y >= cub->minimap->size_y)
+        return (1);
+
+    // Check if the current position is a wall
+    if (cub->map[map_y][map_x] == '1')
+        return (1);
+
+		return (0);
+	}
+
+uint32_t	get_pixel_color(mlx_image_t *img, uint32_t x, uint32_t y)
+{
+	uint32_t *pixels;
+	if (x >= img->width || y >= img->height)
+		return (0);
+	pixels = (uint32_t *)img->pixels;
+	return (pixels[y * img->width + x]);
 }
-
 void	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
 	int	dx;
@@ -80,7 +96,7 @@ void	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		y = y0;
 		while(i < dx + 1)
 		{
-			if (is_wall(cub, x0 + i, y) == 1)
+			if (get_pixel_color(cub->minimap->img, x0 + i - 50, y - 50) == 1677721600)
 				break ;
 			mlx_put_pixel(cub->minimap->img, x0 + i - 50, y - 50, 0x64);
 			if (p >= 0)
@@ -93,7 +109,6 @@ void	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		}
 	}
 }
-
 
 void	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
@@ -119,7 +134,8 @@ void	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		x = x0;
 		while(i < dy + 1)
 		{
-			if (is_wall(cub, x, y0 + i) == 1)
+			// printf("%d\n", get_pixel_color(cub->minimap->img, 171, 105));
+			if (get_pixel_color(cub->minimap->img, x - 50, y0 + i - 50) == 1677721600)
 				break ;
 			mlx_put_pixel(cub->minimap->img, x - 50, y0 + i - 50, 0x64);
 			if (p >= 0)
