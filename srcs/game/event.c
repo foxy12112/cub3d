@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:30:21 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/25 14:24:14 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/08 12:06:13 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	event_handler(mlx_key_data_t mkd, void *param)
 	else if (mkd.key == MLX_KEY_KP_SUBTRACT)
 		mlx_set_window_size(cub->mlx, cub->mlx->width - 10, cub->mlx->height
 			- 10);
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_O) && mkd.action != MLX_RELEASE)
+		draw_fov(cub);
 }
 
 void	event(mlx_key_data_t mkd, void *param)

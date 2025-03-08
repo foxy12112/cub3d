@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/28 17:24:28 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/08 12:39:20 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void ft_hook(void* param)
 		cub->p->dir = 0;
 	if (cub->p->dir < 0)
 		cub->p->dir = 360;
-	cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / (double)(22);
-	cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)(22);
+	cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / cub->minimap->scale;
+	cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / cub->minimap->scale;
 	// printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
-	draw_ray(cub);
+	// draw_ray(cub);
 	printf("%.5f\n", cub->p->dir);
 }
 

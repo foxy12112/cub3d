@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:08:20 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/06 14:23:44 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/08 12:41:27 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	draw_map(t_cub_data *cub)
 		while(cub->map[y][x])
 		{
 			if (cub->map[y][x] == '1'|| cub->map[y][x] == ' ')
-				draw_square(cub, 1, x, y, /*calculate scale first*/ RECTANGLE);
+				draw_square(cub, 1, x, y, /*calculate scale first*/ cub->minimap->scale);
 			else
-				draw_square(cub, 0, x, y, /*calculate scale first*/ RECTANGLE);
+				draw_square(cub, 0, x, y, /*calculate scale first*/ cub->minimap->scale);
 			x++;
 		}
 		x = 0;
@@ -100,9 +100,10 @@ void map(t_cub_data *cub)
     printf("Map dimensions: %d (width) x %d (height)\n", cub->minimap->size_x, cub->minimap->size_y);
 
     // Calculate the scale of the minimap
-    cub->minimap->scale_x = 1000 / (double)cub->minimap->size_x; // Width of minimap
-    cub->minimap->scale_y = 2000 / (double)cub->minimap->size_y; // Height of minimap
-    cub->minimap->scale = (cub->minimap->scale_x < cub->minimap->scale_y) ? cub->minimap->scale_x : cub->minimap->scale_y;
+    cub->minimap->scale_x = cub->mlx->width / (double)cub->minimap->size_x; // Width of minimap
+    cub->minimap->scale_y = cub->mlx->height / (double)cub->minimap->size_y; // Height of minimap
+    // cub->minimap->scale = (cub->minimap->scale_x < cub->minimap->scale_y) ? cub->minimap->scale_x : cub->minimap->scale_y;
+	cub->minimap->scale = cub->minimap->scale_y / cub->minimap->scale_x;
 
     // Debug: Print scale
     printf("Minimap scale: %.2f\n", cub->minimap->scale);

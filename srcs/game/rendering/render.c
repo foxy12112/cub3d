@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/07 13:03:36 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/08 12:38:39 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	is_wall(t_cub_data *cub, int x, int y)
     int	map_y;
 
     // Translate the minimap coordinates to map coordinates
-    map_x = (x) / (RECTANGLE);
-    map_y = (y) / (RECTANGLE);
+    map_x = (x) / (cub->minimap->scale);
+    map_y = (y) / (cub->minimap->scale);
 
     // Check if the coordinates are within the map boundaries
     if (map_x < 0 || map_x >= cub->minimap->size_x || map_y < 0 || map_y >= cub->minimap->size_y)
@@ -72,6 +72,25 @@ uint32_t	get_pixel_color(mlx_image_t *img, uint32_t x, uint32_t y)
 	pixels = (uint32_t *)img->pixels;
 	return (pixels[y * img->width + x]);
 }
+
+bool	touch(double px, double py, t_cub_data *cub)
+{
+	int	x;
+	int	y;
+
+	y = py / cub->minimap->scale;
+	x = px / cub->minimap->scale;
+	if (x > cub->minimap->size_x || x < 0 || y < 0 || y > cub->minimap->size_y)
+		return (true);
+	if (!cub->map[y])
+		return (true);
+	if (!cub->map[y][x])
+		return (true);
+	if (cub->map[y][x] == '1' || cub->map[y][x] == ' ')
+		return (true);
+	return (false);
+}
+
 void	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
 	int	dx;
@@ -94,10 +113,8 @@ void	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	if (dx != 0)
 	{
 		y = y0;
-		while(i < dx + 1)
+		while(i < dx + 1 && !touch(x0 + i - 50, y - 50, cub))
 		{
-			if (get_pixel_color(cub->minimap->img, x0 + i - 50, y - 50) == 1677721600)
-				break ;
 			mlx_put_pixel(cub->minimap->img, x0 + i - 50, y - 50, 0x64);
 			if (p >= 0)
 			{
@@ -132,11 +149,8 @@ void	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	if (dy != 0)
 	{
 		x = x0;
-		while(i < dy + 1)
+		while(i < dy + 1 && !touch(x - 50, y0 + i - 50, cub))
 		{
-			// printf("%d\n", get_pixel_color(cub->minimap->img, 171, 105));
-			if (get_pixel_color(cub->minimap->img, x - 50, y0 + i - 50) == 1677721600)
-				break ;
 			mlx_put_pixel(cub->minimap->img, x - 50, y0 + i - 50, 0x64);
 			if (p >= 0)
 			{
@@ -171,4 +185,29 @@ void	draw_ray(t_cub_data *cub)
 	x = x1 + cos(angle - M_PI_2) * 200;
 	y = y1 + sin(angle - M_PI_2) * 200;
 	draw_line(x1, y1, x, y, cub);
+}
+
+void	draw_fov(t_cub_data *cub)
+{
+	int x1;
+	int y1;
+	int x;
+	int y;
+	double angle;
+	int	i;
+	double dir;
+
+	dir = cub->p->dir;
+	i = 0;
+	while(i < FOV)
+	{
+		angle = dir * (M_PI / 180);
+		x1 = cub->minimap->p_img->instances[0].x + 5;
+		y1 = cub->minimap->p_img->instances[0].y + 5;
+		x = x1 + cos(angle - M_PI_2) * 200;
+		y = y1 + sin(angle - M_PI_2) * 200;
+		draw_line(x1, y1, x, y, cub);
+		i++;
+		dir++;
+	}
 }
