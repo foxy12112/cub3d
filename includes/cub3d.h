@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/02/28 17:19:01 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/10 13:55:01 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include "libs.h"
 
+# define SPEED 1
 # define RECTANGLE 20
 # define PSIZE 10
 # define FOV 90

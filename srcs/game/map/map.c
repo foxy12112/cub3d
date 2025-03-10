@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:08:20 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/08 12:41:27 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/10 13:18:29 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,31 @@ void	draw_map(t_cub_data *cub)
 		while(cub->map[y][x])
 		{
 			if (cub->map[y][x] == '1'|| cub->map[y][x] == ' ')
-				draw_square(cub, 1, x, y, /*calculate scale first*/ cub->minimap->scale);
+				draw_square(cub, 1, x, y, /*calculate scale first*/ RECTANGLE);
 			else
-				draw_square(cub, 0, x, y, /*calculate scale first*/ cub->minimap->scale);
+				draw_square(cub, 0, x, y, /*calculate scale first*/ RECTANGLE);
 			x++;
 		}
 		x = 0;
 		y++;
 	}
+}
+
+void calculate_size(t_cub_data *cub)
+{
+    float size_x = cub->minimap->size_x * 22;
+    float size_y = cub->minimap->size_y * 22;
+    float max_width = cub->mlx->width / 4;
+    float max_height = cub->mlx->height / 4;
+
+    while (size_x >= max_width || size_y >= max_height)
+    {
+        size_x /= 2;
+        size_y /= 2;
+    }
+
+    cub->minimap->scale = (size_x / 22 > size_y / 22) ? (size_x / 22) : (size_y / 22);
+    printf("Minimap size: %f x %f\n", size_x, size_y);
 }
 
 void map(t_cub_data *cub)
@@ -103,7 +120,7 @@ void map(t_cub_data *cub)
     cub->minimap->scale_x = cub->mlx->width / (double)cub->minimap->size_x; // Width of minimap
     cub->minimap->scale_y = cub->mlx->height / (double)cub->minimap->size_y; // Height of minimap
     // cub->minimap->scale = (cub->minimap->scale_x < cub->minimap->scale_y) ? cub->minimap->scale_x : cub->minimap->scale_y;
-	cub->minimap->scale = cub->minimap->scale_y / cub->minimap->scale_x;
+	calculate_size(cub);
 
     // Debug: Print scale
     printf("Minimap scale: %.2f\n", cub->minimap->scale);

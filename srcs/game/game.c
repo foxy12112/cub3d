@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/08 12:39:20 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/10 13:55:34 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,16 @@ void	draw_c_f(t_cub_data *cub)
 	}
 }
 
-void ft_hook(void* param)
+void	movement(t_cub_data *cub)
 {
-    t_cub_data* cub = (t_cub_data*)param;
-    double move_speed = 1.0;
-
-	// Handle player movement
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_W) && !collision_top(cub))
-		cub->minimap->p_img->instances[0].y -= move_speed; // Move up on minimap
+		cub->minimap->p_img->instances[0].y -= SPEED; // Move up on minimap
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_S) && !collision_bottom(cub))
-		cub->minimap->p_img->instances[0].y += move_speed; // Move down on minimap
+		cub->minimap->p_img->instances[0].y += SPEED; // Move down on minimap
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_A) && !collision_left(cub))
-		cub->minimap->p_img->instances[0].x -= move_speed; // Move left on minimap
+		cub->minimap->p_img->instances[0].x -= SPEED; // Move left on minimap
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_D) && !collision_right(cub))
-		cub->minimap->p_img->instances[0].x += move_speed; // Move right on minimap
+		cub->minimap->p_img->instances[0].x += SPEED; // Move right on minimap
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
 		cub->p->dir--;
 	else if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
@@ -63,8 +59,15 @@ void ft_hook(void* param)
 		cub->p->dir = 0;
 	if (cub->p->dir < 0)
 		cub->p->dir = 360;
-	cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / cub->minimap->scale;
-	cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / cub->minimap->scale;
+}
+
+void ft_hook(void* param)
+{
+	t_cub_data* cub = (t_cub_data*)param;
+
+	movement(cub);
+	cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / (double)22;
+	cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)22;
 	// printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
 	// draw_ray(cub);
 	printf("%.5f\n", cub->p->dir);

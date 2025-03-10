@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/08 12:38:39 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/10 14:38:23 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	is_wall(t_cub_data *cub, int x, int y)
     int	map_y;
 
     // Translate the minimap coordinates to map coordinates
-    map_x = (x) / (cub->minimap->scale);
-    map_y = (y) / (cub->minimap->scale);
+    map_x = (x) / (22);
+    map_y = (y) / (22);
 
     // Check if the coordinates are within the map boundaries
     if (map_x < 0 || map_x >= cub->minimap->size_x || map_y < 0 || map_y >= cub->minimap->size_y)
@@ -78,8 +78,8 @@ bool	touch(double px, double py, t_cub_data *cub)
 	int	x;
 	int	y;
 
-	y = py / cub->minimap->scale;
-	x = px / cub->minimap->scale;
+	y = py / (22);
+	x = px / (22);
 	if (x > cub->minimap->size_x || x < 0 || y < 0 || y > cub->minimap->size_y)
 		return (true);
 	if (!cub->map[y])
@@ -165,10 +165,13 @@ void	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 
 void	draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
-	if (ft_abs(x1-x0) > ft_abs(y1-y0))
-		draw_line_x(x0, y0, x1, y1, cub);
+	int dx = abs(x1 - x0);
+	int dy = abs(y1 - y0);
+
+	if (dx >= dy)
+		draw_line_x(x0, y0, x1, y1, cub);  // Shallow slope
 	else
-		draw_line_y(x0, y0, x1, y1, cub);
+		draw_line_y(x0, y0, x1, y1, cub);  // Steep slope
 }
 
 void	draw_ray(t_cub_data *cub)
@@ -208,6 +211,6 @@ void	draw_fov(t_cub_data *cub)
 		y = y1 + sin(angle - M_PI_2) * 200;
 		draw_line(x1, y1, x, y, cub);
 		i++;
-		dir++;
+		dir += 0.5;
 	}
 }
