@@ -6,7 +6,7 @@
 #    By: petrasostaricvulic <petrasostaricvulic@    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/03/10 09:36:38 by petrasostar      ###   ########.fr        #
+#    Updated: 2025/03/10 11:50:30 by petrasostar      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,16 +45,16 @@ ERROR_FILE	=	error.log
 #											Sources												#
 #################################################################################################
 
-_PARSING		=	parsing_utils.c parsing.c map_parse_utils.c
+_PARSING		=	map_parse_utils.c parsing.c parsing_texture.c test_parsing.c map_validity.c parsing_rgb.c parsing_utils.c					
 PARSING			=	$(addprefix parsing/, $(_PARSING))
 
 _MATH			=	color.c raytracing.c
 MATH			=	$(addprefix math/, $(_MATH))
 
-_UTILS			=	init.c init_utils.c tmp.c ft_ftoa.c
+_UTILS			=	check_texture.c cub_init.c ft_ftoa.c init.c init_utils.c tmp.c
 UTILS			=	$(addprefix utils/, $(_UTILS))
 
-_ERROR			=	error_utils.c error.c
+_ERROR			+=	error_utils.c error/error.c 
 ERROR			=	$(addprefix error/, $(_ERROR))
 
 _GAME			=	game.c event.c map/map.c player/player.c rendering/render.c

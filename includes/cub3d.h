@@ -6,7 +6,7 @@
 /*   By: petrasostaricvulic <petrasostaricvulic@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:35:52 by petrasostar       #+#    #+#             */
-/*   Updated: 2025/03/10 09:57:36 by petrasostar      ###   ########.fr       */
+/*   Updated: 2025/03/10 11:37:43 by petrasostar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ typedef struct s_cub_data
 
 void			clean_all(t_cub_data *cub);
 void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
-void			ft_error(t_cub_data *cub, char *error_msg);
+void			ft_error(t_cub_data *cub, const char *error_msg);
 int				init(char *argv[], t_cub_data *cub);
 int				add_texture(int i, t_texture_data *texture, char *line);
 char			*rm_s(char *str);

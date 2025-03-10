@@ -6,7 +6,7 @@
 /*   By: petrasostaricvulic <petrasostaricvulic@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:34:40 by petrasostar       #+#    #+#             */
-/*   Updated: 2025/03/10 09:34:47 by petrasostar      ###   ########.fr       */
+/*   Updated: 2025/03/10 11:22:14 by petrasostar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int check_map_validity(t_cub_data *cub)
     }
 
     // You can add other checks, such as verifying that the map contains the necessary elements (e.g., walls, player, etc.)
-    if (check_map_elements(cub) == FAILURE) 
+    if (check_invalid_chars(cub) == FAILURE) 
 	{
         return ft_error(cub, "Map elements are invalid"), FAILURE;  // Return error if the map elements (like walls, empty spaces, etc.) are incorrect
     }

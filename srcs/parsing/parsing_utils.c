@@ -6,10 +6,9 @@
 /*   By: petrasostaricvulic <petrasostaricvulic@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:11:53 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/10 10:02:04 by petrasostar      ###   ########.fr       */
+/*   Updated: 2025/03/10 11:17:08 by petrasostar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "cub3d.h"
 

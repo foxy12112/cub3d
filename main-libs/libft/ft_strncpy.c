@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: petrasostaricvulic <petrasostaricvulic@    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 12:27:18 by ldick             #+#    #+#             */
-/*   Updated: 2024/12/23 13:22:20 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/10 11:56:20 by petrasostar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strncpy(char *dst, const char *src, size_t len)
 	}
 	while (i < len)
 	{
-		dst[i] == '\0';
+		dst[i] = '\0';
 		i++;
 	}
 	return (dst);
