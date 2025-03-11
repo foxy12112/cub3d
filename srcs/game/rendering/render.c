@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/10 14:38:23 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/11 18:56:49 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,76 +91,142 @@ bool	touch(double px, double py, t_cub_data *cub)
 	return (false);
 }
 
-void	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
-{
-	int	dx;
-	int	dy;
-	int	dir;
-	int	i;
-	int	p;
-	int y;
+// void	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
+// {
+// 	int	dx;
+// 	int	dy;
+// 	int	dir;
+// 	int	i;
+// 	int	p;
+// 	int y;
 
-	i = 0;
-	if (x0 > x1)
+// 	i = 0;
+// 	if (x0 > x1)
+// 	{
+// 		ft_swap(&x0, &x1, sizeof(int));
+// 		ft_swap(&y0, &y1, sizeof(int));
+// 	}
+// 	dx = ft_abs(x1 - x0);
+// 	dy = ft_abs(y1 - y0);
+// 	dir = (y1 > y0) ? 1 : -1;
+// 	p = 2 * dy - dx;
+// 	if (dx != 0)
+// 	{
+// 		y = y0;
+// 		while(i < dx + 1 && !touch(x0 + i - 50, y - 50, cub))
+// 		{
+// 			mlx_put_pixel(cub->minimap->img, x0 + i - 50, y - 50, 0x64);
+// 			if (p >= 0)
+// 			{
+// 				y += dir;
+// 				p -= 2 * dx;
+// 			}
+// 			p += 2 * dy;
+// 			i++;
+// 		}
+// 	}
+// }
+
+// void	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
+// {
+// 	int	dx;
+// 	int	dy;
+// 	int	dir;
+// 	int	i;
+// 	int	p;
+// 	int x;
+
+// 	i = 0;
+// 	if (y0 > y1)
+// 	{
+// 		ft_swap(&x0, &x1, sizeof(int));
+// 		ft_swap(&y0, &y1, sizeof(int));
+// 	}
+// 	dx = ft_abs(x1 - x0);
+// 	dy = ft_abs(y1 - y0);
+// 	dir = (x1 > x0) ? 1 : -1;
+// 	p = 2 * dx - dy;
+// 	if (dy != 0)
+// 	{
+// 		x = x0;
+// 		while(i < dy + 1 && !touch(x - 50, y0 + i - 50, cub))
+// 		{
+// 			mlx_put_pixel(cub->minimap->img, x - 50, y0 + i - 50, 0x64);
+// 			if (p >= 0)
+// 			{
+// 				x += dir;
+// 				p -= 2 * dy;
+// 			}
+// 			p += 2 * dx;
+// 			i++;
+// 		}
+// 	}
+// }
+
+// void	draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub)
+// {
+// 	int dx = abs(x1 - x0);
+// 	int dy = abs(y1 - y0);
+
+// 	if (dx >= dy)
+// 		draw_line_x(x0, y0, x1, y1, cub);  // Shallow slope
+// 	else
+// 		draw_line_y(x0, y0, x1, y1, cub);  // Steep slope
+// }
+
+int	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
+{
+	int	dx = x1 - x0;
+	int	dy = y1 - y0;
+	int	step_x = (dx > 0) ? 1 : -1;
+	int	step_y = (dy > 0) ? 1 : -1;
+	dx = ft_abs(dx);
+	dy = ft_abs(dy);
+	int	p = 2 * dy - dx;
+	int	i = 0;
+
+	while (i <= dx && !touch(x0 - 50, y0 - 50, cub))
 	{
-		ft_swap(&x0, &x1, sizeof(int));
-		ft_swap(&y0, &y1, sizeof(int));
-	}
-	dx = ft_abs(x1 - x0);
-	dy = ft_abs(y1 - y0);
-	dir = (y1 > y0) ? 1 : -1;
-	p = 2 * dy - dx;
-	if (dx != 0)
-	{
-		y = y0;
-		while(i < dx + 1 && !touch(x0 + i - 50, y - 50, cub))
+		mlx_put_pixel(cub->minimap->img, x0 - 50, y0 - 50, 0x64);
+		if (p >= 0)
 		{
-			mlx_put_pixel(cub->minimap->img, x0 + i - 50, y - 50, 0x64);
-			if (p >= 0)
-			{
-				y += dir;
-				p -= 2 * dx;
-			}
-			p += 2 * dy;
-			i++;
+			y0 += step_y;
+			p -= 2 * dx;
 		}
+		p += 2 * dy;
+		x0 += step_x;
+		i++;
 	}
+	return (i);
 }
 
-void	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
+int	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
-	int	dx;
-	int	dy;
-	int	dir;
-	int	i;
-	int	p;
-	int x;
-
-	i = 0;
-	if (y0 > y1)
+	int	dx = x1 - x0;
+	int	dy = y1 - y0;
+	int	dx_abs = ft_abs(dx);
+	int	dy_abs = ft_abs(dy);
+	int	step_x = (dx > 0) ? 1 : -1;
+	int	step_y = (dy > 0) ? 1 : -1;
+	int	p = 2 * dx_abs - dy_abs;
+	int	i = 0;
+	while (i <= dy_abs && !touch(x0 - 50, y0 - 50, cub))
 	{
-		ft_swap(&x0, &x1, sizeof(int));
-		ft_swap(&y0, &y1, sizeof(int));
-	}
-	dx = ft_abs(x1 - x0);
-	dy = ft_abs(y1 - y0);
-	dir = (x1 > x0) ? 1 : -1;
-	p = 2 * dx - dy;
-	if (dy != 0)
-	{
-		x = x0;
-		while(i < dy + 1 && !touch(x - 50, y0 + i - 50, cub))
+		mlx_put_pixel(cub->minimap->img, x0 - 50, y0 - 50, 0x64);
+		if (p >= 0)
 		{
-			mlx_put_pixel(cub->minimap->img, x - 50, y0 + i - 50, 0x64);
-			if (p >= 0)
-			{
-				x += dir;
-				p -= 2 * dy;
-			}
-			p += 2 * dx;
-			i++;
+			x0 += step_x;
+			p -= 2 * dy_abs;
 		}
+		p += 2 * dx_abs;
+		y0 += step_y;
+		i++;
 	}
+	double xlen = (x0 - 50 > x1) ? x0 - 50 - x1 : x1 - x0 - 50;
+	double ylen = (y0 - 50 > y1) ? y0 - 50 - y1 : y1 - y0 - 50;
+	double dlen = sqrt(pow(xlen, 2) + pow(ylen, 2));
+	printf("%f\n", dlen);
+	return (i);
 }
 
 void	draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub)
@@ -169,9 +235,9 @@ void	draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	int dy = abs(y1 - y0);
 
 	if (dx >= dy)
-		draw_line_x(x0, y0, x1, y1, cub);  // Shallow slope
+		draw_line_x(x0, y0, x1, y1, cub);
 	else
-		draw_line_y(x0, y0, x1, y1, cub);  // Steep slope
+		draw_line_y(x0, y0, x1, y1, cub);
 }
 
 void	draw_ray(t_cub_data *cub)

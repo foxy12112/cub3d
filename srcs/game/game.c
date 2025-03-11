@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/10 13:55:34 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/11 18:55:33 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void ft_hook(void* param)
 	cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)22;
 	// printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
 	// draw_ray(cub);
-	printf("%.5f\n", cub->p->dir);
+	// printf("%.5f\n", cub->p->dir);
 }
 
 void	game_loop(t_cub_data *cub)
