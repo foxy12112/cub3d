@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/10 13:55:01 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/13 18:44:40 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_minimap
 	double				scale;
 	int					size_x;
 	int					size_y;
+	bool				flag;
 }						t_minimap;
 
 typedef struct s_textbox

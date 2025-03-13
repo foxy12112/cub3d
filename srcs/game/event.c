@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:30:21 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/11 18:55:25 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/13 19:20:42 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@ void	player_event(mlx_key_data_t mkd, void *param)
 		cub->p->x -= 0.5;
 	else if (mkd.key == MLX_KEY_D)
 		cub->p->x += 0.5;
+	if (mkd.key == MLX_KEY_M && mkd.action != MLX_RELEASE)
+	{
+		if (cub->minimap->flag == true)
+		{
+			mlx_delete_image(cub->mlx, cub->minimap->img);
+			cub->minimap->flag = false;
+		}
+		else if (cub->minimap->flag == false)
+		{
+			map(cub);
+			cub->minimap->flag = true;
+		}
+	}
 }
 
 void	event_handler(mlx_key_data_t mkd, void *param)
