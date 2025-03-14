@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: petrasostaricvulic <petrasostaricvulic@    +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:40:54 by petrasostar       #+#    #+#             */
-/*   Updated: 2025/03/10 08:19:59 by petrasostar      ###   ########.fr       */
+/*   Updated: 2025/03/14 13:29:38 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,76 +14,44 @@
 
 int init(char *argv[], t_cub_data *cub)
 {
-    int fd;
-    char *line;
-    int i;
+	int fd;
+	char *line;
+	int i;
 
-    i = 0;
-    // Security allocation for required data
-    cub->p = safe_malloc(sizeof(t_player_data), cub, __func__);
-    cub->texture = safe_malloc(sizeof(t_texture_data), cub, __func__);
-    cub->texture->ceiling = safe_malloc(sizeof(t_ceiling_data), cub, __func__);
-    cub->texture->floor = safe_malloc(sizeof(t_floor_data), cub, __func__);
-    cub->minimap = safe_malloc(sizeof(t_minimap), cub, __func__);
-    cub->text = safe_malloc(sizeof(t_textbox), cub, __func__);
+	i = 0;
+	// Security allocation for required data
+	cub->p = safe_malloc(sizeof(t_player_data), cub, __func__);
+	cub->texture = safe_malloc(sizeof(t_texture_data), cub, __func__);
+	cub->texture->ceiling = safe_malloc(sizeof(t_ceiling_data), cub, __func__);
+	cub->texture->floor = safe_malloc(sizeof(t_floor_data), cub, __func__);
+	cub->minimap = safe_malloc(sizeof(t_minimap), cub, __func__);
+	cub->text = safe_malloc(sizeof(t_textbox), cub, __func__);
 
-    cub->minimap->size_x = 0;
-    cub->minimap->size_y = 0;
+	cub->minimap->size_x = 0;
+	cub->minimap->size_y = 0;
 
-    // Set up MLX to render
-    mlx_set_setting(MLX_MAXIMIZED, true);
-    fd = open(argv[1], O_RDONLY);
-    if (fd < 0)
-        return (ft_error(cub, "Failed to open the .cub file"), 1);
+	// Set up MLX to render
+	mlx_set_setting(MLX_MAXIMIZED, true);
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		return (ft_error(cub, "Failed to open the .cub file"), 1);
 
-    // Load lines from file
-    line = get_next_line(fd);
-    while (i < 6) { // Here we will load 6 key parameters (textures, colors)
-        i = add_texture(i, cub->texture, rm_s(line));
-        if (i == 720)  // If there was an error loading textures
-            return (free(line), 1);
-        free(line);
-        line = get_next_line(fd);
-    }
+	// Load lines from file
+	line = get_next_line(fd);
+	while (i < 6) { // Here we will load 6 key parameters (textures, colors)
+		i = add_texture(i, cub->texture, rm_s(line));
+		if (i == 720)  // If there was an error loading textures
+			return (free(line), 1);
+		free(line);
+		line = get_next_line(fd);
+	}
 
-    // Initialize map and colors
-    init_map(cub, fd);
-    init_color(cub->texture);  // Initialization of colors (ceiling and floor)
-    init_texture(cub);  // Texture initialization
+	// Initialize map and colors
+	init_map(cub, fd);
+	init_color(cub->texture);  // Initialization of colors (ceiling and floor)
+	init_texture(cub);  // Texture initialization
 
-    return 0;
-}
-
-// void	init_texture(t_cub_data *cub)
-// {
-// 	cub->texture->ea[ft_strlen(cub->texture->ea) - 1] = '\0';
-// 	cub->texture->no[ft_strlen(cub->texture->no) - 1] = '\0';
-// 	cub->texture->so[ft_strlen(cub->texture->so) - 1] = '\0';
-// 	cub->texture->we[ft_strlen(cub->texture->we) - 1] = '\0';
-// 	cub->texture->ea_tex = create_image(cub, cub->texture->ea);
-// 	cub->texture->no_tex = create_image(cub, cub->texture->no);
-// 	cub->texture->so_tex = create_image(cub, cub->texture->so);
-// 	cub->texture->we_tex = create_image(cub, cub->texture->we);
-// }
-
-int init_texture(t_cub_data *cub)
-{
-    // Check and validate all textures
-    if (check_texture(cub->texture->ea, "East") ||
-        check_texture(cub->texture->no, "North") ||
-        check_texture(cub->texture->so, "South") ||
-        check_texture(cub->texture->we, "West"))
-    {
-        return 1; // If any checks fail, return an error
-    }
-
-    // Load valid textures
-    cub->texture->ea_tex = create_image(cub, cub->texture->ea);
-    cub->texture->no_tex = create_image(cub, cub->texture->no);
-    cub->texture->so_tex = create_image(cub, cub->texture->so);
-    cub->texture->we_tex = create_image(cub, cub->texture->we);
-    
-    return 0;
+	return 0;
 }
 
 int add_texture(int i, t_texture_data *texture, char *line)

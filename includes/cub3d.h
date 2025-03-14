@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/14 11:35:31 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/14 13:15:47 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int				add_texture(int i, t_texture_data *texture, char *line);
 char			*rm_s(char *str);
 int				init_map(t_cub_data *cub, int fd);
 int				init_color(t_texture_data *texture);
+void				init_texture(t_cub_data *cub);
 void			*create_image(t_cub_data *cub, char *str);
 void			game_loop(t_cub_data *cub);
 int				get_color(int r, int g, int b, int a);
