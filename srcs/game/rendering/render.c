@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/07 13:03:36 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/09 16:20:18 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,25 @@ void	scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height)
 		y++;
 	}
 }
+
+bool	touch(double px, double py, t_cub_data *cub)
+ {
+ 	int	x;
+ 	int	y;
+ 
+ 	y = py / 22;
+ 	x = px / 22;
+ 	if (x > cub->minimap->size_x || x < 0 || y < 0 || y > cub->minimap->size_y)
+ 		return (true);
+ 	if (!cub->map[y])
+ 		return (true);
+ 	if (!cub->map[y][x])
+ 		return (true);
+ 	if (cub->map[y][x] == '1' || cub->map[y][x] == ' ')
+ 		return (true);
+ 	return (false);
+ }
+ 
 
 int	is_wall(t_cub_data *cub, int x, int y)
 {
@@ -94,10 +113,8 @@ void	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	if (dx != 0)
 	{
 		y = y0;
-		while(i < dx + 1)
+		while(i < dx + 1 && !touch(x0 + i - 50, y - 50, cub))
 		{
-			if (get_pixel_color(cub->minimap->img, x0 + i - 50, y - 50) == 1677721600)
-				break ;
 			mlx_put_pixel(cub->minimap->img, x0 + i - 50, y - 50, 0x64);
 			if (p >= 0)
 			{
@@ -132,11 +149,8 @@ void	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	if (dy != 0)
 	{
 		x = x0;
-		while(i < dy + 1)
+		while(i < dy + 1 && !touch(x - 50, y0 + i - 50, cub))
 		{
-			// printf("%d\n", get_pixel_color(cub->minimap->img, 171, 105));
-			if (get_pixel_color(cub->minimap->img, x - 50, y0 + i - 50) == 1677721600)
-				break ;
 			mlx_put_pixel(cub->minimap->img, x - 50, y0 + i - 50, 0x64);
 			if (p >= 0)
 			{
