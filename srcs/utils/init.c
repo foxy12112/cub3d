@@ -6,9 +6,10 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/13 19:15:32 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/14 11:36:48 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "cub3d.h"
 
@@ -74,7 +75,3 @@ int	init(char *argv[], t_cub_data *cub)
 	return (0);
 }
 
-int	get_color(int r, int g, int b, int a)
-{
-	return ((r & 0xff) << 24 | (g & 0xff) << 16 | (b & 0xff) << 8 | (a & 0xff) << 0);
-}

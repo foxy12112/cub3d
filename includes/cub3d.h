@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/13 18:44:40 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/14 11:35:31 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 # define CUB3D_H
 
 # include "../MLX42/include/MLX42/MLX42.h"
+# include "libs.h"
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <string.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <ctype.h>
 # include "libs.h"
 
 # define SPEED 1
@@ -30,6 +33,14 @@
 # define WEST 270
 # define SOUTH 180
 # define EAST 90
+
+# ifndef SUCCESS
+#  define SUCCESS 0
+# endif
+
+# ifndef FAILURE
+#  define FAILURE -1
+# endif
 
 typedef struct s_floor_data
 {
@@ -68,6 +79,8 @@ typedef struct s_player_data
 	double				x;
 	double				y;
 	double				dir;
+	double				dir_x;
+	double				dir_y;
 }						t_player_data;
 
 typedef struct s_mlx
@@ -104,6 +117,8 @@ typedef struct s_cub_data
 	int					y;
 	int					floor;
 	int					ceiling;
+	int					map_height;
+	int					map_width;
 	t_texture_data		*texture;
 	t_player_data		*p;
 	mlx_t				*mlx;
@@ -112,26 +127,17 @@ typedef struct s_cub_data
 	t_textbox			*text;
 }						t_cub_data;
 
-
 void			clean_all(t_cub_data *cub);
 void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
-void			ft_error(t_cub_data *cub, char *error_msg);
+void			ft_error(t_cub_data *cub, const char *error_msg);
 int				init(char *argv[], t_cub_data *cub);
 int				add_texture(int i, t_texture_data *texture, char *line);
 char			*rm_s(char *str);
 int				init_map(t_cub_data *cub, int fd);
 int				init_color(t_texture_data *texture);
 void			*create_image(t_cub_data *cub, char *str);
-int				check_textures(t_cub_data *cub);
-int				parsing(t_cub_data *cub);
-int				check_map(t_cub_data *cub);
-int				check_bottom(t_cub_data *cub);
-int				check_top(t_cub_data *cub);
-int				check_sides(t_cub_data *cub);
 void			game_loop(t_cub_data *cub);
 int				get_color(int r, int g, int b, int a);
-int				check_leaks(char **map, t_cub_data *cub);
-void			printMap(char **map);
 void			event_handler(mlx_key_data_t mkd, void *param);
 void			map(t_cub_data *cub);
 void			event(mlx_key_data_t mkd, void *param);
@@ -146,10 +152,43 @@ bool			collision_top(t_cub_data *cub);
 bool			collision_bottom(t_cub_data *cub);
 void			scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height);
 mlx_texture_t	*scale_tex(mlx_texture_t *texture, int width, int height);
+
 void			draw_c_f(t_cub_data *cub);
 void			draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub);
 void			ft_swap(void *a, void *b, size_t size);
 int				ft_abs(int value);
 void			draw_fov(t_cub_data *cub);
+
+int				check_texture_file(char *path, char *texture_name);
+int				check_texture_format(const char *path);
+
+//parsing
+int				parsing(t_cub_data *cub);
+int				check_map(t_cub_data *cub);
+int				check_map_exists(t_cub_data *cub);
+int				check_top(t_cub_data *cub);
+int				check_bottom(t_cub_data *cub);
+int				check_sides(t_cub_data *cub);
+int				check_player(t_cub_data *cub);
+int				check_leaks(char **map, t_cub_data *cub);
+int				check_map_validity(t_cub_data *cub);
+int				check_map_dim(t_cub_data *cub);
+int				check_row(t_cub_data *cub);
+int				check_map_elements(t_cub_data *cub);
+int				check_invalid_chars(t_cub_data *cub);
+int				check_texture(const char *path, const char *texture_name);
+int				check_textures(t_cub_data *cub);
+int				parse_rgb_line(char *line);
+int				check_rgb(int *rgb, char *line);
+void			get_rgb(t_cub_data *map, int *rgb, char **split_line);
+void			printMap(t_cub_data *cub);
+void			free_double_array(char **array);
+
+//debug
+void			print_map_lines(char **map);
+void			print_minimap_data(t_minimap *minimap);
+void			print_mapinfo(t_cub_data *data);
+void			print_player_info(t_cub_data *data);
+void			display_data(t_cub_data *data);
 
 #endif
