@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:35:29 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/07 13:16:25 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/14 17:54:15 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,6 @@ int	check_bottom(t_cub_data *cub)
 	}
 	return (0);
 }
-
-void printMap(char **map) {
-    for (int i = 0; map[i] != NULL; i++) { // Iterate until a NULL pointer is found
-        printf("%s\n", map[i]); // Print each row (string)
-    }
-}
-
 // int	check_overhangs(t_cub_data *cub)
 // {
 // 	int	row1;

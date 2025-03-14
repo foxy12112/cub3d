@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psostari <psostari@student.42.fr>          +#+  +:+       +#+         #
+#    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/03/14 10:11:50 by psostari         ###   ########.fr        #
+#    Updated: 2025/03/14 17:57:33 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ NC			:= \033[0m
 COMPILER	=	cc
 INCLUDES	=	-I includes -I main-libs
 SUBMODULE	=	main-libs/Makefile
-LIB_FLAGS = -Lmain-libs -lft -L./MLX42/build -lmlx42
+LIB_FLAGS = -Lmain-libs -ls -L./MLX42/build -lmlx42
 CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address
 EXTRA_FLAGS	=	-ffast-math #-0fast
 ERROR_FILE	=	error.log
@@ -45,7 +45,7 @@ ERROR_FILE	=	error.log
 #											Sources												#
 #################################################################################################
 
-_PARSING		=	map_parse_utils.c parsing.c parsing_texture.c test_parsing.c map_validity.c parsing_rgb.c parsing_utils.c
+_PARSING		=	map_parse_utils.c parsing.c parsing_utils.c
 PARSING			=	$(addprefix parsing/, $(_PARSING))
 
 _DEBUG			=	debug.c
@@ -54,7 +54,7 @@ DEBUG			=	$(addprefix debug/, $(_DEBUG))
 _MATH			=	color.c raytracing.c
 MATH			=	$(addprefix math/, $(_MATH))
 
-_UTILS			=	check_texture.c cub_init.c ft_ftoa.c init.c init_utils.c tmp.c
+_UTILS			=	ft_ftoa.c init.c init_utils.c tmp.c
 UTILS			=	$(addprefix utils/, $(_UTILS))
 
 _ERROR			+=	error_utils.c error.c
