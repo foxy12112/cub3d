@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:01:07 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/13 19:33:28 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/14 11:31:20 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	draw_player(t_cub_data *cub)
 	mlx_image_to_window(cub->mlx, cub->minimap->p_img, p_start_x, p_start_y);
 	printf("p_img_x = %d, p_img_y = %d\n", cub->minimap->p_img->instances[0].x, cub->minimap->p_img->instances[0].y);
 	draw_play(cub);
-	cub->minimap->p_img;
+	// cub->minimap->p_img;
 	return ;
 }
 
