@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
+#    By: petrasostaricvulic <petrasostaricvulic@    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 12:33:21 by ldick             #+#    #+#              #
-#    Updated: 2024/12/23 13:23:33 by ldick            ###   ########.fr        #
+#    Updated: 2025/03/10 07:34:48 by petrasostar      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

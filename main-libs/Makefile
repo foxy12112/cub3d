@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
+#    By: petrasostaricvulic <petrasostaricvulic@    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 13:48:55 by ldick             #+#    #+#              #
-#    Updated: 2025/01/18 19:33:59 by ldick            ###   ########.fr        #
+#    Updated: 2025/03/10 07:45:51 by petrasostar      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,3 +48,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
