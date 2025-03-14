@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: petrasostaricvulic <petrasostaricvulic@    +#+  +:+       +#+        */
+/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:35:52 by petrasostar       #+#    #+#             */
-/*   Updated: 2025/03/10 11:37:43 by petrasostar      ###   ########.fr       */
+/*   Updated: 2025/03/14 09:56:54 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -23,7 +22,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <unistd.h>
-#include <ctype.h>
+# include <ctype.h>
 # include "libs.h"
 
 # define RECTANGLE 20
@@ -79,8 +78,8 @@ typedef struct s_player_data
 	double				x;
 	double				y;
 	double				dir;
-	double 				dir_x;
-	double				dir_y;  
+	double				dir_x;
+	double				dir_y;
 }						t_player_data;
 
 typedef struct s_mlx
@@ -116,8 +115,8 @@ typedef struct s_cub_data
 	int					y;
 	int					floor;
 	int					ceiling;
-	int                 map_height;
-	int                 map_width;
+	int					map_height;
+	int					map_width;
 	t_texture_data		*texture;
 	t_player_data		*p;
 	mlx_t				*mlx;
@@ -125,7 +124,6 @@ typedef struct s_cub_data
 	t_minimap			*minimap;
 	t_textbox			*text;
 }						t_cub_data;
-
 
 void			clean_all(t_cub_data *cub);
 void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
@@ -160,7 +158,7 @@ int				ft_abs(int value);
 void			draw_fov(t_cub_data *cub);
 
 int				check_texture_file(char *path, char *texture_name);
-int     		check_texture_format(const char *path);
+int				check_texture_format(const char *path);
 
 //parsing
 int				parsing(t_cub_data *cub);
@@ -176,15 +174,19 @@ int				check_map_dim(t_cub_data *cub);
 int				check_row(t_cub_data *cub);
 int				check_map_elements(t_cub_data *cub);
 int				check_invalid_chars(t_cub_data *cub);
-int 			check_texture(const char *path, const char *texture_name);
+int				check_texture(const char *path, const char *texture_name);
 int				check_textures(t_cub_data *cub);
 int				parse_rgb_line(char *line);
 int				check_rgb(int *rgb, char *line);
 void			get_rgb(t_cub_data *map, int *rgb, char **split_line);
-void 			printMap(t_cub_data *cub);
-void 			free_double_array(char **array);
+void			printMap(t_cub_data *cub);
+void			free_double_array(char **array);
 
-
-
+//debug
+void			print_map_lines(char **map);
+void			print_minimap_data(t_minimap *minimap);
+void			print_mapinfo(t_cub_data *data);
+void			print_player_info(t_cub_data *data);
+void			display_data(t_cub_data *data);
 
 #endif

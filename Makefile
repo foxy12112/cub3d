@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: petrasostaricvulic <petrasostaricvulic@    +#+  +:+       +#+         #
+#    By: psostari <psostari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/03/10 11:50:30 by petrasostar      ###   ########.fr        #
+#    Updated: 2025/03/14 10:11:50 by psostari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,11 @@ ERROR_FILE	=	error.log
 #											Sources												#
 #################################################################################################
 
-_PARSING		=	map_parse_utils.c parsing.c parsing_texture.c test_parsing.c map_validity.c parsing_rgb.c parsing_utils.c					
+_PARSING		=	map_parse_utils.c parsing.c parsing_texture.c test_parsing.c map_validity.c parsing_rgb.c parsing_utils.c
 PARSING			=	$(addprefix parsing/, $(_PARSING))
+
+_DEBUG			=	debug.c
+DEBUG			=	$(addprefix debug/, $(_DEBUG))
 
 _MATH			=	color.c raytracing.c
 MATH			=	$(addprefix math/, $(_MATH))
@@ -54,7 +57,7 @@ MATH			=	$(addprefix math/, $(_MATH))
 _UTILS			=	check_texture.c cub_init.c ft_ftoa.c init.c init_utils.c tmp.c
 UTILS			=	$(addprefix utils/, $(_UTILS))
 
-_ERROR			+=	error_utils.c error/error.c 
+_ERROR			+=	error_utils.c error.c
 ERROR			=	$(addprefix error/, $(_ERROR))
 
 _GAME			=	game.c event.c map/map.c player/player.c rendering/render.c
@@ -113,7 +116,7 @@ $(NAME): $(LIBRARY) $(OBJS)
 
 MLX42:
 				@if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42.git; fi
-				@cd MLX42 && cmake -B build -DDEBUG=1 && cmake --build build -j4 
+				@cd MLX42 && cmake -B build -DDEBUG=1 && cmake --build build -j4
 
 clean:
 				@rm -rf bin
