@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:30:21 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/13 19:20:42 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/15 12:42:44 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,6 @@ void	player_event(mlx_key_data_t mkd, void *param)
 		cub->p->x -= 0.5;
 	else if (mkd.key == MLX_KEY_D)
 		cub->p->x += 0.5;
-	if (mkd.key == MLX_KEY_M && mkd.action != MLX_RELEASE)
-	{
-		if (cub->minimap->flag == true)
-		{
-			mlx_delete_image(cub->mlx, cub->minimap->img);
-			cub->minimap->flag = false;
-		}
-		else if (cub->minimap->flag == false)
-		{
-			map(cub);
-			cub->minimap->flag = true;
-		}
-	}
 }
 
 void	event_handler(mlx_key_data_t mkd, void *param)
@@ -61,6 +48,8 @@ void	event_handler(mlx_key_data_t mkd, void *param)
 		draw_fov(cub);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_KP_0) && mkd.action != MLX_RELEASE)
 		draw_ray(cub);
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_KP_ENTER) && mkd.action != MLX_RELEASE)
+		raytrace(cub);
 }
 
 void	event(mlx_key_data_t mkd, void *param)

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/12 12:11:38 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/15 11:11:46 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,8 @@ int	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	int	step_y = (dy > 0) ? 1 : -1;
 	dx = ft_abs(dx);
 	dy = ft_abs(dy);
+	int start_x = x0;
+	int start_y = y0;
 	int	p = 2 * dy - dx;
 	int	i = 0;
 
@@ -197,11 +199,9 @@ int	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		x0 += step_x;
 		i++;
 	}
-	double xlen = (x0 > x1) ? x0 - x1 : x1 - x0;
-	double ylen = (y0 > y1) ? y0 - y1 : y1 - y0;
-	double dlen = sqrt(pow(xlen, 2) + pow(ylen, 2));
+	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
 	printf("%f\n", dlen);
-	return (i);
+	return (int)dlen;
 }
 
 int	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
@@ -210,6 +210,8 @@ int	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	int	dy = y1 - y0;
 	int	dx_abs = ft_abs(dx);
 	int	dy_abs = ft_abs(dy);
+	int	start_x = x0;
+	int	start_y = y0;
 	int	step_x = (dx > 0) ? 1 : -1;
 	int	step_y = (dy > 0) ? 1 : -1;
 	int	p = 2 * dx_abs - dy_abs;
@@ -226,11 +228,9 @@ int	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		y0 += step_y;
 		i++;
 	}
-	double xlen = (x0 > x1) ? x0 - x1 : x1 - x0;
-	double ylen = (y0 > y1) ? y0 - y1 : y1 - y0;
-	double dlen = sqrt(pow(xlen, 2) + pow(ylen, 2));
+	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
 	printf("%f\n", dlen);
-	return (i);
+	return (int)dlen;
 }
 
 void	draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub)

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/14 18:00:58 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/15 12:40:37 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ typedef struct s_cub_data
 }						t_cub_data;
 
 void			clean_all(t_cub_data *cub);
+bool			touch(double px, double py, t_cub_data *cub);
 void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
 void			ft_error(t_cub_data *cub, const char *error_msg);
 int				init(char *argv[], t_cub_data *cub);
@@ -190,5 +191,6 @@ void			print_minimap_data(t_minimap *minimap);
 void			print_mapinfo(t_cub_data *data);
 void			print_player_info(t_cub_data *data);
 void			display_data(t_cub_data *data);
+int				raytrace(t_cub_data *cub);
 
 #endif
