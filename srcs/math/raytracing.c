@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/15 17:02:45 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/16 17:27:38 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	ray_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		i++;
 	}
 	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
-	printf("%f\n", dlen);
+	// printf("%f\n", dlen);
 	return (int)dlen;
 }
 
@@ -65,7 +65,7 @@ static int	ray_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		i++;
 	}
 	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
-	printf("%f\n", dlen);
+	// printf("%f\n", dlen);
 	return (int)dlen;
 }
 
@@ -82,19 +82,21 @@ static int	ray(int x0, int y0, int x1, int y1, t_cub_data *cub)
 
 void	draw_v_line(int x, int start, int end, mlx_image_t *img)
 {
-	while(start++ < end)
+	while(start++ <= end)
 		mlx_put_pixel(img, x, start, 0x4514ffff);
 }
 
 void	draw_game(int x, int ray_d, t_cub_data *cub)
 {
-	int line_hight = cub->img->height / (ray_d);
+	int line_hight = (cub->img->height / (cub->minimap->img->height / ray_d)) * 5;
 	int	draw_start = -line_hight / 2 + cub->img->height / 2;
 	draw_start = (draw_start < 0) ? 0 : draw_start;
 	int draw_end = line_hight / 2 + cub->img->height / 2;
 	if (draw_end >= cub->mlx->height)
 		draw_end = cub->mlx->height - 1;
-	printf("%d--%d--%d--%d\n", x, draw_start, draw_end, 1);
+	// ft_swap(&draw_end, &draw_start, sizeof(int));
+	// printf("%d--%d--%d--%d\n", x, draw_start, draw_end, 1);
+	// printf("%d--%d\n", draw_end, draw_start);
 	draw_v_line(x, draw_start, draw_end, cub->img);
 }
 
@@ -110,6 +112,7 @@ int	raytrace(t_cub_data *cub)
 	int temp = 0;
 	dir = cub->p->dir;
 	i = 0;
+	int tmp;
 	while(i < FOV)
 	{
 		angle = dir * (M_PI / 180);
@@ -118,8 +121,10 @@ int	raytrace(t_cub_data *cub)
 		x = x1 + cos(angle - M_PI_2) * 200;
 		y = y1 + sin(angle - M_PI_2) * 200;
 		int ray_d = ray(x1, y1, x, y, cub);
-		while(temp < cub->mlx->width)
+		tmp = temp + (cub->mlx->width / FOV);
+		while(temp < tmp)
 		{
+			printf("%d\n", temp);
 			draw_game(temp, ray_d, cub);
 			temp++;
 		}
