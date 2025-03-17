@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/15 11:11:46 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/17 12:20:17 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,11 +267,12 @@ void	draw_fov(t_cub_data *cub)
 	int x;
 	int y;
 	double angle;
-	int	i;
+	double	i;
 	double dir;
 
 	dir = cub->p->dir;
 	i = 0;
+	int count = 0;
 	while(i < FOV)
 	{
 		angle = dir * (M_PI / 180);
@@ -280,7 +281,9 @@ void	draw_fov(t_cub_data *cub)
 		x = x1 + cos(angle - M_PI_2) * 200;
 		y = y1 + sin(angle - M_PI_2) * 200;
 		draw_line(x1, y1, x, y, cub);
-		i++;
-		dir += 0.5;
+		i += 0.1;
+		dir += 0.1;
+		count++;
 	}
+	printf("%d\n", count);
 }

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/16 17:27:38 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/17 15:29:11 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,12 @@ void	draw_v_line(int x, int start, int end, mlx_image_t *img)
 
 void	draw_game(int x, int ray_d, t_cub_data *cub)
 {
-	int line_hight = (cub->img->height / (cub->minimap->img->height / ray_d)) * 5;
-	int	draw_start = -line_hight / 2 + cub->img->height / 2;
+	int line_hight = (cub->img->height * (cub->minimap->img->height / ray_d));
+	printf("%d--", ray_d);
+	printf("%d\n", line_hight);
+	int	draw_start = (-line_hight / 2) + (cub->img->height / 2);
 	draw_start = (draw_start < 0) ? 0 : draw_start;
-	int draw_end = line_hight / 2 + cub->img->height / 2;
+	int draw_end = (line_hight / 2) + (cub->img->height / 2);
 	if (draw_end >= cub->mlx->height)
 		draw_end = cub->mlx->height - 1;
 	// ft_swap(&draw_end, &draw_start, sizeof(int));
@@ -107,13 +109,14 @@ int	raytrace(t_cub_data *cub)
 	int x;
 	int y;
 	double angle;
-	int	i;
+	double	i;
 	double dir;
 	int temp = 0;
 	dir = cub->p->dir;
 	i = 0;
 	int tmp;
-	while(i < FOV)
+	draw_c_f(cub);
+	while(i < (double)FOV)
 	{
 		angle = dir * (M_PI / 180);
 		x1 = cub->minimap->p_img->instances[0].x + 5;
@@ -121,14 +124,15 @@ int	raytrace(t_cub_data *cub)
 		x = x1 + cos(angle - M_PI_2) * 200;
 		y = y1 + sin(angle - M_PI_2) * 200;
 		int ray_d = ray(x1, y1, x, y, cub);
+		printf("ray-length=%d--ray_number=%0f\n", ray_d, i);
 		tmp = temp + (cub->mlx->width / FOV);
 		while(temp < tmp)
 		{
-			printf("%d\n", temp);
+			// printf("%d--%d\n", temp, tmp);
 			draw_game(temp, ray_d, cub);
 			temp++;
 		}
-		i++;
+		i += 1;
 		dir += 0.5;
 	}
 	return (1);

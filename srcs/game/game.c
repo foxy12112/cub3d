@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/14 11:41:48 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/17 14:34:37 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,15 @@ void ft_hook(void* param)
 	movement(cub);
 	cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / (double)22;
 	cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)22;
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_W))
+		cub->p->y += 0.5;
+	else if (mlx_is_key_down(cub->mlx, MLX_KEY_S))
+		cub->p->y -= 0.5;
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_A))
+		cub->p->x -= 0.5;
+	else if (mlx_is_key_down(cub->mlx, MLX_KEY_D))
+		cub->p->x += 0.5;
+	raytrace(cub);
 	// printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
 	// draw_ray(cub);
 	// printf("%.5f\n", cub->p->dir);
