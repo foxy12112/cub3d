@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/18 12:15:37 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/18 20:01:04 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define WEST 270
 # define SOUTH 180
 # define EAST 90
+# define WIDHT 1920
+# define HEIGHT 1080
 
 # ifndef SUCCESS
 #  define SUCCESS 0

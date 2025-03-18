@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/18 12:08:16 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/18 19:56:09 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,8 @@ int	raytrace(t_cub_data *cub)
 		angle = dir * (M_PI / 180);
 		x1 = cub->minimap->p_img->instances[0].x + 5;
 		y1 = cub->minimap->p_img->instances[0].y + 5;
-		x = x1 + cos(angle - M_PI_2) * 200;
-		y = y1 + sin(angle - M_PI_2) * 200;
+		x = x1 + cos(angle - M_PI_2) * 500;
+		y = y1 + sin(angle - M_PI_2) * 500;
 		int ray_d = ray(x1, y1, x, y, cub);
 		// printf("ray-length=%d--ray_number=%0f\n", ray_d, i);
 		tmp = temp + (cub->mlx->width / (FOV * step));
