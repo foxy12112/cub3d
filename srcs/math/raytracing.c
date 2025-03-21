@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/18 19:56:09 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/21 17:50:31 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static int	ray_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
 	int	dx = x1 - x0;
 	int	dy = y1 - y0;
-	int	step_x = (dx > 0) ? 1 : -1;
-	int	step_y = (dy > 0) ? 1 : -1;
+	double	step_x = (dx > 0) ? 2 : -2;
+	double	step_y = (dy > 0) ? 2 : -2;
 	dx = ft_abs(dx);
 	dy = ft_abs(dy);
 	int start_x = x0;
@@ -49,8 +49,8 @@ static int	ray_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	int	dy_abs = ft_abs(dy);
 	int	start_x = x0;
 	int	start_y = y0;
-	int	step_x = (dx > 0) ? 1 : -1;
-	int	step_y = (dy > 0) ? 1 : -1;
+	double	step_x = (dx > 0) ? 2 : -2;
+	double	step_y = (dy > 0) ? 2 : -2;
 	int	p = 2 * dx_abs - dy_abs;
 	int	i = 0;
 	while (i <= dy_abs && !touch(x0 - 50, y0 - 50, cub))
@@ -82,14 +82,16 @@ static int	ray(int x0, int y0, int x1, int y1, t_cub_data *cub)
 
 void	draw_v_line(int x, int start, int end, mlx_image_t *img)
 {
-	while(start++ <= end)
+	while(start++ < end)
+	{
 		mlx_put_pixel(img, x, start, 0x4514ffff);
+	}
 }
 
-void	draw_game(int x, int ray_d, t_cub_data *cub)
+void	draw_game(int x, double ray_d, t_cub_data *cub)
 {
-	int line_hight = (cub->img->height - ray_d * 6);
-	printf("%d\n", ray_d);
+	double line_hight = ((cub->img->height) - (ray_d * 6));
+	printf("--%f--\n", ray_d);
 	if (line_hight >= cub->mlx->height)
 		line_hight = cub->mlx->height;
 	// printf("%d\n", line_hight);
@@ -102,6 +104,19 @@ void	draw_game(int x, int ray_d, t_cub_data *cub)
 	// printf("%d--%d--%d--%d\n", x, draw_start, draw_end, 1);
 	// printf("%d--%d\n", draw_end, draw_start);
 	draw_v_line(x, draw_start, draw_end, cub->img);
+// 	double	height;
+// 	int	start;
+// 	int	end;
+
+// 	height = (ray_d / 64) * (WIDHT / 2);
+// 	start = (HEIGHT - height) / 2;
+// 	end = start + height;
+// 	if (end >= HEIGHT)
+// 		end = HEIGHT - 1;
+// 	if (start <= 0)
+// 		start = 1;
+// 	// printf("x=%d--heihgt=%f--start=%d--end=%d--img-height=%d--img-widht=%d\n",x,  height, start, end, cub->img->height, cub->img->width);
+// 	draw_v_line(x, start, end, cub->img);
 }
 
 int	raytrace(t_cub_data *cub)
@@ -131,7 +146,7 @@ int	raytrace(t_cub_data *cub)
 		tmp = temp + (cub->mlx->width / (FOV * step));
 		while(temp < tmp)
 		{
-			// printf("%d--%d\n", temp, tmp);
+			printf("%d--%d\n", temp, tmp);
 			draw_game(temp, ray_d, cub);
 			temp++;
 		}
