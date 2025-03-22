@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/20 12:55:51 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/22 16:54:12 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,7 @@ int	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		i++;
 	}
 	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
-	printf("%f\n", dlen);
+	// printf("%f\n", dlen);
 	return (int)dlen;
 }
 

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/21 17:50:31 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/22 16:54:44 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	draw_v_line(int x, int start, int end, mlx_image_t *img)
 void	draw_game(int x, double ray_d, t_cub_data *cub)
 {
 	double line_hight = ((cub->img->height) - (ray_d * 6));
-	printf("--%f--\n", ray_d);
+	// printf("--%f--\n", ray_d);
 	if (line_hight >= cub->mlx->height)
 		line_hight = cub->mlx->height;
 	// printf("%d\n", line_hight);
@@ -146,7 +146,7 @@ int	raytrace(t_cub_data *cub)
 		tmp = temp + (cub->mlx->width / (FOV * step));
 		while(temp < tmp)
 		{
-			printf("%d--%d\n", temp, tmp);
+			// printf("%d--%d\n", temp, tmp);
 			draw_game(temp, ray_d, cub);
 			temp++;
 		}

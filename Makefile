@@ -6,7 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/03/14 17:57:33 by ldick            ###   ########.fr        #
+#    Updated: 2025/03/22 16:35:04 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ UTILS			=	$(addprefix utils/, $(_UTILS))
 _ERROR			+=	error_utils.c error.c
 ERROR			=	$(addprefix error/, $(_ERROR))
 
-_GAME			=	game.c event.c map/map.c player/player.c rendering/render.c
+_GAME			=	game.c event.c map/map.c player/player.c rendering/render.c rendering/movement.c
 GAME			=	$(addprefix game/, $(_GAME))
 
 _SRCS			=	cub3d.c $(ERROR) $(UTILS) $(MATH) $(PARSING) $(GAME)

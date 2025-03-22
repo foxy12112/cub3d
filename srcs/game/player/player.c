@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:01:07 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/14 11:31:20 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/22 16:54:33 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,10 @@ void	draw_player(t_cub_data *cub)
 	// 160, 240;
 	p_start_x = (50 + (PSIZE / 2) +  (int)(cub->p->x) * cub->minimap->scale + (2 * cub->p->x));
 	p_start_y = (50 + (PSIZE / 2) + (int)(cub->p->y) * cub->minimap->scale + (2 * cub->p->y));
-	printf("p_start_x = %d, p_start_y = %d\n", p_start_x, p_start_y);
+	// printf("p_start_x = %d, p_start_y = %d\n", p_start_x, p_start_y);
 	cub->minimap->p_img = mlx_new_image(cub->mlx, 20, 20);
 	mlx_image_to_window(cub->mlx, cub->minimap->p_img, p_start_x, p_start_y);
-	printf("p_img_x = %d, p_img_y = %d\n", cub->minimap->p_img->instances[0].x, cub->minimap->p_img->instances[0].y);
+	// printf("p_img_x = %d, p_img_y = %d\n", cub->minimap->p_img->instances[0].x, cub->minimap->p_img->instances[0].y);
 	draw_play(cub);
 	// cub->minimap->p_img;
 	return ;

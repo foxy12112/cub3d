@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/18 18:47:56 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/22 17:18:18 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,45 @@ void	draw_c_f(t_cub_data *cub)
 
 void	movement(t_cub_data *cub)
 {
+	double	angle;
+	int	x;
+	int x1;
+	int y;
+	int y1;
+	x = 0;
+	y = 0;
+	y1 = 0;
+	x1 = 0;
+	t_loc loc;
+	angle = cub->p->dir * (M_PI / 180);
+
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_W) && !collision_top(cub))
-		cub->minimap->p_img->instances[0].y -= SPEED; // Move up on minimap
+	{
+		x1 = cub->minimap->p_img->instances[0].x + 5;
+		y1 = cub->minimap->p_img->instances[0].y + 5;
+		x = x1 + cos(angle - M_PI_2) * 2;
+		y = y1 + sin(angle - M_PI_2) * 2;
+		loc = teleport(x1, y1, x, y, cub);
+		cub->minimap->p_img->instances[0].x = loc.x;
+		cub->minimap->p_img->instances[0].y = loc.y;
+		printf("direction=%0.1f--x1=%d--x=%d--y1=%d--y=%d--new_loc=%d--nwx_loc_x=%d\n", cub->p->dir, x1, x, y1, y, loc.y, loc.x);
+	}
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_S) && !collision_bottom(cub))
-		cub->minimap->p_img->instances[0].y += SPEED; // Move down on minimap
+	{
+		cub->minimap->p_img->instances[0].y += (cos(angle) * SPEED);
+		cub->minimap->p_img->instances[0].x += (sin(angle) * SPEED); // Move up on minimap
+	}
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_A) && !collision_left(cub))
-		cub->minimap->p_img->instances[0].x -= SPEED; // Move left on minimap
+	{
+		cub->minimap->p_img->instances[0].y += (cos(angle) * SPEED);
+		cub->minimap->p_img->instances[0].x += -(sin(angle) * SPEED);
+	}
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_D) && !collision_right(cub))
-		cub->minimap->p_img->instances[0].x += SPEED; // Move right on minimap
+	{
+		cub->minimap->p_img->instances[0].y += -(cos(angle) * SPEED);
+		cub->minimap->p_img->instances[0].x += (sin(angle) * SPEED); // Move right on minimap
+	}
+	// printf("angle = %f--cos angle = %f--sin angle = %f--dir = %f\n", angle, cos(angle), sin(angle), cub->p->dir);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
 		cub->p->dir--;
 	else if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))

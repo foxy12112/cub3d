@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/18 20:01:04 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/22 16:27:30 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ typedef struct s_floor_data
 	int					g;
 	int					b;
 }						t_floor_data;
+
+typedef struct s_loc
+{
+	int x;
+	int y;
+}				t_loc;
 
 typedef struct s_ceiling_data
 {
@@ -165,6 +171,7 @@ void			draw_fov(t_cub_data *cub);
 
 int				check_texture_file(char *path, char *texture_name);
 int				check_texture_format(const char *path);
+t_loc	teleport(int x0, int y0, int x1, int y1, t_cub_data *cub);
 
 //parsing
 int				parsing(t_cub_data *cub);
