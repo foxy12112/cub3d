@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: foxy12112 <foxy12112@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/22 17:18:18 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/24 10:42:54 by foxy12112        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,13 @@ void	draw_c_f(t_cub_data *cub)
 
 void	movement(t_cub_data *cub)
 {
-	double	angle;
-	int	x;
-	int x1;
-	int y;
-	int y1;
-	x = 0;
-	y = 0;
-	y1 = 0;
-	x1 = 0;
-	t_loc loc;
-	angle = cub->p->dir * (M_PI / 180);
-
+	static int	i;
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_W) && !collision_top(cub))
 	{
-		x1 = cub->minimap->p_img->instances[0].x + 5;
-		y1 = cub->minimap->p_img->instances[0].y + 5;
-		x = x1 + cos(angle - M_PI_2) * 2;
-		y = y1 + sin(angle - M_PI_2) * 2;
-		loc = teleport(x1, y1, x, y, cub);
-		cub->minimap->p_img->instances[0].x = loc.x;
-		cub->minimap->p_img->instances[0].y = loc.y;
+		calc_locatoin(cub);
+		cub->minimap->p_img->instances[0].y = cub->move->y[i];
+		cub->minimap->p_img->instances[0].x = cub->move->x[i];
+		i++;
 		printf("direction=%0.1f--x1=%d--x=%d--y1=%d--y=%d--new_loc=%d--nwx_loc_x=%d\n", cub->p->dir, x1, x, y1, y, loc.y, loc.x);
 	}
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_S) && !collision_bottom(cub))
@@ -83,9 +69,15 @@ void	movement(t_cub_data *cub)
 	}
 	// printf("angle = %f--cos angle = %f--sin angle = %f--dir = %f\n", angle, cos(angle), sin(angle), cub->p->dir);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
+	{
 		cub->p->dir--;
+		i = 0;
+	}
 	else if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
+	{
 		cub->p->dir++;
+		i = 0;
+	}
 	if (cub->p->dir > 360)
 		cub->p->dir = 0;
 	if (cub->p->dir < 0)

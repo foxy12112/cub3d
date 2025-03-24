@@ -1,24 +1,23 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   movement.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/22 16:09:17 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/22 16:35:40 by ldick            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// /* ************************************************************************** */
+// /*                                                                            */
+// /*                                                        :::      ::::::::   */
+// /*   movement.c                                         :+:      :+:    :+:   */
+// /*                                                    +:+ +:+         +:+     */
+// /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+// /*                                                +#+#+#+#+#+   +#+           */
+// /*   Created: 2025/03/22 16:09:17 by ldick             #+#    #+#             */
+// /*   Updated: 2025/03/22 16:35:40 by ldick            ###   ########.fr       */
+// /*                                                                            */
+// /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_loc	ray_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
+static void	ray_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
 	int	dx = x1 - x0;
 	int	dy = y1 - y0;
 	double	step_x = (dx > 0) ? 2 : -2;
 	double	step_y = (dy > 0) ? 2 : -2;
-	t_loc loc;
 	dx = ft_abs(dx);
 	dy = ft_abs(dy);
 	int	p = 2 * dy - dx;
@@ -33,22 +32,18 @@ static t_loc	ray_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		}
 		p += 2 * dy;
 		x0 += step_x;
+		cub->move->x[i] = x0;
+		cub->move->y[i] = y0;
 		i++;
 	}
-	loc.x = x0;
-	loc.y = y0;
-	// double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
-	// printf("%f\n", dlen);
-	return (loc);
 }
 
-static t_loc	ray_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
+static void	ray_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
 	int	dx = x1 - x0;
 	int	dy = y1 - y0;
 	int	dx_abs = ft_abs(dx);
 	int	dy_abs = ft_abs(dy);
-	t_loc loc;
 	double	step_x = (dx > 0) ? 2 : -2;
 	double	step_y = (dy > 0) ? 2 : -2;
 	int	p = 2 * dx_abs - dy_abs;
@@ -62,20 +57,35 @@ static t_loc	ray_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		}
 		p += 2 * dx_abs;
 		y0 += step_y;
+		cub->move->x[i] = x0;
+		cub->move->y[i] = y0;
 		i++;
 	}
-	loc.x = x0;
-	loc.y = y0;
-	return (loc);
 }
 
-t_loc	teleport(int x0, int y0, int x1, int y1, t_cub_data *cub)
+static void	teleport(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
 	int dx = abs(x1 - x0);
 	int dy = abs(y1 - y0);
 
 	if (dx >= dy)
-		return (ray_x(x0, y0, x1, y1, cub));
+		ray_x(x0, y0, x1, y1, cub);
 	else
-		return(ray_y(x0, y0, x1, y1, cub));
+		ray_y(x0, y0, x1, y1, cub);
+}
+
+void	calc_location(t_cub_data *cub)
+{
+	double	angle;
+	int		x;
+	int		y;
+	int		x1;
+	int		y1;
+
+	angle = cub->p->dir * (M_PI / 180);
+	x1 = cub->minimap->p_img->instances[0].x + 5;
+	y1 = cub->minimap->p_img->instances[0].y + 5;
+	x = x1 + cos(angle - M_PI_2) * 100;
+	y = y1 + sin(angle - M_PI_2) * 100;
+	teleport(x1, y1, x, y, cub);
 }

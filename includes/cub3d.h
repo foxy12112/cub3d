@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: foxy12112 <foxy12112@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/22 16:27:30 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/24 10:45:54 by foxy12112        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../MLX42/include/MLX42/MLX42.h"
 # include "libs.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -33,8 +33,6 @@
 # define WEST 270
 # define SOUTH 180
 # define EAST 90
-# define WIDHT 1920
-# define HEIGHT 1080
 
 # ifndef SUCCESS
 #  define SUCCESS 0
@@ -51,12 +49,6 @@ typedef struct s_floor_data
 	int					g;
 	int					b;
 }						t_floor_data;
-
-typedef struct s_loc
-{
-	int x;
-	int y;
-}				t_loc;
 
 typedef struct s_ceiling_data
 {
@@ -90,6 +82,18 @@ typedef struct s_player_data
 	double				dir_x;
 	double				dir_y;
 }						t_player_data;
+
+typedef struct s_loc
+{
+	int					x;
+	int					y;
+}						t_loc;
+
+typedef struct s_move_data
+{
+	int					x[100];
+	int					y[100];
+}						t_move_data;
 
 typedef struct s_mlx
 {
@@ -133,10 +137,10 @@ typedef struct s_cub_data
 	mlx_image_t			*img;
 	t_minimap			*minimap;
 	t_textbox			*text;
+	t_move_data			*move;
 }						t_cub_data;
 
 void			clean_all(t_cub_data *cub);
-bool			touch(double px, double py, t_cub_data *cub);
 void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
 void			ft_error(t_cub_data *cub, const char *error_msg);
 int				init(char *argv[], t_cub_data *cub);
@@ -144,7 +148,6 @@ int				add_texture(int i, t_texture_data *texture, char *line);
 char			*rm_s(char *str);
 int				init_map(t_cub_data *cub, int fd);
 int				init_color(t_texture_data *texture);
-void				init_texture(t_cub_data *cub);
 void			*create_image(t_cub_data *cub, char *str);
 void			game_loop(t_cub_data *cub);
 int				get_color(int r, int g, int b, int a);
@@ -169,9 +172,9 @@ void			ft_swap(void *a, void *b, size_t size);
 int				ft_abs(int value);
 void			draw_fov(t_cub_data *cub);
 
+void			calc_location(t_cub_data *cub);
 int				check_texture_file(char *path, char *texture_name);
 int				check_texture_format(const char *path);
-t_loc	teleport(int x0, int y0, int x1, int y1, t_cub_data *cub);
 
 //parsing
 int				parsing(t_cub_data *cub);
@@ -180,6 +183,7 @@ int				check_map_exists(t_cub_data *cub);
 int				check_top(t_cub_data *cub);
 int				check_bottom(t_cub_data *cub);
 int				check_sides(t_cub_data *cub);
+int				check_player(t_cub_data *cub);
 int				check_leaks(char **map, t_cub_data *cub);
 int				check_map_validity(t_cub_data *cub);
 int				check_map_dim(t_cub_data *cub);
@@ -200,6 +204,5 @@ void			print_minimap_data(t_minimap *minimap);
 void			print_mapinfo(t_cub_data *data);
 void			print_player_info(t_cub_data *data);
 void			display_data(t_cub_data *data);
-int				raytrace(t_cub_data *cub);
 
 #endif
