@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: foxy12112 <foxy12112@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/24 10:42:54 by foxy12112        ###   ########.fr       */
+/*   Updated: 2025/03/24 16:18:10 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,36 @@ void	draw_c_f(t_cub_data *cub)
 	}
 }
 
+static void	print_location_in_file(t_cub_data *cub)
+{
+	FILE *file = fopen("logfile.txt", "w");
+	close(open("logfile.txt", O_TRUNC));
+	int i = 0;
+	while(i < 100)
+	{
+		fprintf(file, "x[%d]=%d----y[%d]=%d----true_player_x=%d----true_player_y=%d\n", i, cub->move->x[i], i, cub->move->y[i], cub->minimap->p_img->instances[0].x, cub->minimap->p_img->instances[0].y);
+		i++;
+	}
+}
+
 void	movement(t_cub_data *cub)
 {
 	static int	i;
+	double angle = 0;
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_W) && !collision_top(cub))
 	{
-		calc_locatoin(cub);
+		printf("%d\n", cub->calculated);
+		if (cub->calculated == false)
+		{
+			calc_location(cub);
+			print_location_in_file(cub);
+			cub->calculated = true;
+		}
+		if (cub->move->x[i] < 0 || cub->move->y[i] < 0)
+			return ;
 		cub->minimap->p_img->instances[0].y = cub->move->y[i];
 		cub->minimap->p_img->instances[0].x = cub->move->x[i];
 		i++;
-		printf("direction=%0.1f--x1=%d--x=%d--y1=%d--y=%d--new_loc=%d--nwx_loc_x=%d\n", cub->p->dir, x1, x, y1, y, loc.y, loc.x);
 	}
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_S) && !collision_bottom(cub))
 	{
@@ -71,11 +91,18 @@ void	movement(t_cub_data *cub)
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
 	{
 		cub->p->dir--;
+		cub->calculated = false;
 		i = 0;
 	}
 	else if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
 	{
 		cub->p->dir++;
+		cub->calculated = false;
+		i = 0;
+	}
+	if (i > 100)
+	{
+		cub->calculated = false;
 		i = 0;
 	}
 	if (cub->p->dir > 360)

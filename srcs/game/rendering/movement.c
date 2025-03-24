@@ -32,8 +32,8 @@ static void	ray_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		}
 		p += 2 * dy;
 		x0 += step_x;
-		cub->move->x[i] = x0;
-		cub->move->y[i] = y0;
+		cub->move->x[i] = x0 - 50;
+		cub->move->y[i] = y0 - 50;
 		i++;
 	}
 }
@@ -57,8 +57,8 @@ static void	ray_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		}
 		p += 2 * dx_abs;
 		y0 += step_y;
-		cub->move->x[i] = x0;
-		cub->move->y[i] = y0;
+		cub->move->x[i] = x0 - 50;
+		cub->move->y[i] = y0 - 50;
 		i++;
 	}
 }
@@ -88,4 +88,14 @@ void	calc_location(t_cub_data *cub)
 	x = x1 + cos(angle - M_PI_2) * 100;
 	y = y1 + sin(angle - M_PI_2) * 100;
 	teleport(x1, y1, x, y, cub);
+	x = 0;
+	while(x < 100)
+	{
+		if (cub->move->x[x] < 0 || cub->move->y[x] < 0)
+		{
+			cub->move->x[x] = cub->move->x[x - 1];
+			cub->move->y[x] = cub->move->y[x - 1];
+		}
+		x++;
+	}
 }

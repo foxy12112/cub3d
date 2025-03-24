@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: foxy12112 <foxy12112@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/24 10:44:54 by foxy12112        ###   ########.fr       */
+/*   Updated: 2025/03/24 14:09:32 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	init(char *argv[], t_cub_data *cub)
 	cub->move = safe_malloc(sizeof(t_move_data), cub, __func__);
 	cub->minimap->size_x = 0;
 	cub->minimap->size_y = 0;
+	cub->calculated = false;
 	mlx_set_setting(MLX_MAXIMIZED, true);
 	fd = open(argv[1], O_RDONLY);
 	line = get_next_line(fd);

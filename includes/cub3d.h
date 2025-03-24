@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: foxy12112 <foxy12112@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/24 10:45:54 by foxy12112        ###   ########.fr       */
+/*   Updated: 2025/03/24 14:07:48 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 # define WEST 270
 # define SOUTH 180
 # define EAST 90
-
+# define HEIGHT 1080
+# define WIDHT 1920
 # ifndef SUCCESS
 #  define SUCCESS 0
 # endif
@@ -138,6 +139,7 @@ typedef struct s_cub_data
 	t_minimap			*minimap;
 	t_textbox			*text;
 	t_move_data			*move;
+	bool				calculated;
 }						t_cub_data;
 
 void			clean_all(t_cub_data *cub);
@@ -165,6 +167,7 @@ bool			collision_top(t_cub_data *cub);
 bool			collision_bottom(t_cub_data *cub);
 void			scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height);
 mlx_texture_t	*scale_tex(mlx_texture_t *texture, int width, int height);
+bool			touch(double px, double py, t_cub_data *cub);
 
 void			draw_c_f(t_cub_data *cub);
 void			draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub);
@@ -183,7 +186,7 @@ int				check_map_exists(t_cub_data *cub);
 int				check_top(t_cub_data *cub);
 int				check_bottom(t_cub_data *cub);
 int				check_sides(t_cub_data *cub);
-int				check_player(t_cub_data *cub);
+// int				check_player(t_cub_data *cub);
 int				check_leaks(char **map, t_cub_data *cub);
 int				check_map_validity(t_cub_data *cub);
 int				check_map_dim(t_cub_data *cub);
@@ -204,5 +207,6 @@ void			print_minimap_data(t_minimap *minimap);
 void			print_mapinfo(t_cub_data *data);
 void			print_player_info(t_cub_data *data);
 void			display_data(t_cub_data *data);
+int				raytrace(t_cub_data *cub);
 
 #endif
