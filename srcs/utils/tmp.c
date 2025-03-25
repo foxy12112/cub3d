@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/02/28 16:49:08 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/19 10:31:06 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*safe_malloc(size_t size, t_cub_data *cub, const char *func_name)
 	return (ptr);
 }
 
-int		percent(double value, double total)
+int	percent(double value, double total)
 {
 	return ((value / total) * 100);
 }
@@ -45,7 +45,7 @@ void	ft_swap(void *a, void *b, size_t size)
 	}
 }
 
-int		ft_abs(int value)
+int	ft_abs(int value)
 {
 	return ((value < 0) ? -value : value);
 }

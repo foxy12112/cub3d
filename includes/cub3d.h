@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/14 11:35:31 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/20 13:34:53 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define WEST 270
 # define SOUTH 180
 # define EAST 90
+# define WIDTH 800
+# define HEIGHT 600
 
 # ifndef SUCCESS
 #  define SUCCESS 0
@@ -124,13 +126,16 @@ typedef struct s_cub_data
 	mlx_t				*mlx;
 	mlx_image_t			*img;
 	t_minimap			*minimap;
+	t_mlx				*mlx_data;
 	t_textbox			*text;
 }						t_cub_data;
 
 void			clean_all(t_cub_data *cub);
 void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
 void			ft_error(t_cub_data *cub, const char *error_msg);
+int				init_cub(char *argv[], t_cub_data *cub);
 int				init(char *argv[], t_cub_data *cub);
+void			init_texture(t_cub_data *cub);
 int				add_texture(int i, t_texture_data *texture, char *line);
 char			*rm_s(char *str);
 int				init_map(t_cub_data *cub, int fd);
@@ -183,6 +188,10 @@ int				check_rgb(int *rgb, char *line);
 void			get_rgb(t_cub_data *map, int *rgb, char **split_line);
 void			printMap(t_cub_data *cub);
 void			free_double_array(char **array);
+
+void			set_player_position(t_cub_data *cub, int j, int i, char c);
+int				check_and_find_player(t_cub_data *cub);
+void			set_player_direction(t_cub_data *cub, char c);
 
 //debug
 void			print_map_lines(char **map);

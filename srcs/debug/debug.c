@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 09:58:57 by psostari          #+#    #+#             */
-/*   Updated: 2025/03/14 10:27:58 by psostari         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:08:29 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ void	print_mapinfo(t_cub_data *data)
 	printf("Map width: %d\n", data->map_width);
 	print_map_lines(data->map);
 	printf("\n---- TEXTURES & COLORS ----\n");
-	printf("Color ceiling: #%x\n", data->texture->ceiling->r << 16 | data->texture->ceiling->g << 8 | data->texture->ceiling->b);
-	printf("Color floor: #%x\n", data->texture->floor->r << 16 | data->texture->floor->g << 8 | data->texture->floor->b);
+	printf("Color ceiling: #%x\n", data->texture->ceiling->r << 16 \
+		| data->texture->ceiling->g << 8 | data->texture->ceiling->b);
+	printf("Color floor: #%x\n", data->texture->floor->r << 16 \
+		| data->texture->floor->g << 8 | data->texture->floor->b);
 	printf("Texture north: %s\n", data->texture->no);
 	printf("Texture south: %s\n", data->texture->so);
 	printf("Texture east: %s\n", data->texture->ea);

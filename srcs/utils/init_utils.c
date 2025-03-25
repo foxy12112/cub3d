@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: petrasostaricvulic <petrasostaricvulic@    +#+  +:+       +#+        */
+/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/10 09:40:24 by petrasostar      ###   ########.fr       */
+/*   Updated: 2025/03/25 11:53:08 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "cub3d.h"
 
@@ -35,10 +34,10 @@ char	*rm_s(char *str)
 mlx_texture_t	*scale_tex(mlx_texture_t *texture, int width, int height)
 {
 	mlx_texture_t	*dst;
-	
+
 	dst = malloc(sizeof(mlx_texture_t));
 	if (!dst)
-		return (NULL); //change functino for ft_error
+		return (NULL);
 	dst->width = width;
 	dst->height = height;
 	dst->pixels = malloc(width * height * 4);
@@ -70,6 +69,5 @@ void	*create_image(t_cub_data *cub, char *str)
 
 int	get_color(int r, int g, int b, int a)
 {
-	return ((r & 0xff) << 24 | (g & 0xff) << 16 | (b & 0xff) << 8 | (a & 0xff) << 0);
+	return ((r << 24) | (g << 16) | (b << 8) | a);
 }
-
