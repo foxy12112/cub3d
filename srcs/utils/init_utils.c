@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/25 11:53:08 by psostari         ###   ########.fr       */
+/*   Updated: 2025/03/25 13:54:57 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	*create_image(t_cub_data *cub, char *str)
 	mlx_delete_texture(texture);
 	return (image);
 }
-
 
 int	get_color(int r, int g, int b, int a)
 {
