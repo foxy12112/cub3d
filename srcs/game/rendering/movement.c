@@ -34,6 +34,7 @@ static void	ray_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		x0 += step_x;
 		cub->move->x[i] = x0 - 50;
 		cub->move->y[i] = y0 - 50;
+		printf("%d--%d--%d\n", y0 - 50, x0 - 50, i);
 		i++;
 	}
 }
@@ -85,11 +86,11 @@ void	calc_location(t_cub_data *cub)
 	angle = cub->p->dir * (M_PI / 180);
 	x1 = cub->minimap->p_img->instances[0].x + 5;
 	y1 = cub->minimap->p_img->instances[0].y + 5;
-	x = x1 + cos(angle - M_PI_2) * 100;
-	y = y1 + sin(angle - M_PI_2) * 100;
+	x = x1 + cos(angle - M_PI_2) * 29;
+	y = y1 + sin(angle - M_PI_2) * 29;
 	teleport(x1, y1, x, y, cub);
 	x = 0;
-	while(x < 100)
+	while(x < 29)
 	{
 		if (cub->move->x[x] < 0 || cub->move->y[x] < 0)
 		{

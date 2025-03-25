@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/24 14:07:48 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/25 14:41:48 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "libs.h"
 
 # define SPEED 1
+# define ROT_SPEED 5
 # define RECTANGLE 20
 # define PSIZE 10
 # define FOV 90
@@ -92,8 +93,8 @@ typedef struct s_loc
 
 typedef struct s_move_data
 {
-	int					x[100];
-	int					y[100];
+	int					x[30];
+	int					y[30];
 }						t_move_data;
 
 typedef struct s_mlx

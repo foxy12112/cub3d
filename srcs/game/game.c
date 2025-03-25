@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/24 16:18:10 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/25 18:47:27 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	draw_c_f(t_cub_data *cub)
 	}
 }
 
-static void	print_location_in_file(t_cub_data *cub)
+static void	print_location_in_file(t_cub_data *cub) //TODO delete; illegal function
 {
-	FILE *file = fopen("logfile.txt", "w");
-	close(open("logfile.txt", O_TRUNC));
+	FILE *file = fopen("logfile.txt", "a");
 	int i = 0;
-	while(i < 100)
+	while(i < 29)
 	{
-		fprintf(file, "x[%d]=%d----y[%d]=%d----true_player_x=%d----true_player_y=%d\n", i, cub->move->x[i], i, cub->move->y[i], cub->minimap->p_img->instances[0].x, cub->minimap->p_img->instances[0].y);
+		// fprintf(file, "x[%d]=%d----y[%d]=%d----true_player_x=%d----true_player_y=%d\n", i, cub->move->x[i], i, cub->move->y[i], cub->minimap->p_img->instances[0].x - 50, cub->minimap->p_img->instances[0].y - 50);
+		fprintf(file, "%d-%d-%d-%d-", cub->move->x[i], cub->move->y[i], cub->minimap->p_img->instances[0].x - 50, cub->minimap->p_img->instances[0].y - 50);
 		i++;
 	}
 }
@@ -59,7 +59,7 @@ void	movement(t_cub_data *cub)
 	double angle = 0;
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_W) && !collision_top(cub))
 	{
-		printf("%d\n", cub->calculated);
+		printf("%s\n", (cub->calculated == 0) ? "false" : "true");
 		if (cub->calculated == false)
 		{
 			calc_location(cub);
@@ -68,8 +68,8 @@ void	movement(t_cub_data *cub)
 		}
 		if (cub->move->x[i] < 0 || cub->move->y[i] < 0)
 			return ;
-		cub->minimap->p_img->instances[0].y = cub->move->y[i];
-		cub->minimap->p_img->instances[0].x = cub->move->x[i];
+		cub->minimap->p_img->instances[0].y = (cub->move->y[i] += 50);
+		cub->minimap->p_img->instances[0].x = (cub->move->x[i] += 50);
 		i++;
 	}
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_S) && !collision_bottom(cub))
@@ -90,17 +90,17 @@ void	movement(t_cub_data *cub)
 	// printf("angle = %f--cos angle = %f--sin angle = %f--dir = %f\n", angle, cos(angle), sin(angle), cub->p->dir);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
 	{
-		cub->p->dir--;
+		cub->p->dir -= ROT_SPEED;
 		cub->calculated = false;
 		i = 0;
 	}
 	else if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
 	{
-		cub->p->dir++;
+		cub->p->dir += ROT_SPEED;
 		cub->calculated = false;
 		i = 0;
 	}
-	if (i > 100)
+	if (i > 20)
 	{
 		cub->calculated = false;
 		i = 0;
