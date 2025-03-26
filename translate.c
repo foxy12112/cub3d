@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:53:30 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/25 18:53:41 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/26 18:45:39 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	main(void)
 	int *true_y;
 	int *true_x;
 	int ll = count_lines(file);
+	printf("there are %d items in the arrays, there are six arrays, there are %d items in all arrays total, and %d items in the input file\n", ll, ll * 6, ll * 4);
 	fseek(file, 0, SEEK_END);
 	long file_size = ftell(file);
 	rewind(file);
@@ -92,7 +93,6 @@ int	main(void)
 	true_x = malloc(sizeof(int) * (ll / 4));
 	true_y = malloc(sizeof(int) * (ll / 4));
 	int j = 0;
-	printf("there are %d items in the arrays, there are six arrays, there are %d items in all arrays total, and %d items in the input file\n", ll, ll * 6, ll * 4);
 	for (int i = 0; i < ll; i++)
 	{
 		x[j] = atoi(arr[i]);

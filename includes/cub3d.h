@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/25 14:41:48 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/26 19:28:34 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void			ft_swap(void *a, void *b, size_t size);
 int				ft_abs(int value);
 void			draw_fov(t_cub_data *cub);
 
-void			calc_location(t_cub_data *cub);
+void			calc_location(t_cub_data *cub, double angle);
 int				check_texture_file(char *path, char *texture_name);
 int				check_texture_format(const char *path);
 

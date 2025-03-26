@@ -75,15 +75,13 @@ static void	teleport(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		ray_y(x0, y0, x1, y1, cub);
 }
 
-void	calc_location(t_cub_data *cub)
+void	calc_location(t_cub_data *cub, double angle)
 {
-	double	angle;
 	int		x;
 	int		y;
 	int		x1;
 	int		y1;
 
-	angle = cub->p->dir * (M_PI / 180);
 	x1 = cub->minimap->p_img->instances[0].x + 5;
 	y1 = cub->minimap->p_img->instances[0].y + 5;
 	x = x1 + cos(angle - M_PI_2) * 29;
