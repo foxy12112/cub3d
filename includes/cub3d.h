@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/26 19:28:34 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/27 12:56:38 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ typedef struct s_cub_data
 	t_minimap			*minimap;
 	t_textbox			*text;
 	t_move_data			*move;
-	bool				calculated;
+	int					calculated;
 }						t_cub_data;
 
 void			clean_all(t_cub_data *cub);
