@@ -6,7 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/03/22 16:35:04 by ldick            ###   ########.fr        #
+#    Updated: 2025/03/27 23:41:52 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -127,11 +127,12 @@ fclean:			clean
 				@rm -f $(NAME)
 				@rm -rf MLX42
 
-history:		clean
-				@rm -rf .git/permanent_history
+soft_clean:
+				@rm -f $(NAME)
+				@rm -rf bin
 
 re:				fclean all
 
-re_s:			clean all
+res:			soft_clean all
 
 .PHONY:			all clean fclean re

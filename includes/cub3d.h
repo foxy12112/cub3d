@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/27 12:56:38 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/28 00:40:49 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "libs.h"
 
 # define SPEED 1
+# define LENGTH 5
 # define ROT_SPEED 5
 # define RECTANGLE 20
 # define PSIZE 10

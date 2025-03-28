@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/27 13:51:35 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/28 00:42:24 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	print_location_in_file(t_cub_data *cub) //TODO delete; illegal funct
 {
 	FILE *file = fopen("logfile.txt", "a");
 	int i = 0;
-	while(i < 29)
+	while(i < 5)
 	{
 		// fprintf(file, "x[%d]=%d----y[%d]=%d----true_player_x=%d----true_player_y=%d\n", i, cub->move->x[i], i, cub->move->y[i], cub->minimap->p_img->instances[0].x - 50, cub->minimap->p_img->instances[0].y - 50);
 		fprintf(file, "%d-%d-%d-%d-", cub->move->x[i], cub->move->y[i], cub->minimap->p_img->instances[0].x - 50, cub->minimap->p_img->instances[0].y - 50);
@@ -81,7 +81,7 @@ void	movement(t_cub_data *cub)
 		}
 		printf("%f\n", dir);
 		if (cub->move->x[i] < 0 || cub->move->y[i] < 0)
-		return ;
+			return ;
 		cub->minimap->p_img->instances[0].y = (cub->move->y[i] += 45);
 		cub->minimap->p_img->instances[0].x = (cub->move->x[i] += 45);
 		i++;
@@ -98,7 +98,7 @@ void	movement(t_cub_data *cub)
 		}
 		printf("%f\n", dir);
 		if (cub->move->x[i] < 0 || cub->move->y[i] < 0)
-		return ;
+			return ;
 		cub->minimap->p_img->instances[0].y = (cub->move->y[i] += 45);
 		cub->minimap->p_img->instances[0].x = (cub->move->x[i] += 45);
 		i++;
@@ -146,7 +146,7 @@ void	movement(t_cub_data *cub)
 		cub->calculated = 0;
 		i = 0;
 	}
-	if (i > 20)
+	if (i > (int)LENGTH / 2)
 	{
 		cub->calculated = 0;
 		i = 0;

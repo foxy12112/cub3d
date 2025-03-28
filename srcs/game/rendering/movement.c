@@ -80,7 +80,7 @@ static void clear_tp(t_cub_data *cub)
 	int	x;
 
 	x = 0;
-	while(x < 29)
+	while(x < LENGTH)
 	{
 		cub->move->x[x] = cub->p->x;
 		cub->move->y[x] = cub->p->y;
@@ -98,11 +98,11 @@ void	calc_location(t_cub_data *cub, double angle)
 	clear_tp(cub);
 	x1 = cub->minimap->p_img->instances[0].x + 5;
 	y1 = cub->minimap->p_img->instances[0].y + 5;
-	x = x1 + cos(angle - M_PI_2) * 29;
-	y = y1 + sin(angle - M_PI_2) * 29;
+	x = x1 + cos(angle - M_PI_2) * LENGTH;
+	y = y1 + sin(angle - M_PI_2) * LENGTH;
 	teleport(x1, y1, x, y, cub);
 	x = 0;
-	while(x < 29)
+	while(x < LENGTH)
 	{
 		if (cub->move->x[x] < 0 || cub->move->y[x] < 0)
 		{

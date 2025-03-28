@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/22 16:54:44 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/28 03:31:02 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void	draw_game(int x, double ray_d, t_cub_data *cub)
 	// printf("--%f--\n", ray_d);
 	if (line_hight >= cub->mlx->height)
 		line_hight = cub->mlx->height;
+	if (line_hight <= 20)
+		line_hight = 20;
 	// printf("%d\n", line_hight);
 	int	draw_start = (-line_hight / 2) + (cub->img->height / 2);
 	draw_start = (draw_start < 0) ? 0 : draw_start;
@@ -129,18 +131,18 @@ int	raytrace(t_cub_data *cub)
 	double	i;
 	double dir;
 	int temp = 0;
-	dir = cub->p->dir;
+	dir = cub->p->dir - 45;
 	i = 0;
 	int tmp;
 	draw_c_f(cub);
-	int step = 1;
+	int step = 4;
 	while(i < (double)FOV)
 	{
 		angle = dir * (M_PI / 180);
 		x1 = cub->minimap->p_img->instances[0].x + 5;
 		y1 = cub->minimap->p_img->instances[0].y + 5;
-		x = x1 + cos(angle - M_PI_2) * 500;
-		y = y1 + sin(angle - M_PI_2) * 500;
+		x = x1 + cos(angle - M_PI_2) * cub->minimap->img->width;
+		y = y1 + sin(angle - M_PI_2) * cub->minimap->img->width;
 		int ray_d = ray(x1, y1, x, y, cub);
 		// printf("ray-length=%d--ray_number=%0f\n", ray_d, i);
 		tmp = temp + (cub->mlx->width / (FOV * step));
@@ -150,8 +152,8 @@ int	raytrace(t_cub_data *cub)
 			draw_game(temp, ray_d, cub);
 			temp++;
 		}
-		i += 1;
-		dir += 0.5;
+		i += 0.25;
+		dir += 0.25;
 	}
 	return (1);
 }
