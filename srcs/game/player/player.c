@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:01:07 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/22 16:54:33 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/28 12:00:11 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,14 @@ bool	collision_right(t_cub_data *cub)
 		y += 0.05;
 	}
 	return (false);
+}
+
+bool	collision(t_cub_data *cub)
+{
+	collision_top(cub);
+	collision_bottom(cub);
+	collision_left(cub);
+	collision_right(cub);
 }
 
 // int	collision(t_cub_data *cub)

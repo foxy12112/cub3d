@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/28 00:40:49 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/28 11:59:44 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,5 +210,6 @@ void			print_mapinfo(t_cub_data *data);
 void			print_player_info(t_cub_data *data);
 void			display_data(t_cub_data *data);
 int				raytrace(t_cub_data *cub);
+bool			collision(t_cub_data *cub);
 
 #endif
