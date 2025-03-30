@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:01:07 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/30 14:48:04 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/30 14:58:49 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,32 @@ bool	collision_right(t_cub_data *cub)
 bool	collision(t_cub_data *cub)
 {
 	if (collision_top(cub) == true)
+	{
+		cub->minimap->p_img->instances[0].y += 5;
 		return (true);
+	}
 	if (collision_bottom(cub) == true)
+	{
+		cub->minimap->p_img->instances[0].y -= 5;
 		return (true);
+	}
 	if (collision_left(cub) == true)
+	{
+		cub->minimap->p_img->instances[0].x += 5;
 		return (true);
+	}
 	if (collision_right(cub) == true)
+	{
+		cub->minimap->p_img->instances[0].x -= 5;
 		return (true);
+	}
 	return (false);
 }
 
+// void	tp_back(t_cub_data *cub)
+// {
+// 	if (collision_top(cub))
+// }
 // int	collision(t_cub_data *cub)
 // {
 // 	double	x;

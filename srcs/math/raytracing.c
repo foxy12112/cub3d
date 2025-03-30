@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/28 03:31:02 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/30 18:13:08 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int	raytrace(t_cub_data *cub)
 	i = 0;
 	int tmp;
 	draw_c_f(cub);
-	int step = 4;
+	int step = 20;
 	while(i < (double)FOV)
 	{
 		angle = dir * (M_PI / 180);
@@ -152,8 +152,8 @@ int	raytrace(t_cub_data *cub)
 			draw_game(temp, ray_d, cub);
 			temp++;
 		}
-		i += 0.25;
-		dir += 0.25;
+		i += 0.05;
+		dir += 0.05;
 	}
 	return (1);
 }

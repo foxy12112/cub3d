@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/28 00:42:24 by ldick            ###   ########.fr       */
+/*   Updated: 2025/03/30 14:57:00 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	movement(t_cub_data *cub)
 	
 	dir = cub->p->dir;
 	angle = 0;
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_W) && !collision_top(cub))
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_W) && !collision(cub))
 	{
 		print_location_in_file(cub);
 		if (cub->calculated != 1)
@@ -86,7 +86,7 @@ void	movement(t_cub_data *cub)
 		cub->minimap->p_img->instances[0].x = (cub->move->x[i] += 45);
 		i++;
 	}
-	else if (mlx_is_key_down(cub->mlx, MLX_KEY_S) && !collision_bottom(cub))
+	else if (mlx_is_key_down(cub->mlx, MLX_KEY_S) && !collision(cub))
 	{ 
 		print_location_in_file(cub);
 		if (cub->calculated != 2)
@@ -103,7 +103,7 @@ void	movement(t_cub_data *cub)
 		cub->minimap->p_img->instances[0].x = (cub->move->x[i] += 45);
 		i++;
 	}
-	else if (mlx_is_key_down(cub->mlx, MLX_KEY_A) && !collision_left(cub))
+	else if (mlx_is_key_down(cub->mlx, MLX_KEY_A) && !collision(cub))
 	{
 		if (cub->calculated != 3)
 		{
@@ -118,7 +118,7 @@ void	movement(t_cub_data *cub)
 		cub->minimap->p_img->instances[0].x = (cub->move->x[i] += 45);
 		i++;
 	}
-	else if (mlx_is_key_down(cub->mlx, MLX_KEY_D) && !collision_right(cub))
+	else if (mlx_is_key_down(cub->mlx, MLX_KEY_D) && !collision(cub))
 	{
 		if (cub->calculated != 4)
 		{
@@ -128,12 +128,14 @@ void	movement(t_cub_data *cub)
 			cub->calculated = 4;
 		}
 		if (cub->move->x[i] < 0 || cub->move->y[i] < 0)
-		return ;
+			return ;
 		cub->minimap->p_img->instances[0].y = (cub->move->y[i] += 45);
 		cub->minimap->p_img->instances[0].x = (cub->move->x[i] += 45);
 		i++;
 	}
 	// printf("angle = %f--cos angle = %f--sin angle = %f--dir = %f\n", angle, cos(angle), sin(angle), cub->p->dir);
+	// if (collision(cub))
+	// 	tp_back(cub);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
 	{
 		cub->p->dir -= ROT_SPEED;
