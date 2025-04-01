@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: petrasostaricvulic <petrasostaricvulic@    +#+  +:+       +#+        */
+/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/31 11:30:51 by petrasostar      ###   ########.fr       */
+/*   Updated: 2025/04/01 12:10:19 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define SOUTH 180
 # define EAST 90
 # define HEIGHT 1080
-# define WIDHT 1920
+# define WIDTH 1920
 # ifndef SUCCESS
 #  define SUCCESS 0
 # endif
@@ -83,17 +83,10 @@ typedef struct s_player_data
 	double				dir;
 	double				dir_x;
 	double				dir_y;
+	double				plane_x;
+	double				plane_y;
 	double				camera_angle;
 }						t_player_data;
-
-typedef struct s_ray_data
-{
-	double sideDistX;
-	double deltaDistX;
-	double sideDistY;
-	double deltaDistY;
-	int side;
-} t_ray_data;
 
 typedef struct s_loc
 {
@@ -151,6 +144,8 @@ typedef struct s_cub_data
 	t_textbox			*text;
 	t_move_data			*move;
 	int					calculated;
+	double				ray_dir_x;
+	double				ray_dir_y;
 }						t_cub_data;
 
 void			clean_all(t_cub_data *cub);
@@ -223,8 +218,10 @@ void			print_mapinfo(t_cub_data *data);
 void			print_player_info(t_cub_data *data);
 void			display_data(t_cub_data *data);
 
-void	draw_v_line(int x, int start, int end, mlx_image_t *img);
-void 	draw_game(int x, double ray_d, t_cub_data *cub);
-int		raytrace(t_cub_data *cub);
+void			draw_v_line(int x, int start, int end, mlx_image_t *img);
+void			draw_game(int x, double ray_d, t_cub_data *cub);
+void			raytrace(t_cub_data *cub);
+bool			touch(double px, double py, t_cub_data *cub);
+void			init_ray_direction(t_cub_data *cub, int x);
 
 #endif
