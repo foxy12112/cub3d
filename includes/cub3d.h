@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/01 12:10:19 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/02 13:19:31 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,8 @@ typedef struct s_cub_data
 	int					calculated;
 	double				ray_dir_x;
 	double				ray_dir_y;
+	int					side;
+	double				wallX;
 }						t_cub_data;
 
 void			clean_all(t_cub_data *cub);
@@ -223,5 +225,12 @@ void			draw_game(int x, double ray_d, t_cub_data *cub);
 void			raytrace(t_cub_data *cub);
 bool			touch(double px, double py, t_cub_data *cub);
 void			init_ray_direction(t_cub_data *cub, int x);
+double			calculate_wallX(t_cub_data *cub, double perpWallDist);
+void			draw_textured_wall(int x, int drawStart, int drawEnd, t_cub_data *cub);
+void			detect_wall_side(t_cub_data *cub, double ray_dir_x, double ray_dir_y, int hit_vertical);
+mlx_image_t		*get_wall_texture(t_cub_data *cub);
+
+
+uint32_t		get_pixel_color(mlx_image_t *img, uint32_t x, uint32_t y);
 
 #endif

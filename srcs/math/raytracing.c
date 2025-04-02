@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:48:44 by psostari          #+#    #+#             */
-/*   Updated: 2025/04/01 12:11:54 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:27:42 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,22 @@ static int	ray(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
 	int	dx;
 	int	dy;
+	int	hit_vertical; // 1 = hit on the vetical l. 0 = horizontal
 
 	dx = abs(x1 - x0);
 	dy = abs(y1 - y0);
 	if (dx >= dy)
 	{
+		hit_vertical = 1; // hit is on the vertical line
+		detect_wall_side(cub, cub->ray_dir_x, cub->ray_dir_y, hit_vertical);
 		return (ray_x(x0, y0, x1, y1, cub));
 	}
-	return (ray_y(x0, y0, x1, y1, cub));
+	else
+	{
+		hit_vertical = 0; // on the horizontal l.
+		detect_wall_side(cub, cub->ray_dir_x, cub->ray_dir_y, hit_vertical);
+		return (ray_y(x0, y0, x1, y1, cub));
+	}
 }
 
 void draw_v_line(int x, int start, int end, mlx_image_t *img)
@@ -166,11 +174,22 @@ void	raytrace(t_cub_data *cub)
 		init_ray_direction(cub, x);
 		perpWallDist = ray(cub->p->x, cub->p->y, cub->ray_dir_x, \
 			cub->ray_dir_y, cub);
+		cub->wallX = calculate_wallX(cub, perpWallDist);
 		lineHeight = (int)(cub->mlx->height / perpWallDist);
 		drawStart = -lineHeight / 2 + cub->mlx->height / 2;
 		drawEnd = lineHeight / 2 + cub->mlx->height / 2;
-		draw_v_line(x, drawStart, drawEnd, cub->img);
-		draw_game(x, perpWallDist, cub);
+		if (drawStart < 0)
+			drawStart = 0;
+		if (drawEnd >= cub->mlx->height)
+			drawEnd = cub->mlx->height - 1;
+		if (get_wall_texture(cub) != NULL)
+		{
+			draw_textured_wall(x, drawStart, drawEnd, cub);
+		}
+		else
+		{
+			draw_game(x, perpWallDist, cub);
+		}
 		x++;
 	}
 }

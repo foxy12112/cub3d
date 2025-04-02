@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:40:54 by petrasostar       #+#    #+#             */
-/*   Updated: 2025/03/25 10:46:40 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/02 09:28:10 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ void	init_texture(t_cub_data *cub)
 
 int	add_texture(int i, t_texture_data *texture, char *line)
 {
-	line = rm_s(line);
-	if (ft_strlen(line) == 0)
+	if (!line || *line == '\0')
 		return (i);
+	line = rm_s(line);
 	if (ft_strncmp(line, "NO", 2) == 0)
 		texture->no = ft_strdup(line + 2);
 	else if (ft_strncmp(line, "SO", 2) == 0)
@@ -81,8 +81,6 @@ int	add_texture(int i, t_texture_data *texture, char *line)
 		texture->floor->floor = ft_strdup(line + 1);
 	else if (ft_strncmp(line, "C", 1) == 0)
 		texture->ceiling->ceiling = ft_strdup(line + 1);
-	else if ((line)[0] == '\n')
-		return (i);
 	else
 		return (720);
 	return (i + 1);
