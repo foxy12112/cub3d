@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/30 14:57:00 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/04 13:11:15 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	print_location_in_file(t_cub_data *cub) //TODO delete; illegal funct
 	}
 }
 
-static double	correct_dir(double angle)
+double	correct_dir(double angle)
 {
 	if (angle > 360)
 		angle -= 360;

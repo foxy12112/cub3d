@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:08:20 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/10 13:18:29 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/02 21:05:08 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,20 +126,14 @@ void map(t_cub_data *cub)
     printf("Minimap scale: %.2f\n", cub->minimap->scale);
 
     // Create the minimap image
-    cub->minimap->img = mlx_new_image(cub->mlx, 1000, 2000);
+    cub->minimap->img = mlx_new_image(cub->mlx, cub->mlx->width, cub->mlx->height);
     if (!cub->minimap->img)
     {
         printf("Error: Failed to create minimap image.\n");
         return;
     }
     mlx_image_to_window(cub->mlx, cub->minimap->img, 50, 50);
-
-    // Draw the map
-    draw_map(cub);
-
-	for (int i = cub->minimap->img->instances[0].x + ((cub->p->x + 2) * 20); i < cub->minimap->img->instances[0].x + ((cub->p->x + 2) * 20) + 20; i++)
-		for( int j = cub->minimap->img->instances[0].y + ((cub->p->y + 2) * 20); j < cub->minimap->img->instances[0].y + ((cub->p->y + 2) * 20) + 20; j++)
-			mlx_put_pixel(cub->minimap->img, i, j, 0x00ff00);
+	draw_map(cub);
     // Set the player's starting position
     cub->p->x = (double)cub->p->start_x;
     cub->p->y = (double)cub->p->start_y;

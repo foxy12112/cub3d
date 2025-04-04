@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/03/28 11:59:44 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/04 13:11:22 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,10 @@ typedef struct s_player_data
 	double				dir;
 	double				dir_x;
 	double				dir_y;
+	double				plane_x;
+	double				plane_y;
+	double				camera_angle;
+	int					perp_wall_dist;
 }						t_player_data;
 
 typedef struct s_loc
@@ -142,6 +146,8 @@ typedef struct s_cub_data
 	t_textbox			*text;
 	t_move_data			*move;
 	int					calculated;
+	double				ray_dir_x;
+	double				ray_dir_y;
 }						t_cub_data;
 
 void			clean_all(t_cub_data *cub);
@@ -211,5 +217,7 @@ void			print_player_info(t_cub_data *data);
 void			display_data(t_cub_data *data);
 int				raytrace(t_cub_data *cub);
 bool			collision(t_cub_data *cub);
+double	correct_dir(double angle);
 
 #endif
+//TODO change tenary operators to normal if condition

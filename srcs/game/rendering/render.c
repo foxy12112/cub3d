@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/22 16:54:12 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/03 22:13:52 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,8 +281,8 @@ void	draw_fov(t_cub_data *cub)
 		x = x1 + cos(angle - M_PI_2) * 200;
 		y = y1 + sin(angle - M_PI_2) * 200;
 		draw_line(x1, y1, x, y, cub);
-		i += 0.1;
-		dir += 0.1;
+		i += 0.01;
+		dir += 0.01;
 		count++;
 	}
 	printf("%d\n", count);
