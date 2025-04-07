@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/04 13:11:22 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/07 18:01:15 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CUB3D_H
 
 # include "libs.h"
-# include "../MLX42/include/MLX42/MLX42.h"
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -23,7 +22,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <ctype.h>
-# include "libs.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 
 # define SPEED 1
 # define LENGTH 5

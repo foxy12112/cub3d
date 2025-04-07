@@ -6,13 +6,13 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/04 15:55:02 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/07 18:51:47 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	ray_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
+static double	ray_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
 	int	dx = x1 - x0;
 	int	dy = y1 - y0;
@@ -38,10 +38,10 @@ static int	ray_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	}
 	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
 	cub->p->perp_wall_dist = dlen;
-	return (int)dlen;
+	return dlen;
 }
 
-static int	ray_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
+static double	ray_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
 	int	dx = x1 - x0;
 	int	dy = y1 - y0;
@@ -66,10 +66,10 @@ static int	ray_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	}
 	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
 	cub->p->perp_wall_dist = dlen;
-	return (int)dlen;
+	return dlen;
 }
 
-static int	ray(int x0, int y0, int x1, int y1, t_cub_data *cub)
+static double	ray(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
 	int dx = abs(x1 - x0);
 	int dy = abs(y1 - y0);
@@ -185,9 +185,10 @@ static int	ray(int x0, int y0, int x1, int y1, t_cub_data *cub)
 
 void	draw_v_line(int x, int start, int end, mlx_image_t *img)
 {
+	int color = (x % 2 == 0) ? 0x4514ffff : 0xffffffff;
 	while(start++ < end)
 	{
-		mlx_put_pixel(img, x, start, 0x4514ffff);
+		mlx_put_pixel(img, x, start, color);
 	}
 }
 
@@ -222,8 +223,10 @@ int	raytrace(t_cub_data *cub)
 	i = 0;
 	double tmp;
 	draw_c_f(cub);
+	double dir_inc = (double)FOV / (double)1920;
+	printf("dir_int = %f\n", dir_inc);
 	// int step = 20;
-	FILE *file = fopen("log.txt", "w");
+	// FILE *file = fopen("log.txt", "w");
 	while(i < 1920)
 	{
 		angle = dir * (M_PI / 180);
@@ -231,16 +234,18 @@ int	raytrace(t_cub_data *cub)
 		y1 = cub->minimap->p_img->instances[0].y + 5;
 		x = x1 + cos(angle - M_PI_2) * cub->minimap->img->width;
 		y = y1 + sin(angle - M_PI_2) * cub->minimap->img->width;
-		int ray_d = ray(x1, y1,x, y, cub);
+		double ray_d = ray(x1, y1,x, y, cub);
 		tmp = temp + 1;
 		draw_game(i, ray_d, cub);
-		// printf("%f--%f\n", x, y);
-		// fprintf(file, "angle=%f\t--\tdir=%f\t-\ti=%f\t-\tx1=%f\t-\ty1=%f\t-\tray_t=%f\n", angle, dir, i, x, y, ray_d);
 		i += 1;
-		dir += 0.046875;
+		// dir += (FOV / 1920);
+		dir += dir_inc;
+		// printf("dir = %f\t\t dir_inc = %f\n", dir, dir_inc);
 	}
-	fclose(file);
+	// fclose(file);
 	// exit(1);
 	return (1);
 }
+
+
 //TODO redo raytrace to be able to cast more rays.
