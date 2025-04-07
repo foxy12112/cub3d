@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/07 18:51:47 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/08 01:26:12 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,15 +218,11 @@ int	raytrace(t_cub_data *cub)
 	double angle;
 	double	i;
 	double dir;
-	double temp = 0;
 	dir = cub->p->dir - 45;
 	i = 0;
-	double tmp;
 	draw_c_f(cub);
 	double dir_inc = (double)FOV / (double)1920;
-	printf("dir_int = %f\n", dir_inc);
-	// int step = 20;
-	// FILE *file = fopen("log.txt", "w");
+	// printf("dir_int = %f\n", dir_inc);
 	while(i < 1920)
 	{
 		angle = dir * (M_PI / 180);
@@ -235,15 +231,11 @@ int	raytrace(t_cub_data *cub)
 		x = x1 + cos(angle - M_PI_2) * cub->minimap->img->width;
 		y = y1 + sin(angle - M_PI_2) * cub->minimap->img->width;
 		double ray_d = ray(x1, y1,x, y, cub);
-		tmp = temp + 1;
 		draw_game(i, ray_d, cub);
+		printf("ray_dist = %f\n", ray_d);
 		i += 1;
-		// dir += (FOV / 1920);
 		dir += dir_inc;
-		// printf("dir = %f\t\t dir_inc = %f\n", dir, dir_inc);
 	}
-	// fclose(file);
-	// exit(1);
 	return (1);
 }
 
