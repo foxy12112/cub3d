@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:40:54 by petrasostar       #+#    #+#             */
-/*   Updated: 2025/04/02 09:28:10 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/07 11:38:53 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,15 @@ int	init(char *argv[], t_cub_data *cub)
 	return (0);
 }
 
-void	init_texture(t_cub_data *cub)
+int	init_texture(t_cub_data *cub)
 {
-	if (check_texture(cub->texture->ea, "East")
-		|| check_texture(cub->texture->no, "North")
-		|| check_texture(cub->texture->so, "South")
-		|| check_texture(cub->texture->we, "West"))
+	if (!cub->texture->ea || !cub->texture->no || !cub->texture->so
+		|| !cub->texture->we
+		|| !cub->texture->ceiling || !cub->texture->ceiling->ceiling
+		|| !cub->texture->floor || !cub->texture->floor->floor)
 	{
-		return ;
+		ft_error(cub, "Error: Missing texture data.");
+		return (EXIT_FAILURE);
 	}
 	cub->texture->ea[ft_strlen(cub->texture->ea) - 1] = '\0';
 	cub->texture->no[ft_strlen(cub->texture->no) - 1] = '\0';
@@ -62,6 +63,7 @@ void	init_texture(t_cub_data *cub)
 	cub->texture->no_tex = create_image(cub, cub->texture->no);
 	cub->texture->so_tex = create_image(cub, cub->texture->so);
 	cub->texture->we_tex = create_image(cub, cub->texture->we);
+	return (0);
 }
 
 int	add_texture(int i, t_texture_data *texture, char *line)

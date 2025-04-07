@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/02 13:19:31 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/07 11:35:26 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
 void			ft_error(t_cub_data *cub, const char *error_msg);
 int				init_cub(char *argv[], t_cub_data *cub);
 int				init(char *argv[], t_cub_data *cub);
-void			init_texture(t_cub_data *cub);
+int			init_texture(t_cub_data *cub);
 int				add_texture(int i, t_texture_data *texture, char *line);
 char			*rm_s(char *str);
 int				init_map(t_cub_data *cub, int fd);
@@ -201,7 +201,7 @@ int				check_map_dim(t_cub_data *cub);
 int				check_row(t_cub_data *cub);
 int				check_map_elements(t_cub_data *cub);
 int				check_invalid_chars(t_cub_data *cub);
-int				check_texture(const char *path, const char *texture_name);
+// int				check_texture(const char *path, const char *texture_name);
 int				check_textures(t_cub_data *cub);
 int				parse_rgb_line(char *line);
 int				check_rgb(int *rgb, char *line);

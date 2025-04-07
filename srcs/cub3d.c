@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:36:02 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/01 12:34:47 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:06:04 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,3 @@ int	main(int argc, char *argv[])
 	// clean_all(cub);
 	return (0);
 }
-
