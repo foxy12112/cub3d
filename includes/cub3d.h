@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/07 18:01:15 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/08 18:39:00 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define EAST 90
 # define HEIGHT 1080
 # define WIDHT 1920
+# define TURN_SPEED 20
 # ifndef SUCCESS
 #  define SUCCESS 0
 # endif
@@ -147,6 +148,7 @@ typedef struct s_cub_data
 	int					calculated;
 	double				ray_dir_x;
 	double				ray_dir_y;
+	double				time;
 }						t_cub_data;
 
 void			clean_all(t_cub_data *cub);

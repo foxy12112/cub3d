@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/24 14:09:32 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/08 16:55:45 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	init(char *argv[], t_cub_data *cub)
 	mlx_set_setting(MLX_MAXIMIZED, true);
 	fd = open(argv[1], O_RDONLY);
 	line = get_next_line(fd);
+	cub->time = 0;
 	while (i < 6)
 	{
 		i = add_texture(i, cub->texture, rm_s(line));
