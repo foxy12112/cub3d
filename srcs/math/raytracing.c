@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/08 01:26:12 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/08 15:51:53 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,15 @@ static double	ray_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 			y0 += step_y;
 			p -= 2 * dx;
 		}
+		else
+		{
 		p += 2 * dy;
 		x0 += step_x;
+		}
 		i++;
 	}
 	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
-	cub->p->perp_wall_dist = dlen;
+	cub->p->perp_wall_dist = x0 - dx;
 	return dlen;
 }
 
@@ -60,12 +63,15 @@ static double	ray_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 			x0 += step_x;
 			p -= 2 * dy_abs;
 		}
-		p += 2 * dx_abs;
-		y0 += step_y;
+		else
+		{
+			p += 2 * dx_abs;
+			y0 += step_y;
+		}
 		i++;
 	}
 	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
-	cub->p->perp_wall_dist = dlen;
+	cub->p->perp_wall_dist = y0 - dy;	
 	return dlen;
 }
 
@@ -218,26 +224,35 @@ int	raytrace(t_cub_data *cub)
 	double angle;
 	double	i;
 	double dir;
+	double cameraX, ray_dir_x, ray_dir_y;
 	dir = cub->p->dir - 45;
 	i = 0;
 	draw_c_f(cub);
 	double dir_inc = (double)FOV / (double)1920;
+	
 	// printf("dir_int = %f\n", dir_inc);
 	while(i < 1920)
 	{
+		// cameraX = 2 * x / (double)WIDHT - 1;
+		// ray_dir_x = cub->p->dir_x + cub->p->plane_x * cameraX;
+		// ray_dir_y = cub->p->dir_y + cub->p->plane_y * cameraX;
 		angle = dir * (M_PI / 180);
 		x1 = cub->minimap->p_img->instances[0].x + 5;
 		y1 = cub->minimap->p_img->instances[0].y + 5;
-		x = x1 + cos(angle - M_PI_2) * cub->minimap->img->width;
-		y = y1 + sin(angle - M_PI_2) * cub->minimap->img->width;
-		double ray_d = ray(x1, y1,x, y, cub);
+		x = x1 + cos(angle - M_PI_2) * cub->mlx->width;
+		y = y1 + sin(angle - M_PI_2) * cub->mlx->width;
+		// printf("%f--%f\n", x, y);
+		// double ray_d = ray(x1, y1,x, y, cub);
+		double ray_d = ray(x1, y1, x, y, cub);
+		// double ray_d = cub->p->perp_wall_dist;
 		draw_game(i, ray_d, cub);
-		printf("ray_dist = %f\n", ray_d);
+		// printf("ray_dist = %f\n", ray_d);
 		i += 1;
 		dir += dir_inc;
 	}
 	return (1);
 }
+
 
 
 //TODO redo raytrace to be able to cast more rays.

@@ -6,7 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/04/03 15:36:03 by ldick            ###   ########.fr        #
+#    Updated: 2025/04/08 12:43:13 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,7 +112,6 @@ $(SUBMODULE):
 $(NAME): $(LIBRARY) $(OBJS)
 				@$(COMPILER) -o $(NAME) $(OBJS) $(LIB_FLAGS) $(MLX_FLAGS) $(EXTRA_FLAGS) $(CFLAGS)
 				@echo "\t\t\t\t$(RED) compilation success :3$(NC)"
-				@mkdir -p .git/permanent_history
 
 MLX42:
 				@if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42.git; fi
