@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/07 12:02:46 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/08 12:28:01 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,27 @@
 
 char	*rm_s(char *str)
 {
-	int		i;
-	int		j;
-	int		lenght;
+	int	i;
+	int	j;
+	int	len;
 
-	lenght = ft_strlen(str);
 	i = 0;
 	j = 0;
-	while (i < lenght)
-	{
-		if (str[i] != ' ')
-			str[j++] = str[i];
+	len = ft_strlen(str);
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\r')
 		i++;
+	if (i == len)
+	{
+		str[0] = '\0';
+		return (str);
 	}
+	while (i < len)
+		str[j++] = str[i++];
 	str[j] = '\0';
+	len = ft_strlen(str) - 1;
+	while (len >= 0 && (str[len] == ' ' || str[len] == '\t'
+			|| str[len] == '\n' || str[len] == '\r'))
+		str[len--] = '\0';
 	return (str);
 }
 

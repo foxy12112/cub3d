@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:40:54 by petrasostar       #+#    #+#             */
-/*   Updated: 2025/04/07 11:38:53 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/08 12:28:29 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,89 @@ int	init(char *argv[], t_cub_data *cub)
 	return (0);
 }
 
+// int	init(char *argv[], t_cub_data *cub)
+// {
+// 	int		fd;
+// 	char	*line;
+// 	int		i;
+
+// 	i = 0;
+// 	printf("Initializing player...\n");
+// 	cub->p = safe_malloc(sizeof(t_player_data), cub, __func__);
+// 	if (!cub->p)
+// 	{
+// 		printf("Error: Failed to allocate memory for player\n");
+// 		ft_error(cub, "Error in init (player)");
+// 	}
+// 	printf("Player initialized successfully\n");
+// 	printf("Initializing texture...\n");
+// 	cub->texture = safe_malloc(sizeof(t_texture_data), cub, __func__);
+// 	if (!cub->texture)
+// 	{
+// 		printf("Error: Failed to allocate memory for texture\n");
+// 		ft_error(cub, "Error in init (texture)");
+// 	}
+// 	printf("Texture initialized successfully\n");
+// 	printf("Initializing ceiling...\n");
+// 	cub->texture->ceiling = safe_malloc(sizeof(t_ceiling_data), cub, __func__);
+// 	if (!cub->texture->ceiling)
+// 	{
+// 		printf("Error: Failed to allocate memory for ceiling\n");
+// 		ft_error(cub, "Error in init (ceiling)");
+// 	}
+// 	printf("Ceiling initialized successfully\n");
+// 	printf("Initializing floor...\n");
+// 	cub->texture->floor = safe_malloc(sizeof(t_floor_data), cub, __func__);
+// 	if (!cub->texture->floor)
+// 	{
+// 		printf("Error: Failed to allocate memory for floor\n");
+// 		ft_error(cub, "Error in init (floor)");
+// 	}
+// 	printf("Floor initialized successfully\n");
+// 	cub->minimap = safe_malloc(sizeof(t_minimap), cub, __func__);
+// 	if (!cub->minimap)
+// 	{
+// 		printf("Error: Failed to allocate memory for minimap\n");
+// 		ft_error(cub, "Error in init (minimap)");
+// 	}
+// 	cub->text = safe_malloc(sizeof(t_textbox), cub, __func__);
+// 	if (!cub->text)
+// 	{
+// 		printf("Error: Failed to allocate memory for text\n");
+// 		ft_error(cub, "Error in init (text)");
+// 	}
+// 	cub->minimap->size_x = 0;
+// 	cub->minimap->size_y = 0;
+// 	mlx_set_setting(MLX_MAXIMIZED, true);
+// 	printf("Opening file: %s\n", argv[1]);
+// 	fd = open(argv[1], O_RDONLY);
+// 	if (fd < 0)
+// 	{
+// 		ft_error(cub, "Failed to open the .cub file");
+// 		return (1);
+// 	}
+// 	printf("File opened successfully, reading lines...\n");
+// 	line = get_next_line(fd);
+// 	while (i < 6)
+// 	{
+// 		i = add_texture(i, cub->texture, rm_s(line));
+// 		if (i == 720)
+// 		{
+// 			free(line);
+// 			printf("Error: Texture data read error\n");
+// 			return (1);
+// 		}
+// 		free(line);
+// 		line = get_next_line(fd);
+// 	}
+// 	printf("Textures initialized, initializing map...\n");
+// 	init_map(cub, fd);
+// 	printf("Initializing color...\n");
+// 	init_color(cub->texture);
+// 	printf("Initialization completed successfully.\n");
+// 	return (0);
+// }
+
 int	init_texture(t_cub_data *cub)
 {
 	if (!cub->texture->ea || !cub->texture->no || !cub->texture->so
@@ -80,9 +163,9 @@ int	add_texture(int i, t_texture_data *texture, char *line)
 	else if (ft_strncmp(line, "EA", 2) == 0)
 		texture->ea = ft_strdup(line + 2);
 	else if (ft_strncmp(line, "F", 1) == 0)
-		texture->floor->floor = ft_strdup(line + 1);
+		texture->floor->floor = ft_strdup(rm_s(line + 1)); // added rm_s if there is space after F or C
 	else if (ft_strncmp(line, "C", 1) == 0)
-		texture->ceiling->ceiling = ft_strdup(line + 1);
+		texture->ceiling->ceiling = ft_strdup(rm_s(line + 1));
 	else
 		return (720);
 	return (i + 1);
@@ -126,5 +209,8 @@ int	init_color(t_texture_data *texture)
 	texture->floor->r = ft_atoi(tmp[0]);
 	texture->floor->g = ft_atoi(tmp[1]);
 	texture->floor->b = ft_atoi(tmp[2]);
-	return (free(tmp), 1);
+	free(tmp);
+	tmp = NULL ;
+	return (1);
 }
+

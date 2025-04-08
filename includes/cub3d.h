@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/07 11:35:26 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/08 12:22:14 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,12 +150,13 @@ typedef struct s_cub_data
 	double				wallX;
 }						t_cub_data;
 
+
 void			clean_all(t_cub_data *cub);
 void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
 void			ft_error(t_cub_data *cub, const char *error_msg);
 int				init_cub(char *argv[], t_cub_data *cub);
 int				init(char *argv[], t_cub_data *cub);
-int			init_texture(t_cub_data *cub);
+int				init_texture(t_cub_data *cub);
 int				add_texture(int i, t_texture_data *texture, char *line);
 char			*rm_s(char *str);
 int				init_map(t_cub_data *cub, int fd);

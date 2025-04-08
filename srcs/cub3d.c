@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:36:02 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/07 12:06:04 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:46:16 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ int	main(int argc, char *argv[])
 	// if (game_loop(cub) == 1)
 	// 	return (ft_error(), EXIT_FAILURE);
 	// initialize(argv, cub);
-	// clean_all(cub);
+	clean_all(cub);
 	return (0);
 }
