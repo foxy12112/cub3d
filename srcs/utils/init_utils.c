@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/09 11:51:58 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/09 11:52:43 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	*create_image(t_cub_data *cub, char *str)
 	texture = mlx_load_png(str);
 	if (!texture)
 	{
-		ft_error(cub, "Error opening texture!?!?:");
+		ft_error(cub, "Error opening text:");
 	}
 	texture = scale_tex(texture, 1024, 1024);
 	if (!texture)
