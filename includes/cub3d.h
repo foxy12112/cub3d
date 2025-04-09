@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/08 12:22:14 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/09 11:42:30 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,9 @@ typedef struct s_cub_data
 	int					side;
 	double				wallX;
 }						t_cub_data;
+
+
+int check_image_type(char *path);
 
 
 void			clean_all(t_cub_data *cub);
