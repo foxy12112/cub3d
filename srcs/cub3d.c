@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:36:02 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/09 11:26:07 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:01:50 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,11 @@ int	main(int argc, char *argv[])
 	cub->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 	if (init(argv, cub) == 1)
 		return (ft_error(cub, "error in init"), EXIT_FAILURE);
-	if (init_texture(cub) == 1)  // Add this to initialize textures
+	if (init_texture(cub) == 1)
 		return (ft_error(cub, "error in texture initialization"), EXIT_FAILURE);
+	print_map(cub);
+	if (check_invalid_chars(cub) == FAILURE)
+		return (ft_error(cub, "Invalid character in map"), EXIT_FAILURE);
 	if (parsing(cub) == 1)
 		return (ft_error(cub, "error in parsing"), EXIT_FAILURE);
 	// print_2(cub);

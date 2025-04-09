@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:11:53 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/19 11:40:26 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/09 12:46:18 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@
 // 		i++;
 // 	}
 // }
+
 void	set_player_direction(t_cub_data *cub, char c)
 {
 	if (c == 'N')

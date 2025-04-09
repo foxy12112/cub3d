@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 18:55:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/21 09:29:50 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/09 12:49:04 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,31 @@ int	parsing(t_cub_data *cub)
 	return (SUCCESS);
 }
 
+// int	check_invalid_chars(t_cub_data *cub)
+// {
+// 	int	y;
+// 	int	x;
+
+// 	y = 0;
+// 	while (cub->map[y])
+// 	{
+// 		x = 0;
+// 		while (cub->map[y][x])
+// 		{
+// 			if (cub->map[y][x] != '1' && cub->map[y][x] != '0' &&
+// 				cub->map[y][x] != 'N' && cub->map[y][x] != 'S' &&
+// 				cub->map[y][x] != 'E' && cub->map[y][x] != 'W' &&
+// 				cub->map[y][x] != ' ' && cub->map[y][x] != '\t')
+// 			{
+// 				return (ft_error(cub, "Invalid character in map"), FAILURE);
+// 			}
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// 	return (0);
+// }
+
 int	check_invalid_chars(t_cub_data *cub)
 {
 	int	y;
@@ -38,11 +63,15 @@ int	check_invalid_chars(t_cub_data *cub)
 		x = 0;
 		while (cub->map[y][x])
 		{
-			if (cub->map[y][x] != '1' && cub->map[y][x] != '0'
-				&& cub->map[y][x] != 'N' && cub->map[y][x] != 'S'
-				&& cub->map[y][x] != 'E' && cub->map[y][x] != 'W'
-				&& cub->map[y][x] != ' ' && cub->map[y][x] != '\t')
+			printf("Checking character: %c at (%d, %d)\n", cub->map[y][x], y, x);
+			if (cub->map[y][x] != '1' && cub->map[y][x] != '0' &&
+				cub->map[y][x] != 'N' && cub->map[y][x] != 'S' &&
+				cub->map[y][x] != 'E' && cub->map[y][x] != 'W' &&
+				cub->map[y][x] != ' ' && cub->map[y][x] != '\t')
+			{
+				printf("Invalid character detected: %c at (%d, %d)\n", cub->map[y][x], y, x);
 				return (ft_error(cub, "Invalid character in map"), FAILURE);
+			}
 			x++;
 		}
 		y++;

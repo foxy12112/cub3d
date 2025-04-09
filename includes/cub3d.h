@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/09 11:42:30 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/09 12:53:36 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,6 @@ typedef struct s_cub_data
 	double				wallX;
 }						t_cub_data;
 
-
-int check_image_type(char *path);
-
-
 void			clean_all(t_cub_data *cub);
 void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
 void			ft_error(t_cub_data *cub, const char *error_msg);
@@ -210,7 +206,7 @@ int				check_textures(t_cub_data *cub);
 int				parse_rgb_line(char *line);
 int				check_rgb(int *rgb, char *line);
 void			get_rgb(t_cub_data *map, int *rgb, char **split_line);
-void			printMap(t_cub_data *cub);
+void			print_map(t_cub_data *cub);
 void			free_double_array(char **array);
 
 void			set_player_position(t_cub_data *cub, int j, int i, char c);
