@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/08 18:38:02 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/09 10:56:50 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,14 +216,23 @@ void	draw_c_f(t_cub_data *cub)
 // 	mlx_terminate(cub->mlx);
 // }
 
+// void	clean_exit(t_cub_data *cub)
+// {
+	
+// }
+
 void	loop_hook(void *param)
 {
 	t_cub_data	*cub;
+	double		turn_speed;
 
 	cub = (t_cub_data *)param;
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_ESCAPE))
+		exit(0);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
 	{
-		cub->p->dir += TURN_SPEED * (M_PI / 180);
+		turn_speed += TURN_SPEED * (M_PI / 180);
+		cub->p->dir = 1 * turn_speed;
 	}
 	printf("dir in radian = %f\t\t dir in angle = %f\n", cub->p->dir, cub->p->dir / (180 * M_PI));
 }
