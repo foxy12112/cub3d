@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:48:44 by psostari          #+#    #+#             */
-/*   Updated: 2025/04/02 12:27:42 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/10 12:27:51 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void init_ray_direction(t_cub_data *cub, int x)
 	cameraX = 2 * x / (double)cub->mlx->width - 1;
 	cub->ray_dir_x = cub->p->dir_x + cub->p->plane_x * cameraX;
 	cub->ray_dir_y = cub->p->dir_y + cub->p->plane_y * cameraX;
+	printf("x: %d, cameraX: %f, ray_dir_x: %f, ray_dir_y: %f\n", x, cameraX, cub->ray_dir_x, cub->ray_dir_y);
 }
 
 static int ray_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
@@ -103,6 +104,7 @@ static int	ray_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	return ((int)dlen);
 }
 
+
 static int	ray(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
 	int	dx;
@@ -159,6 +161,7 @@ void draw_game(int x, double ray_d, t_cub_data *cub)
 	}
 	draw_v_line(x, draw_start, draw_end, cub->img);
 }
+
 
 void	raytrace(t_cub_data *cub)
 {

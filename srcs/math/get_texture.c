@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 09:51:44 by psostari          #+#    #+#             */
-/*   Updated: 2025/04/02 12:46:40 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/10 12:25:49 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,40 @@ mlx_image_t	*get_wall_texture(t_cub_data *cub)
 	return (NULL);
 }
 
-void	detect_wall_side(t_cub_data *cub, double ray_dir_x, double ray_dir_y, int hit_vertical)
+// void	detect_wall_side(t_cub_data *cub, double ray_dir_x, double ray_dir_y, int hit_vertical)
+// {
+// 	if (hit_vertical) //for vertical line east/west
+// 	{
+// 		if (ray_dir_x > 0) //east
+// 			cub->side = 3;
+// 		else
+// 		cub->side = 2; //west
+// 	}
+// 	else //if it hits horizonta; line (north/south)
+// 	{
+// 		if (ray_dir_y > 0)
+// 			cub->side = 1;
+// 		else
+// 			cub->side = 0;
+// 	}
+// }
+
+void detect_wall_side(t_cub_data *cub, double ray_dir_x, double ray_dir_y, int hit_vertical)
 {
-	if (hit_vertical) //for vertical line east/west
-	{
-		if (ray_dir_x > 0) //east
-			cub->side = 3;
-		else
-		cub->side = 2; //west
-	}
-	else //if it hits horizonta; line (north/south)
-	{
-		if (ray_dir_y > 0)
-			cub->side = 1;
-		else
-			cub->side = 0;
-	}
+    if (hit_vertical) // Za vertikalne linije (istok/zapad)
+    {
+        if (ray_dir_x > 0)
+            cub->side = 3; // Istočna strana
+        else
+            cub->side = 2; // Zapadna strana
+    }
+    else // Za horizontalne linije (sjever/jug)
+    {
+        if (ray_dir_y > 0)
+            cub->side = 1; // Južna strana
+        else
+            cub->side = 0; // Sjeverna strana
+    }
 }
 
 void	draw_textured_wall(int x, int drawStart, int drawEnd, t_cub_data *cub)

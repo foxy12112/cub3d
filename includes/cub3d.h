@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/10 09:59:38 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:56:11 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ typedef struct s_cub_data
 	int					side;
 	double				wallX;
 }						t_cub_data;
+
+void *create_image(t_cub_data *cub, char *str);
 
 void			clean_all(t_cub_data *cub);
 void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);

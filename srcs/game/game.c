@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/11 18:55:33 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/10 12:12:42 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,36 @@ void ft_hook(void* param)
 	// printf("%.5f\n", cub->p->dir);
 }
 
-void	game_loop(t_cub_data *cub)
+// void	game_loop(t_cub_data *cub)
+// {
+// 	cub->ceiling = get_color(cub->texture->ceiling->r, cub->texture->ceiling->g, cub->texture->ceiling->b, 255);
+// 	cub->floor = get_color(cub->texture->floor->r, cub->texture->floor->g, cub->texture->floor->b, 255);
+// 	cub->img = mlx_new_image(cub->mlx, cub->mlx->width, cub->mlx->height);
+// 	mlx_image_to_window(cub->mlx, cub->img, 0, 0);
+// 	cub->img->instances->z = 0;
+// 	draw_c_f(cub);
+// 	map(cub);
+// 	draw_player(cub);
+// 	mlx_key_hook(cub->mlx, event, cub);
+// 	mlx_loop_hook(cub->mlx, ft_hook, cub);
+// 	mlx_loop(cub->mlx);
+// 	mlx_terminate(cub->mlx);
+// }
+
+void game_loop(t_cub_data *cub)
 {
 	cub->ceiling = get_color(cub->texture->ceiling->r, cub->texture->ceiling->g, cub->texture->ceiling->b, 255);
 	cub->floor = get_color(cub->texture->floor->r, cub->texture->floor->g, cub->texture->floor->b, 255);
 	cub->img = mlx_new_image(cub->mlx, cub->mlx->width, cub->mlx->height);
 	mlx_image_to_window(cub->mlx, cub->img, 0, 0);
 	cub->img->instances->z = 0;
-	draw_c_f(cub);
-	map(cub);
-	draw_player(cub);
+	draw_c_f(cub);      // crta pod i strop
+	map(cub);           // crta mapu (ako treba)
+	draw_player(cub);   // crta igrača
+	raytrace(cub);      // poziva raycasting za crtanije zidova
 	mlx_key_hook(cub->mlx, event, cub);
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
 	mlx_loop(cub->mlx);
 	mlx_terminate(cub->mlx);
 }
+

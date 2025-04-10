@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:52:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/10 09:59:21 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:58:20 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,3 +64,4 @@ void	ft_ftoa(double n, char *res, int afterpoint)
 		int_to_str((int)fpart, res + i + 1, afterpoint);
 	}
 }
+
