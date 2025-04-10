@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:52:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/19 10:30:30 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/10 09:59:21 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	reverse(char *str, int len)
 	}
 }
 
-int	intToStr(int x, char str[], int d)
+int	int_to_str(int x, char str[], int d)
 {
 	int	i;
 
@@ -56,11 +56,11 @@ void	ft_ftoa(double n, char *res, int afterpoint)
 
 	ipart = (int)n;
 	fpart = n - (double)ipart;
-	i = intToStr(ipart, res, 0);
+	i = int_to_str(ipart, res, 0);
 	if (afterpoint != 0)
 	{
 		res[i] = '.';
 		fpart = fpart * pow(10, afterpoint);
-		intToStr((int)fpart, res + i + 1, afterpoint);
+		int_to_str((int)fpart, res + i + 1, afterpoint);
 	}
 }

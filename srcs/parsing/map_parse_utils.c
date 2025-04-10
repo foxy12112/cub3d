@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:34:40 by petrasostar       #+#    #+#             */
-/*   Updated: 2025/04/09 12:58:01 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/10 09:49:59 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int	check_sides(t_cub_data *cub)
 	}
 	return (0);
 }
+
 int	check_map_validity(t_cub_data *cub)
 {
 	if (!cub || !cub->map)

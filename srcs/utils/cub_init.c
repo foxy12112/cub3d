@@ -6,44 +6,11 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:40:54 by petrasostar       #+#    #+#             */
-/*   Updated: 2025/04/09 11:49:48 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/10 09:56:34 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// int	init(char *argv[], t_cub_data *cub)
-// {
-// 	int		fd;
-// 	char	*line;
-// 	int		i;
-
-// 	i = 0;
-// 	cub->p = safe_malloc(sizeof(t_player_data), cub, __func__);
-// 	cub->texture = safe_malloc(sizeof(t_texture_data), cub, __func__);
-// 	cub->texture->ceiling = safe_malloc(sizeof(t_ceiling_data), cub, __func__);
-// 	cub->texture->floor = safe_malloc(sizeof(t_floor_data), cub, __func__);
-// 	cub->minimap = safe_malloc(sizeof(t_minimap), cub, __func__);
-// 	cub->text = safe_malloc(sizeof(t_textbox), cub, __func__);
-// 	cub->minimap->size_x = 0;
-// 	cub->minimap->size_y = 0;
-// 	mlx_set_setting(MLX_MAXIMIZED, true);
-// 	fd = open(argv[1], O_RDONLY);
-// 	if (fd < 0)
-// 		return (ft_error(cub, "Failed to open the .cub file"), 1);
-// 	line = get_next_line(fd);
-// 	while (i < 6)
-// 	{
-// 		i = add_texture(i, cub->texture, rm_s(line));
-// 		if (i == 720)
-// 			return (free(line), 1);
-// 		free(line);
-// 		line = get_next_line(fd);
-// 	}
-// 	init_map(cub, fd);
-// 	init_color(cub->texture);
-// 	return (0);
-// }
 
 int	init_texture(t_cub_data *cub)
 {
@@ -61,28 +28,6 @@ int	init_texture(t_cub_data *cub)
 	cub->texture->we_tex = create_image(cub, cub->texture->we);
 	return (0);
 }
-
-// int	add_texture(int i, t_texture_data *texture, char *line)
-// {
-// 	if (!line || *line == '\0')
-// 		return (i);
-// 	line = rm_s(line);
-// 	if (ft_strncmp(line, "NO", 2) == 0)
-// 		texture->no = ft_strdup(line + 2);
-// 	else if (ft_strncmp(line, "SO", 2) == 0)
-// 		texture->so = ft_strdup(line + 2);
-// 	else if (ft_strncmp(line, "WE", 2) == 0)
-// 		texture->we = ft_strdup(line + 2);
-// 	else if (ft_strncmp(line, "EA", 2) == 0)
-// 		texture->ea = ft_strdup(line + 2);
-// 	else if (ft_strncmp(line, "F", 1) == 0)
-// 		texture->floor->floor = ft_strdup(rm_s(line + 1));
-// 	else if (ft_strncmp(line, "C", 1) == 0)
-// 		texture->ceiling->ceiling = ft_strdup(rm_s(line + 1));
-// 	else
-// 		return (720);
-// 	return (i + 1);
-// }
 
 int	add_texture(int i, t_texture_data *texture, char *line)
 {
@@ -120,22 +65,29 @@ int	init_map(t_cub_data *cub, int fd)
 	int		i;
 	char	*line;
 
+	cub->minimap = safe_malloc(sizeof(t_minimap), cub, __func__);
+	cub->minimap->size_x = 0;
+	cub->minimap->size_y = 0;
 	line = get_next_line(fd);
 	i = 0;
 	cub->map = safe_malloc(sizeof(char *) * 1024, cub, __func__);
+	cub->map_height = 0;
+	cub->map_width = 0;
 	while (line)
 	{
-		if ((int)ft_strlen(line) > cub->minimap->size_x)
-			cub->minimap->size_x = (int)ft_strlen(line);
+		if ((int)ft_strlen(line) > cub->map_width)
+			cub->map_width = (int)ft_strlen(line);
 		newline = ft_strchr(line, '\n');
 		if (newline)
 			*newline = '\0';
 		cub->map[i++] = ft_strdup(line);
 		free(line);
+		cub->map_height++;
 		line = get_next_line(fd);
-		cub->minimap->size_y++;
 	}
 	cub->map[i] = NULL;
+	printf("Map dimensions: height = %d, width = %d\n", \
+	cub->map_height, cub->map_width);
 	return (EXIT_SUCCESS);
 }
 

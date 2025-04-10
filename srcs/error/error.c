@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:50:58 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/08 12:31:59 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/10 09:45:54 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	clean_all(t_cub_data *cub)
 			free(cub->texture->ceiling->ceiling);
 		if (cub->texture->floor && cub->texture->floor->floor)
 			free(cub->texture->floor->floor);
+		free(cub->texture);
 	}
 }

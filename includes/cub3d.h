@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/09 12:53:36 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/10 09:59:38 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,8 +229,6 @@ double			calculate_wallX(t_cub_data *cub, double perpWallDist);
 void			draw_textured_wall(int x, int drawStart, int drawEnd, t_cub_data *cub);
 void			detect_wall_side(t_cub_data *cub, double ray_dir_x, double ray_dir_y, int hit_vertical);
 mlx_image_t		*get_wall_texture(t_cub_data *cub);
-
-
 uint32_t		get_pixel_color(mlx_image_t *img, uint32_t x, uint32_t y);
 
 #endif

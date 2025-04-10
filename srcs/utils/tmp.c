@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:47:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/08 12:26:39 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/10 09:57:06 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,8 @@ void	ft_swap(void *a, void *b, size_t size)
 
 int	ft_abs(int value)
 {
-	return ((value < 0) ? -value : value);
+	if (value < 0)
+		return (-value);
+	else
+		return (value);
 }

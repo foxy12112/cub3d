@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:08:20 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/10 13:18:29 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/10 10:21:56 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	draw_square(t_cub_data *cub, int wall, int x, int y, int rec_size)
 	}
 }
 
-void	draw_map(t_cub_data *cub)	
+void	draw_map(t_cub_data *cub)
 {
 	int	x;
 	int	y;
-	
+
 	y = 0;
 	x = 0;
 	while(cub->map[y])

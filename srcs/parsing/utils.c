@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:04:57 by psostari          #+#    #+#             */
-/*   Updated: 2025/03/19 12:20:45 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/10 09:53:17 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	check_leaks(char **map, t_cub_data *cub)
 
 int	check_map_dim(t_cub_data *cub)
 {
+	printf("Checking map dimensions: height = %d, \
+	width = %d\n", cub->map_height, cub->map_width);
 	if (cub->map_height < 3 || cub->map_width < 3)
 	{
 		ft_error(cub, "Map is too small, must be at least 3x3");
