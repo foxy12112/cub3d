@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/08 16:55:45 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/09 11:28:39 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	init(char *argv[], t_cub_data *cub)
 		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	init_map(cub, fd);
 	init_color(cub->texture);
 	init_texture(cub);

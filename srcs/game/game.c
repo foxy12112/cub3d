@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/09 10:56:50 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/11 09:54:40 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,10 +216,72 @@ void	draw_c_f(t_cub_data *cub)
 // 	mlx_terminate(cub->mlx);
 // }
 
-// void	clean_exit(t_cub_data *cub)
+// void	clean_exit(void)
 // {
-	
+// 	system("leaks cub3d");
 // }
+
+double	normalize_angle(double angle)
+{
+	angle = fmod(angle, 2 * M_PI);
+	if (angle < 0)
+		angle += 2 * M_PI;
+	return (angle);
+}
+
+void	rotate(t_cub_data *cub)
+{
+	double	olddirx;
+	double	oldplanex;
+	double	rotation_angle;
+	int		dir;
+	double	angle;
+
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
+		dir = -1;
+	else if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
+		dir = 1;
+	else
+		return ;
+	rotation_angle = dir * ROT_SPEED;
+	angle += dir * (ROT_SPEED * 180 / M_PI);
+	olddirx = cub->p->dir_x;
+	// olddirx = cub->p->dir_x;
+	cub->p->dir_x = cub->p->dir_x * cos(rotation_angle) - cub->p->dir_y * sin(rotation_angle);
+	cub->p->dir_y = olddirx * sin(rotation_angle) + cub->p->dir_y * cos(rotation_angle);
+	// cub->p->dir = atan2(cub->p->dir_y, cub->p->dir_x);
+	// printf("%f\t\t%f\t\t%d\t\t%f\t\t", cub->p->dir_x, cub->p->dir_y, dir, cub->p->dir);
+	// printf("HAIIIIIIIII|N|N|N|N\n\n\n\n");
+	// oldplanex = data->plane.x;
+	// data->plane.x = data->plane.x * cos(rotation_angle) - data->plane.y
+	// 	* sin(rotation_angle);
+	// data->plane.y = oldplanex * sin(rotation_angle) + data->plane.y
+	// 	* cos(rotation_angle);
+}
+
+void	movement(t_cub_data *cub)
+{
+	double angle = cub->p->dir * (M_PI / 180);
+
+	// angle = normalize_angle(angle);
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_W))
+	{
+		if (cub->p->dir >= 2 * M_PI)
+			angle -= 2 * M_PI;
+		if (angle < 0)
+			angle += 2 * M_PI;
+		cub->minimap->p_img->instances->x += cos(cub->p->dir_x);
+		cub->minimap->p_img->instances->y += sin(cub->p->dir_y);
+		printf("%f\n", angle);
+	}
+	
+	// if (mlx_is_key_down(cub->mlx, MLX_KEY_A))
+		
+	// if (mlx_is_key_down(cub->mlx, MLX_KEY_D))
+
+	// if (mlx_is_key_down(cub->mlx, MLX_KEY_S))
+		
+}
 
 void	loop_hook(void *param)
 {
@@ -229,12 +291,15 @@ void	loop_hook(void *param)
 	cub = (t_cub_data *)param;
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_ESCAPE))
 		exit(0);
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
-	{
-		turn_speed += TURN_SPEED * (M_PI / 180);
-		cub->p->dir = 1 * turn_speed;
-	}
-	printf("dir in radian = %f\t\t dir in angle = %f\n", cub->p->dir, cub->p->dir / (180 * M_PI));
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT) || mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
+		rotate(cub);
+	// else if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
+	// 	cub->p->dir += (TURN_SPEED * (M_PI / 180));
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_KP_0))
+		draw_ray(cub);
+	movement(cub);
+	raytrace(cub);
+	// printf("dir in radian = %f\t\t dir in angle = %f\n", cub->p->dir, cub->p->dir / (180 * M_PI));
 }
 
 void	game_loop(t_cub_data *cub)
@@ -243,7 +308,10 @@ void	game_loop(t_cub_data *cub)
 	cub->floor = get_color(cub->texture->floor->r, cub->texture->floor->g, cub->texture->floor->b, 255);
 	cub->img = mlx_new_image(cub->mlx, cub->mlx->width, cub->mlx->height);
 	mlx_image_to_window(cub->mlx, cub->img, 0, 0);
+	cub->img->instances->z = 0;
 	draw_c_f(cub);
+	map(cub);
+	draw_player(cub);
 	// mlx_get_time
 	mlx_loop_hook(cub->mlx, &loop_hook, cub);
 	mlx_loop(cub->mlx);

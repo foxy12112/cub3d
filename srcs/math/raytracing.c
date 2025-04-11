@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/08 15:51:53 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/11 10:16:59 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,24 +223,22 @@ int	raytrace(t_cub_data *cub)
 	double y;
 	double angle;
 	double	i;
-	double dir;
 	double cameraX, ray_dir_x, ray_dir_y;
-	dir = cub->p->dir - 45;
 	i = 0;
 	draw_c_f(cub);
-	double dir_inc = (double)FOV / (double)1920;
-	
+	double dir_inc = (double)FOV * (M_PI / 180.0) / (double)1920;
+	double dir = atan2(cub->p->dir_y, cub->p->dir_x) - (FOV * (M_PI / 180.0)) / 2.0;
 	// printf("dir_int = %f\n", dir_inc);
 	while(i < 1920)
 	{
 		// cameraX = 2 * x / (double)WIDHT - 1;
 		// ray_dir_x = cub->p->dir_x + cub->p->plane_x * cameraX;
 		// ray_dir_y = cub->p->dir_y + cub->p->plane_y * cameraX;
-		angle = dir * (M_PI / 180);
+		angle = dir;
 		x1 = cub->minimap->p_img->instances[0].x + 5;
 		y1 = cub->minimap->p_img->instances[0].y + 5;
-		x = x1 + cos(angle - M_PI_2) * cub->mlx->width;
-		y = y1 + sin(angle - M_PI_2) * cub->mlx->width;
+		x = x1 + cos(angle) * cub->mlx->width;
+		y = y1 + sin(angle) * cub->mlx->width;
 		// printf("%f--%f\n", x, y);
 		// double ray_d = ray(x1, y1,x, y, cub);
 		double ray_d = ray(x1, y1, x, y, cub);
@@ -255,4 +253,4 @@ int	raytrace(t_cub_data *cub)
 
 
 
-//TODO redo raytrace to be able to cast more rays.
+//TODO fuck it time to dda

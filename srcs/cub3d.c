@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:36:02 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/18 19:14:23 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/09 15:48:34 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		return (free(cub), printf("Wrogn number of Arguments\n"), 1);
 	cub->mlx = mlx_init(WIDHT, HEIGHT, "cub3d", false);
+	if (!cub->mlx)
+		return(printf("haiii\n"), 1);
 	if (init(argv, cub) == 1)
 		return (ft_error(cub, "error in init"), EXIT_FAILURE);
 	if (parsing(cub) == 1)

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/14 18:03:38 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/09 14:19:15 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,15 +122,24 @@ int	init_map(t_cub_data *cub, int fd)
 int	init_color(t_texture_data *texture)
 {
 	char	**tmp;
+	int		i;
 
+	i = 0;
 	tmp = ft_split(texture->ceiling->ceiling, ',');
 	texture->ceiling->r = ft_atoi(tmp[0]);
 	texture->ceiling->g = ft_atoi(tmp[1]);
 	texture->ceiling->b = ft_atoi(tmp[2]);
-	ft_memset(tmp, 0, sizeof(tmp));
+	free(tmp[0]);
+	free(tmp[1]);
+	free(tmp[2]);
+	free(tmp);
 	tmp = ft_split(texture->floor->floor, ',');
 	texture->floor->r = ft_atoi(tmp[0]);
 	texture->floor->g = ft_atoi(tmp[1]);
 	texture->floor->b = ft_atoi(tmp[2]);
-	return (free(tmp), 1);
+	free(tmp[0]);
+	free(tmp[1]);
+	free(tmp[2]);
+	free(tmp);
+	return (1);
 }

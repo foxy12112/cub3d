@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:11:53 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/08 16:01:37 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/10 18:42:15 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,15 @@ static int	check_player(t_cub_data *cub)
 	if (player_count != 1)
 		return (1);
 	if (c == 'N')
-		cub->p->dir = NORTH * (M_PI * 180);
+		cub->p->dir = NORTH * (M_PI / 180);
 	else if (c == 'S')
-		cub->p->dir = SOUTH * (M_PI * 180);
+		cub->p->dir = SOUTH * (M_PI / 180);
 	else if (c == 'E')
-		cub->p->dir = EAST * (M_PI * 180);
+		cub->p->dir = EAST * (M_PI / 180);
 	else if (c == 'W')
-		cub->p->dir = WEST * (M_PI * 180);
+		cub->p->dir = WEST * (M_PI / 180);
+	cub->p->dir_x = cos(cub->p->dir);
+	cub->p->dir_y = sin(cub->p->dir);
 	cub->p->x = (double)cub->p->start_x;
 	cub->p->y = (double)cub->p->start_y;
 	return (0);
