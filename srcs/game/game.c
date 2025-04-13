@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/11 09:54:40 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/13 16:02:26 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,9 +238,9 @@ void	rotate(t_cub_data *cub)
 	double	angle;
 
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
-		dir = -1;
-	else if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
 		dir = 1;
+	else if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
+		dir = -1;
 	else
 		return ;
 	rotation_angle = dir * ROT_SPEED;
@@ -249,6 +249,9 @@ void	rotate(t_cub_data *cub)
 	// olddirx = cub->p->dir_x;
 	cub->p->dir_x = cub->p->dir_x * cos(rotation_angle) - cub->p->dir_y * sin(rotation_angle);
 	cub->p->dir_y = olddirx * sin(rotation_angle) + cub->p->dir_y * cos(rotation_angle);
+	double magnitude = sqrt(cub->p->dir_x * cub->p->dir_x + cub->p->dir_y * cub->p->dir_y);
+    cub->p->dir_x /= magnitude;
+    cub->p->dir_y /= magnitude;
 	// cub->p->dir = atan2(cub->p->dir_y, cub->p->dir_x);
 	// printf("%f\t\t%f\t\t%d\t\t%f\t\t", cub->p->dir_x, cub->p->dir_y, dir, cub->p->dir);
 	// printf("HAIIIIIIIII|N|N|N|N\n\n\n\n");
@@ -261,18 +264,25 @@ void	rotate(t_cub_data *cub)
 
 void	movement(t_cub_data *cub)
 {
-	double angle = cub->p->dir * (M_PI / 180);
-
+	double angle = atan2(cub->p->dir_y, cub->p->dir_x) - (FOV * (M_PI / 180.0)) / 2.0;
+	double move_step;
+	double new_x;
+	double new_y;
 	// angle = normalize_angle(angle);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_W))
 	{
-		if (cub->p->dir >= 2 * M_PI)
-			angle -= 2 * M_PI;
-		if (angle < 0)
-			angle += 2 * M_PI;
-		cub->minimap->p_img->instances->x += cos(cub->p->dir_x);
-		cub->minimap->p_img->instances->y += sin(cub->p->dir_y);
-		printf("%f\n", angle);
+		// double dir = atan2(cub->p->dir_y, cub->p->dir_x);
+		// angle = dir;
+		// double perp_x = -cub->p->dir_y;
+		// double perp_y = cub->p->dir_x;
+		// cub->minimap->p_img->instances->x += cub->p->dir_x * SPEED;
+		// cub->minimap->p_img->instances->y += cub->p->dir_y * SPEED;
+		// printf("angle=%f\t\tdir_x%f\t\tdir_y%f\t\t%f\t\t%f\n", angle, cub->p->dir_x, cub->p->dir_y, cos(angle), sin(angle));
+		move_step = SPEED;
+        new_x = cub->minimap->p_img->instances->x + cos(angle) * 2;
+        new_y = cub->minimap->p_img->instances->y + sin(angle) * 2;
+        cub->minimap->p_img->instances->x = new_x;
+        cub->minimap->p_img->instances->y = new_y;
 	}
 	
 	// if (mlx_is_key_down(cub->mlx, MLX_KEY_A))

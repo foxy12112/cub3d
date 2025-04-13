@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/10 18:36:26 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/12 12:11:31 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <ctype.h>
 # include "../MLX42/include/MLX42/MLX42.h"
 
-# define SPEED 2
+# define SPEED 0.1
 # define LENGTH 5
 # define ROT_SPEED 0.05
 # define RECTANGLE 20
@@ -36,7 +36,6 @@
 # define EAST 90
 # define HEIGHT 1080
 # define WIDHT 1920
-# define TURN_SPEED 200
 # ifndef SUCCESS
 #  define SUCCESS 0
 # endif
