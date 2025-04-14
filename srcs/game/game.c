@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/10 12:12:42 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:43:57 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,38 @@ void	movement(t_cub_data *cub)
 		cub->p->dir = 0;
 	if (cub->p->dir < 0)
 		cub->p->dir = 360;
+
+	printf("Minimap position: (%d, %d)\n", cub->minimap->p_img->instances[0].x, cub->minimap->p_img->instances[0].y);
+	printf("Player angle: %f\n", cub->p->dir);
 }
+
+// void ft_hook(void* param)
+// {
+// 	t_cub_data* cub = (t_cub_data*)param;
+
+// 	movement(cub);
+// 	cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / (double)22;
+// 	cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)22;
+// 	// printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
+// 	// draw_ray(cub);
+// 	// printf("%.5f\n", cub->p->dir);
+// }
 
 void ft_hook(void* param)
 {
-	t_cub_data* cub = (t_cub_data*)param;
+    t_cub_data* cub = (t_cub_data*)param;
 
-	movement(cub);
-	cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / (double)22;
-	cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)22;
-	// printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
-	// draw_ray(cub);
-	// printf("%.5f\n", cub->p->dir);
+    movement(cub);
+    cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / (double)22;
+    cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)22;
+
+    // Update direction vector based on the angle
+    cub->p->dir_x = cos(cub->p->dir * M_PI / 180.0);
+    cub->p->dir_y = sin(cub->p->dir * M_PI / 180.0);
+
+    // Debugging output
+    printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
+    printf("Direction vector: (%f, %f)\n", cub->p->dir_x, cub->p->dir_y);
 }
 
 // void	game_loop(t_cub_data *cub)
