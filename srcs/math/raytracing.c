@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/11 10:16:59 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/15 16:49:37 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,26 +227,35 @@ int	raytrace(t_cub_data *cub)
 	i = 0;
 	draw_c_f(cub);
 	double dir_inc = (double)FOV * (M_PI / 180.0) / (double)1920;
-	double dir = atan2(cub->p->dir_y, cub->p->dir_x) - (FOV * (M_PI / 180.0)) / 2.0;
-	// printf("dir_int = %f\n", dir_inc);
+	// double dir = atan2(cub->p->dir_y, cub->p->dir_x) - (FOV * (M_PI / 180.
+	// double dir_y_inc = sin(dir_inc);
+	// double dir_x_inc = cos(dir_inc);
+	dir_inc = dir_inc * (180 / M_PI);	
+	double dir_x = cub->p->dir_x;
+	double dir_y = cub->p->dir_y;
 	while(i < 1920)
 	{
 		// cameraX = 2 * x / (double)WIDHT - 1;
 		// ray_dir_x = cub->p->dir_x + cub->p->plane_x * cameraX;
 		// ray_dir_y = cub->p->dir_y + cub->p->plane_y * cameraX;
-		angle = dir;
+		// angle = dir;
 		x1 = cub->minimap->p_img->instances[0].x + 5;
 		y1 = cub->minimap->p_img->instances[0].y + 5;
-		x = x1 + cos(angle) * cub->mlx->width;
-		y = y1 + sin(angle) * cub->mlx->width;
-		// printf("%f--%f\n", x, y);
+		double olddirx = dir_x;
+		x = x1 + (dir_x * cub->mlx->width);
+		y = y1 + (dir_y * cub->mlx->width);
+		// printf("%f\t\t%f\t\t%f\n",x1, x, dir_x * 1920);
+		// printf("%f\n", x);
+		printf("%f\n", dir_y);
 		// double ray_d = ray(x1, y1,x, y, cub);
 		double ray_d = ray(x1, y1, x, y, cub);
+		draw_line(x1, y1, (x1 + (dir_x * 200)), (y1 + dir_y * 200), cub);
 		// double ray_d = cub->p->perp_wall_dist;
 		draw_game(i, ray_d, cub);
 		// printf("ray_dist = %f\n", ray_d);
 		i += 1;
-		dir += dir_inc;
+		dir_x = dir_x * cos(dir_inc) - dir_y * sin(dir_inc);
+		dir_y = olddirx * sin(dir_inc) + dir_y * cos(dir_inc);
 	}
 	return (1);
 }

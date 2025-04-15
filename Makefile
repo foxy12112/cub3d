@@ -6,7 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/04/09 20:09:01 by ldick            ###   ########.fr        #
+#    Updated: 2025/04/15 15:51:35 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -133,5 +133,8 @@ soft_clean:
 re:				fclean all
 
 res:			soft_clean all
+
+run:			all
+				@./$(NAME) maps/empty.cub
 
 .PHONY:			all clean fclean re

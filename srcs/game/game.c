@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/14 18:16:56 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/15 15:45:50 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,8 +250,8 @@ void	rotate(t_cub_data *cub)
 	cub->p->dir_x = cub->p->dir_x * cos(rotation_angle) - cub->p->dir_y * sin(rotation_angle);
 	cub->p->dir_y = olddirx * sin(rotation_angle) + cub->p->dir_y * cos(rotation_angle);
 	double magnitude = sqrt(cub->p->dir_x * cub->p->dir_x + cub->p->dir_y * cub->p->dir_y);
-    cub->p->dir_x /= magnitude;
-    cub->p->dir_y /= magnitude;
+    // cub->p->dir_x /= magnitude;
+    // cub->p->dir_y /= magnitude;
 	// cub->p->dir = atan2(cub->p->dir_y, cub->p->dir_x);
 	// printf("%f\t\t%f\t\t%d\t\t%f\t\t", cub->p->dir_x, cub->p->dir_y, dir, cub->p->dir);
 	// printf("HAIIIIIIIII|N|N|N|N\n\n\n\n");
@@ -279,10 +279,10 @@ void	movement(t_cub_data *cub)
 		// cub->minimap->p_img->instances->y += cub->p->dir_y * SPEED;
 		// printf("angle=%f\t\tdir_x%f\t\tdir_y%f\t\t%f\t\t%f\n", angle, cub->p->dir_x, cub->p->dir_y, cos(angle), sin(angle));
 		move_step = SPEED;
-        new_x = cub->minimap->p_img->instances->x + cub->p->dir_x * 2;
-        new_y = cub->minimap->p_img->instances->y + cub->p->dir_y * 2;
-        cub->minimap->p_img->instances->x = new_x;
-        cub->minimap->p_img->instances->y = new_y;
+        new_x = cub->minimap->p_img->instances->x + cub->p->dir_x;
+        new_y = cub->minimap->p_img->instances->y + cub->p->dir_y;
+        cub->minimap->p_img->instances->x = round(new_x);
+        cub->minimap->p_img->instances->y = round(new_y);
 	}
 	
 	// if (mlx_is_key_down(cub->mlx, MLX_KEY_A))
@@ -309,7 +309,7 @@ void	loop_hook(void *param)
 		draw_ray(cub);
 	movement(cub);
 	raytrace(cub);
-	// printf("dir in radian = %f\t\t dir in angle = %f\n", cub->p->dir, cub->p->dir / (180 * M_PI));
+	// printf("dir_x in radian = %f\t\t dir_y in radians = %f\t\tdir in radians = %f\n", cub->p->dir_x, cub->p->dir_y, atan2(cub->p->dir_x, cub->p->dir_y));
 }
 
 void	game_loop(t_cub_data *cub)
