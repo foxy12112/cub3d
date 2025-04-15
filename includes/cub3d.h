@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/15 10:26:39 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/15 11:39:06 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <ctype.h>
+# include <limits.h>
 # include "libs.h"
 
 # define SPEED 1
@@ -148,9 +149,18 @@ typedef struct s_cub_data
 	double				ray_dir_y;
 	int					side;
 	double				wallX;
+	double              delta_dist_x;
+    double              delta_dist_y;
+    double              side_dist_x;
+    double              side_dist_y;
+    int                 step_x;
+    int                 step_y;
+    int                 map_x;
+    int                 map_y;
+    double              perpwalldist;
 }						t_cub_data;
 
-void *create_image(t_cub_data *cub, char *str);
+void			*create_image(t_cub_data *cub, char *str);
 
 void			clean_all(t_cub_data *cub);
 void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
@@ -236,7 +246,7 @@ void			display_data(t_cub_data *data);
 //raycasting
 void		img_pix_put(t_cub_data *cub, int x, int y, int color);
 void		calculate_column(t_cub_data *cub, int *line_height, int *start, int *end);
-void		calculate_texture(t_cub_data *cub, int start, int line_height);
+void		calculate_texture(t_cub_data *cub);
 void		draw_texture(t_cub_data *cub, int x, int texture);
 void		draw_column(t_cub_data *cub, int x);
 void		calculate_dist(t_cub_data *cub);
@@ -244,5 +254,10 @@ void		calculate_step(t_cub_data *cub);
 void		perform_dda(t_cub_data *cub);
 void		init_ray(t_cub_data *cub, int x);
 void		raycasting(t_cub_data *cub);
+
+void			init_player(t_cub_data *cub);
+
+void	draw_rays_on_minimap(t_cub_data *cub);
+void	draw_ray_on_minimap(t_cub_data *cub, double ray_dir);
 
 #endif

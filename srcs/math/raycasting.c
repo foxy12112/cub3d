@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 09:23:31 by psostari          #+#    #+#             */
-/*   Updated: 2025/04/15 10:23:13 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/15 11:20:32 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ void	init_ray(t_cub_data *cub, int x)
 {
 	cub->map_x = (int)cub->p->x;
 	cub->map_y = (int)cub->p->y;
-	cub->camera_angle = 2 * x / (double)cub->mlx->width - 1;
-	cub->ray_dir_x = cub->p->dir_x + cub->p->plane_x * cub->camera_angle;
-	cub->ray_dir_y = cub->p->dir_y + cub->p->plane_y * cub->camera_angle;
+	cub->p->camera_angle = 2 * x / (double)cub->mlx->width - 1;
+	cub->ray_dir_x = cub->p->dir_x + cub->p->plane_x * cub->p->camera_angle;
+	cub->ray_dir_y = cub->p->dir_y + cub->p->plane_y * cub->p->camera_angle;
 }
 
 void	raycasting(t_cub_data *cub)
@@ -88,7 +88,7 @@ void	raycasting(t_cub_data *cub)
 	x = 0;
 	while (x < cub->mlx->width)
 	{
-		init_rayc(cub, x);
+		init_ray(cub, x);
 		calculate_dist(cub);
 		calculate_step(cub);
 		perform_dda(cub);
@@ -100,4 +100,3 @@ void	raycasting(t_cub_data *cub)
 		x++;
 	}
 }
-

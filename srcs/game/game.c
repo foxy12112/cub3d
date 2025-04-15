@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/14 12:43:57 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:26:49 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,54 @@ void	movement(t_cub_data *cub)
 // 	// printf("%.5f\n", cub->p->dir);
 // }
 
+void	draw_ray_on_minimap(t_cub_data *cub, double ray_dir)
+{
+	int		x0;
+	int		y0;
+	int		x1;
+	int		y1;
+	double	ray_x;
+	double	ray_y;
+	double	step_size;
+	double	distance;
+
+	step_size = 0.1;
+	distance = 0.0;
+	x0 = cub->minimap->p_img->instances[0].x + 5;
+	y0 = cub->minimap->p_img->instances[0].y + 5;
+	ray_x = cub->p->x;
+	ray_y = cub->p->y;
+	while (distance < 200)
+	{
+		ray_x += cos(ray_dir) * step_size;
+		ray_y += sin(ray_dir) * step_size;
+		distance += step_size;
+		if (cub->map[(int)ray_y][(int)ray_x] == '1')
+			break ;
+	}
+	x1 = x0 + (ray_x - cub->p->x) * 22;
+	y1 = y0 + (ray_y - cub->p->y) * 22;
+	draw_line(x0, y0, x1, y1, cub);
+}
+
+void	draw_rays_on_minimap(t_cub_data *cub)
+{
+	double	ray_dir;
+	double	fov_start;
+	double	fov_end;
+	double	fov_step;
+
+	fov_start = cub->p->dir - (FOV / 2);
+	fov_end = cub->p->dir + (FOV / 2);
+	fov_step = 1.0;
+	ray_dir = fov_start;
+	while (ray_dir <= fov_end)
+	{
+		draw_ray_on_minimap(cub, ray_dir * (M_PI / 180.0));
+		ray_dir += fov_step;
+	}
+}
+
 void ft_hook(void* param)
 {
     t_cub_data* cub = (t_cub_data*)param;
@@ -83,31 +131,12 @@ void ft_hook(void* param)
     movement(cub);
     cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / (double)22;
     cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)22;
-
-    // Update direction vector based on the angle
     cub->p->dir_x = cos(cub->p->dir * M_PI / 180.0);
     cub->p->dir_y = sin(cub->p->dir * M_PI / 180.0);
-
-    // Debugging output
+    draw_rays_on_minimap(cub);
     printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
     printf("Direction vector: (%f, %f)\n", cub->p->dir_x, cub->p->dir_y);
 }
-
-// void	game_loop(t_cub_data *cub)
-// {
-// 	cub->ceiling = get_color(cub->texture->ceiling->r, cub->texture->ceiling->g, cub->texture->ceiling->b, 255);
-// 	cub->floor = get_color(cub->texture->floor->r, cub->texture->floor->g, cub->texture->floor->b, 255);
-// 	cub->img = mlx_new_image(cub->mlx, cub->mlx->width, cub->mlx->height);
-// 	mlx_image_to_window(cub->mlx, cub->img, 0, 0);
-// 	cub->img->instances->z = 0;
-// 	draw_c_f(cub);
-// 	map(cub);
-// 	draw_player(cub);
-// 	mlx_key_hook(cub->mlx, event, cub);
-// 	mlx_loop_hook(cub->mlx, ft_hook, cub);
-// 	mlx_loop(cub->mlx);
-// 	mlx_terminate(cub->mlx);
-// }
 
 void game_loop(t_cub_data *cub)
 {
@@ -116,10 +145,10 @@ void game_loop(t_cub_data *cub)
 	cub->img = mlx_new_image(cub->mlx, cub->mlx->width, cub->mlx->height);
 	mlx_image_to_window(cub->mlx, cub->img, 0, 0);
 	cub->img->instances->z = 0;
-	draw_c_f(cub);      // crta pod i strop
-	map(cub);           // crta mapu (ako treba)
-	draw_player(cub);   // crta igrača
-	raytrace(cub);      // poziva raycasting za crtanije zidova
+	draw_c_f(cub);
+	raycasting(cub);
+	map(cub);
+	draw_player(cub);
 	mlx_key_hook(cub->mlx, event, cub);
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
 	mlx_loop(cub->mlx);

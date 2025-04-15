@@ -6,11 +6,29 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/10 09:58:30 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:05:59 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	init_player(t_cub_data *cub)
+{
+    // Set the player's starting position (example: map coordinates 13, 3)
+	cub->p->x = 13.0; // Player's x position
+	cub->p->y = 3.0;  // Player's y position
+    // Set the player's initial direction (example: facing north)
+    cub->p->dir_x = 0;
+    cub->p->dir_y = -1;
+    // Set the camera plane (perpendicular to the direction vector)
+	cub->p->plane_x = 0.66; // Adjust for FOV (field of view)
+	cub->p->plane_y = 0;
+	// Debugging output to verify initialization
+	printf("Player initialized:\n");
+	printf("Position: (%f, %f)\n", cub->p->x, cub->p->y);
+	printf("Direction: (%f, %f)\n", cub->p->dir_x, cub->p->dir_y);
+	printf("Camera plane: (%f, %f)\n", cub->p->plane_x, cub->p->plane_y);
+}
 
 int	init(char *argv[], t_cub_data *cub)
 {
@@ -32,6 +50,7 @@ int	init(char *argv[], t_cub_data *cub)
 	{
 		return (ft_error(cub, "Failed to initialize mlx"), EXIT_FAILURE);
 	}
+	init_player(cub);
 	mlx_set_setting(MLX_MAXIMIZED, true);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)

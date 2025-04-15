@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:36:02 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/14 12:58:08 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:40:17 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,107 +71,38 @@
 // 	return (0);
 // }
 
-// int	main(int argc, char *argv[])
-// {
-// 	t_cub_data	*cub;
+int main(int argc, char *argv[])
+{
+    t_cub_data *cub;
 
-// 	cub = malloc(sizeof(t_cub_data));
-// 	if (!cub)
-// 		return (printf("Malloc error: cub\n"), EXIT_FAILURE);
-// 	if (argc != 2)
-// 		return (free(cub), printf("Wrong number of Arguments\n"), 1);
-// 	cub->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
-// 	if (init(argv, cub) == 1)
-// 		return (ft_error(cub, "error in init"), EXIT_FAILURE);
-// 	if (init_texture(cub) == 1)
-// 		return (ft_error(cub, "error in texture initialization"), EXIT_FAILURE);
-// 	print_map(cub);
-// 	if (check_invalid_chars(cub) == FAILURE)
-// 		return (ft_error(cub, "Invalid character in map"), EXIT_FAILURE);
-// 	if (parsing(cub) == 1)
-// 		return (ft_error(cub, "error in parsing"), EXIT_FAILURE);
-// 	// print_2(cub);
-// 	game_loop(cub);
-// 	clean_all(cub);
-// 	return (0);
-// }
+    // Allocate memory for the game data structure
+    cub = malloc(sizeof(t_cub_data));
+    if (!cub)
+        return (printf("Malloc error: cub\n"), EXIT_FAILURE);
 
-// #include "cub3d.h"  // Ovisno o tvojoj implementaciji, ovo će biti specifično za tvoju igru.
+    // Check the number of arguments
+    if (argc != 2)
+        return (free(cub), printf("Wrong number of Arguments\n"), 1);
 
-// int main(int argc, char *argv[])
-// {
-//     t_cub_data *cub;
+    // Initialize mlx (graphics library)
+    cub->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
+    if (init(argv, cub) == 1)
+        return (ft_error(cub, "error in init"), EXIT_FAILURE);
 
-//     // Alociranje memorije za strukturu podataka igre
-//     cub = malloc(sizeof(t_cub_data));
-//     if (!cub)
-//         return (printf("Malloc error: cub\n"), EXIT_FAILURE);
+    if (init_texture(cub) == 1)
+        return (ft_error(cub, "error in texture initialization"), EXIT_FAILURE);
 
-//     // Provjera broja argumenata
-//     if (argc != 2)
-//         return (free(cub), printf("Wrong number of Arguments\n"), 1);
+    print_map(cub);
 
-//     // Inicijalizacija mlx (grafičke biblioteke)
-//     cub->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
-//     if (init(argv, cub) == 1)
-//         return (ft_error(cub, "error in init"), EXIT_FAILURE);
+    if (check_invalid_chars(cub) == FAILURE)
+        return (ft_error(cub, "Invalid character in map"), EXIT_FAILURE);
 
-//     if (init_texture(cub) == 1)
-//         return (ft_error(cub, "error in texture initialization"), EXIT_FAILURE);
+    if (parsing(cub) == 1)
+        return (ft_error(cub, "error in parsing"), EXIT_FAILURE);
+    // Start the game loop
+    game_loop(cub);
 
-//     print_map(cub);
+    clean_all(cub);
 
-//     if (check_invalid_chars(cub) == FAILURE)
-//         return (ft_error(cub, "Invalid character in map"), EXIT_FAILURE);
-
-//     if (parsing(cub) == 1)
-//         return (ft_error(cub, "error in parsing"), EXIT_FAILURE);
-
-//     // Pokretanje glavne petlje igre
-//     game_loop(cub); // Ovdje pozivamo raycasting unutar petlje
-
-//     clean_all(cub);
-
-//     return (0);
-// }
-
-
-// int main(int argc, char *argv[])
-// {
-//     t_cub_data *cub;
-
-//     // Allocate memory for the game data structure
-//     cub = malloc(sizeof(t_cub_data));
-//     if (!cub)
-//         return (printf("Malloc error: cub\n"), EXIT_FAILURE);
-
-//     // Check the number of arguments
-//     if (argc != 2)
-//         return (free(cub), printf("Wrong number of Arguments\n"), 1);
-
-//     // Initialize mlx (graphics library)
-//     cub->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
-//     if (init(argv, cub) == 1)
-//         return (ft_error(cub, "error in init"), EXIT_FAILURE);
-
-//     if (init_texture(cub) == 1)
-//         return (ft_error(cub, "error in texture initialization"), EXIT_FAILURE);
-
-//     print_map(cub);
-
-//     if (check_invalid_chars(cub) == FAILURE)
-//         return (ft_error(cub, "Invalid character in map"), EXIT_FAILURE);
-
-//     if (parsing(cub) == 1)
-//         return (ft_error(cub, "error in parsing"), EXIT_FAILURE);
-
-//     // Initialize the player's position and direction
-//     init_player(cub);
-
-//     // Start the game loop
-//     game_loop(cub);
-
-//     clean_all(cub);
-
-//     return (0);
-// }
+    return (0);
+}

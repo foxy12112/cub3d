@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/12 12:11:38 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/15 11:59:52 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,15 +233,15 @@ int	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	return (i);
 }
 
-void	draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub)
+void draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
-	int dx = abs(x1 - x0);
-	int dy = abs(y1 - y0);
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
 
-	if (dx >= dy)
-		draw_line_x(x0, y0, x1, y1, cub);
-	else
-		draw_line_y(x0, y0, x1, y1, cub);
+    if (dx >= dy)
+        draw_line_x(x0, y0, x1, y1, cub);
+    else
+        draw_line_y(x0, y0, x1, y1, cub);
 }
 
 void	draw_ray(t_cub_data *cub)

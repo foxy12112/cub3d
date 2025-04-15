@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:08:20 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/14 12:55:03 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:01:28 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,81 +137,42 @@ void draw_rays(t_cub_data *cub)
     }
 }
 
-// void	map(t_cub_data *cub)
-// {
-// 	int	max_row_length;
-// 	int	y;
-// 	int	row_length;
-
-// 	max_row_length = 0;
-// 	y = 0;
-// 	while (cub->map[y])
-// 	{
-// 		row_length = 0;
-// 		while (cub->map[y][row_length])
-// 			row_length++;
-// 		if (row_length > max_row_length)
-// 			max_row_length = row_length;
-// 		y++;
-// 	}
-// 	cub->minimap->size_x = max_row_length;
-// 	cub->minimap->size_y = 0;
-// 	while (cub->map[cub->minimap->size_y])
-// 		cub->minimap->size_y++;
-// 	printf("Map dimensions: %d (width) x %d (height)\n", cub->minimap->size_x, cub->minimap->size_y);
-// 	cub->minimap->scale_x = cub->mlx->width / (double)cub->minimap->size_x;
-// 	cub->minimap->scale_y = cub->mlx->height / (double)cub->minimap->size_y;
-// 	calculate_size(cub);
-// 	printf("Minimap scale: %.2f\n", cub->minimap->scale);
-// 	cub->minimap->img = mlx_new_image(cub->mlx, cub->mlx->width, cub->mlx->height);
-// 	if (!cub->minimap->img)
-// 	{
-// 		printf("Error: Failed to create minimap image.\n");
-// 		return ;
-// 	}
-// 	mlx_image_to_window(cub->mlx, cub->minimap->img, 50, 50);
-// 	draw_map(cub);
-// 	cub->p->x = (double)cub->p->start_x;
-// 	cub->p->y = (double)cub->p->start_y;
-// 	printf("Player starting position: %.6f, %.6f\n", cub->p->x, cub->p->y);
-// }
-
-void map(t_cub_data *cub)
+void	map(t_cub_data *cub)
 {
-    int max_row_length;
-    int y;
-    int row_length;
+	int	max_row_length;
+	int	y;
+	int	row_length;
 
-    max_row_length = 0;
-    y = 0;
-    while (cub->map[y])
-    {
-        row_length = 0;
-        while (cub->map[y][row_length])
-            row_length++;
-        if (row_length > max_row_length)
-            max_row_length = row_length;
-        y++;
-    }
-    cub->minimap->size_x = max_row_length;
-    cub->minimap->size_y = 0;
-    while (cub->map[cub->minimap->size_y])
-        cub->minimap->size_y++;
-    printf("Map dimensions: %d (width) x %d (height)\n", cub->minimap->size_x, cub->minimap->size_y);
-    cub->minimap->scale_x = cub->mlx->width / (double)cub->minimap->size_x;
-    cub->minimap->scale_y = cub->mlx->height / (double)cub->minimap->size_y;
-    calculate_size(cub);
-    printf("Minimap scale: %.2f\n", cub->minimap->scale);
-    cub->minimap->img = mlx_new_image(cub->mlx, cub->mlx->width, cub->mlx->height);
-    if (!cub->minimap->img)
-    {
-        printf("Error: Failed to create minimap image.\n");
-        return;
-    }
-    mlx_image_to_window(cub->mlx, cub->minimap->img, 50, 50);
-    draw_map(cub);
-    draw_rays(cub); // Draw rays on the minimap
-    cub->p->x = (double)cub->p->start_x;
-    cub->p->y = (double)cub->p->start_y;
-    printf("Player starting position: %.6f, %.6f\n", cub->p->x, cub->p->y);
+	max_row_length = 0;
+	y = 0;
+	while (cub->map[y])
+	{
+		row_length = 0;
+		while (cub->map[y][row_length])
+			row_length++;
+		if (row_length > max_row_length)
+			max_row_length = row_length;
+		y++;
+	}
+	cub->minimap->size_x = max_row_length;
+	cub->minimap->size_y = 0;
+	while (cub->map[cub->minimap->size_y])
+		cub->minimap->size_y++;
+	printf("Map dimensions: %d (width) x %d (height)\n", cub->minimap->size_x, cub->minimap->size_y);
+	cub->minimap->scale_x = cub->mlx->width / (double)cub->minimap->size_x;
+	cub->minimap->scale_y = cub->mlx->height / (double)cub->minimap->size_y;
+	calculate_size(cub);
+	printf("Minimap scale: %.2f\n", cub->minimap->scale);
+	cub->minimap->img = mlx_new_image(cub->mlx, cub->mlx->width, cub->mlx->height);
+	if (!cub->minimap->img)
+	{
+		printf("Error: Failed to create minimap image.\n");
+		return ;
+	}
+	mlx_image_to_window(cub->mlx, cub->minimap->img, 50, 50);
+	draw_map(cub);
+	cub->p->x = (double)cub->p->start_x;
+	cub->p->y = (double)cub->p->start_y;
+	printf("Player starting position: %.6f, %.6f\n", cub->p->x, cub->p->y);
 }
+
