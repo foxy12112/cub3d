@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/14 12:55:24 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/15 10:26:39 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,6 @@ void			set_player_position(t_cub_data *cub, int j, int i, char c);
 int				check_and_find_player(t_cub_data *cub);
 void			set_player_direction(t_cub_data *cub, char c);
 
-
 //debug
 void			print_map_lines(char **map);
 void			print_minimap_data(t_minimap *minimap);
@@ -223,18 +222,27 @@ void			print_mapinfo(t_cub_data *data);
 void			print_player_info(t_cub_data *data);
 void			display_data(t_cub_data *data);
 
-void			draw_v_line(int x, int start, int end, mlx_image_t *img);
-void			draw_game(int x, double ray_d, t_cub_data *cub);
-void			raytrace(t_cub_data *cub);
-bool			touch(double px, double py, t_cub_data *cub);
-void			init_ray_direction(t_cub_data *cub, int x);
-double			calculate_wallX(t_cub_data *cub, double perpWallDist);
-void			draw_textured_wall(int x, int drawStart, int drawEnd, t_cub_data *cub);
-void			detect_wall_side(t_cub_data *cub, double ray_dir_x, double ray_dir_y, int hit_vertical);
-mlx_image_t		*get_wall_texture(t_cub_data *cub);
-uint32_t		get_pixel_color(mlx_image_t *img, uint32_t x, uint32_t y);
+// void			draw_v_line(int x, int start, int end, mlx_image_t *img);
+// void			draw_game(int x, double ray_d, t_cub_data *cub);
+// void			raytrace(t_cub_data *cub);
+// bool			touch(double px, double py, t_cub_data *cub);
+// void			init_ray_direction(t_cub_data *cub, int x);
+// double			calculate_wallX(t_cub_data *cub, double perpWallDist);void			draw_textured_wall(int x, int drawStart, int drawEnd, t_cub_data *cub);
+// uint32_t		get_pixel_color(mlx_image_t *img, uint32_t x, uint32_t y);
 
-void			init_player(t_cub_data *cub);
-void			draw_rays(t_cub_data *cub);
+// void			init_player(t_cub_data *cub);
+// void			draw_rays(t_cub_data *cub);
+
+//raycasting
+void		img_pix_put(t_cub_data *cub, int x, int y, int color);
+void		calculate_column(t_cub_data *cub, int *line_height, int *start, int *end);
+void		calculate_texture(t_cub_data *cub, int start, int line_height);
+void		draw_texture(t_cub_data *cub, int x, int texture);
+void		draw_column(t_cub_data *cub, int x);
+void		calculate_dist(t_cub_data *cub);
+void		calculate_step(t_cub_data *cub);
+void		perform_dda(t_cub_data *cub);
+void		init_ray(t_cub_data *cub, int x);
+void		raycasting(t_cub_data *cub);
 
 #endif

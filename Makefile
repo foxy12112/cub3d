@@ -6,7 +6,7 @@
 #    By: psostari <psostari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/20 11:48:25 by psostari          #+#    #+#              #
-#    Updated: 2025/04/02 12:33:02 by psostari         ###   ########.fr        #
+#    Updated: 2025/04/15 10:27:30 by psostari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -171,7 +171,7 @@ PARSING			=	$(addprefix parsing/, $(_PARSING))
 _DEBUG			=	debug.c
 DEBUG			=	$(addprefix debug/, $(_DEBUG))
 
-_MATH			=	color.c raytracing.c get_texture.c
+_MATH			=	raycasting.c define_texture.c get_texture.c 
 MATH			=	$(addprefix math/, $(_MATH))
 
 _UTILS			=	ft_ftoa.c init.c init_utils.c tmp.c cub_init.c check_texture.c

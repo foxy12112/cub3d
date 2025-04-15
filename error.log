@@ -1,0 +1,5 @@
+In file included from srcs/math/raycasting.c:13:
+includes/cub3d.h:17:11: fatal error: '../MLX42/include/MLX42/MLX42.h' file not found
+# include "../MLX42/include/MLX42/MLX42.h"
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
