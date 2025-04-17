@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:01:07 by ldick             #+#    #+#             */
-/*   Updated: 2025/03/14 11:31:20 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/17 10:24:10 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ bool	collision_top(t_cub_data *cub)
 
 	x = cub->p->x;
 	y = cub->p->y - 0.05;
-
 	while(x <= cub->p->x + 0.56)
 	{
 		if (cub->map[(int)y][(int)x] == '1')
@@ -36,7 +35,6 @@ bool	collision_bottom(t_cub_data *cub)
 
 	x = cub->p->x;
 	y = cub->p->y - 0.05;
-
 	while(x <= cub->p->x + 0.56)
 	{
 		if (cub->map[(int)(y + 0.65)][(int)x] == '1')
@@ -135,7 +133,6 @@ void	draw_player(t_cub_data *cub)
 	return ;
 }
 
-
 // void	rotate_player(t_cub_data *cub, mlx_key_data_t *mkd)
 // {
 // 	if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
@@ -144,6 +141,6 @@ void	draw_player(t_cub_data *cub)
 // 	}
 // 	else if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
 // 	{
-		
+
 // 	}
 // }

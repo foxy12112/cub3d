@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/15 11:39:06 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/17 11:23:57 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ void			ft_ftoa(double n, char *res, int afterpoint);
 void			draw_player(t_cub_data *cub);
 int				percent(double value, double total);
 void			draw_ray(t_cub_data *cub);
+
 // int			collision(t_cub_data *cub);
 bool			collision_left(t_cub_data *cub);
 bool			collision_right(t_cub_data *cub);
@@ -194,10 +195,11 @@ void			draw_c_f(t_cub_data *cub);
 void			draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub);
 void			ft_swap(void *a, void *b, size_t size);
 int				ft_abs(int value);
-void			draw_fov(t_cub_data *cub);
-
-int				check_texture_file(char *path, char *texture_name);
-int				check_texture_format(const char *path);
+void			copy_pixels(uint8_t *dst, uint8_t *src);
+void			scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height);
+int				is_wall(t_cub_data *cub, int x, int y);
+uint32_t 		get_pixel_color(mlx_image_t *img, uint32_t x, uint32_t y);
+bool			touch(double px, double py, t_cub_data *cub);
 
 //parsing
 int				parsing(t_cub_data *cub);
@@ -213,14 +215,12 @@ int				check_map_dim(t_cub_data *cub);
 int				check_row(t_cub_data *cub);
 int				check_map_elements(t_cub_data *cub);
 int				check_invalid_chars(t_cub_data *cub);
-// int				check_texture(const char *path, const char *texture_name);
 int				check_textures(t_cub_data *cub);
 int				parse_rgb_line(char *line);
 int				check_rgb(int *rgb, char *line);
 void			get_rgb(t_cub_data *map, int *rgb, char **split_line);
 void			print_map(t_cub_data *cub);
 void			free_double_array(char **array);
-
 void			set_player_position(t_cub_data *cub, int j, int i, char c);
 int				check_and_find_player(t_cub_data *cub);
 void			set_player_direction(t_cub_data *cub, char c);
@@ -231,17 +231,6 @@ void			print_minimap_data(t_minimap *minimap);
 void			print_mapinfo(t_cub_data *data);
 void			print_player_info(t_cub_data *data);
 void			display_data(t_cub_data *data);
-
-// void			draw_v_line(int x, int start, int end, mlx_image_t *img);
-// void			draw_game(int x, double ray_d, t_cub_data *cub);
-// void			raytrace(t_cub_data *cub);
-// bool			touch(double px, double py, t_cub_data *cub);
-// void			init_ray_direction(t_cub_data *cub, int x);
-// double			calculate_wallX(t_cub_data *cub, double perpWallDist);void			draw_textured_wall(int x, int drawStart, int drawEnd, t_cub_data *cub);
-// uint32_t		get_pixel_color(mlx_image_t *img, uint32_t x, uint32_t y);
-
-// void			init_player(t_cub_data *cub);
-// void			draw_rays(t_cub_data *cub);
 
 //raycasting
 void		img_pix_put(t_cub_data *cub, int x, int y, int color);
@@ -259,5 +248,72 @@ void			init_player(t_cub_data *cub);
 
 void	draw_rays_on_minimap(t_cub_data *cub);
 void	draw_ray_on_minimap(t_cub_data *cub, double ray_dir);
+
+// // ========== RAYCASTING ==========
+// void	raycasting(t_cub_data *cub);
+// void	init_ray(t_cub_data *cub, int x);
+// void	calculate_dist(t_cub_data *cub);
+// void	calculate_step(t_cub_data *cub);
+// void	perform_dda(t_cub_data *cub);
+// void	calculate_column(t_cub_data *cub, int *line_height, int *start, int *end);
+// void	calculate_texture(t_cub_data *cub);
+// void	draw_texture(t_cub_data *cub, int x, int texture);
+// void	draw_column(t_cub_data *cub, int x);
+// void	img_pix_put(t_cub_data *cub, int x, int y, int color);
+
+// // ========== PARSING ==========
+// int				parsing(t_cub_data *cub);
+// int				check_map(t_cub_data *cub);
+// int				check_map_exists(t_cub_data *cub);
+// int				check_top(t_cub_data *cub);
+// int				check_bottom(t_cub_data *cub);
+// int				check_sides(t_cub_data *cub);
+// int				check_player(t_cub_data *cub);
+// int				check_leaks(char **map, t_cub_data *cub);
+// int				check_map_validity(t_cub_data *cub);
+// int				check_map_dim(t_cub_data *cub);
+// int				check_row(t_cub_data *cub);
+// int				check_map_elements(t_cub_data *cub);
+// int				check_invalid_chars(t_cub_data *cub);
+// int				check_textures(t_cub_data *cub);
+// int				parse_rgb_line(char *line);
+// int				check_rgb(int *rgb, char *line);
+// void			get_rgb(t_cub_data *map, int *rgb, char **split_line);
+// void			print_map(t_cub_data *cub);
+// void			free_double_array(char **array);
+// void			set_player_position(t_cub_data *cub, int j, int i, char c);
+// int				check_and_find_player(t_cub_data *cub);
+// void			set_player_direction(t_cub_data *cub, char c);
+// void			init_player(t_cub_data *cub);
+
+// ========== DEBUGGING & PRINT HELPERS ==========
+// void			print_map_lines(char **map);
+// void			print_minimap_data(t_minimap *minimap);
+// void			print_mapinfo(t_cub_data *data);
+// void			print_player_info(t_cub_data *data);
+// void			display_data(t_cub_data *data);
+
+// ========== MINIMAP & MAP DRAWING ==========
+// void	draw_wall(t_cub_data *cub, int x, int y, int rec_size);
+// void	draw_square(t_cub_data *cub, int wall, int x, int y, int rec_size);
+// void	draw_map(t_cub_data *cub);
+// void	draw_rays(t_cub_data *cub);
+// void	map(t_cub_data *cub);
+// void	calculate_size(t_cub_data *cub);
+
+// ========== ERROR HANDLING ==========
+// void	ft_error(t_cub_data *cub, const char *error_msg);
+// void	clean_all(t_cub_data *cub);
+
+// ========== COLLISION DETECTION ==========
+// bool		collision_top(t_cub_data *cub);
+// bool		collision_bottom(t_cub_data *cub);
+// bool		collision_left(t_cub_data *cub);
+// bool		collision_right(t_cub_data *cub);
+
+// // ========== PLAYER DRAWING ==========
+// void		draw_play(t_cub_data *cub);
+// void		draw_player(t_cub_data *cub);
+
 
 #endif

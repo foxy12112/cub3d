@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:08:20 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/15 12:01:28 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/17 09:37:19 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void calculate_size(t_cub_data *cub)
 	printf("Minimap size: %f x %f\n", size_x, size_y);
 }
 
-void draw_rays(t_cub_data *cub)
+void	draw_rays(t_cub_data *cub)
 {
     int x;
     double ray_dir_x;
