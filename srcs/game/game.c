@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/15 15:45:50 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/22 16:27:21 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,6 @@ void	rotate(t_cub_data *cub)
 void	movement(t_cub_data *cub)
 {
 	// double angle = atan2(cub->p->dir_y, cub->p->dir_x) - (FOV * (M_PI / 180.0)) / 2.0;
-	double move_step;
 	double new_x;
 	double new_y;
 	// angle = normalize_angle(angle);
@@ -278,9 +277,13 @@ void	movement(t_cub_data *cub)
 		// cub->minimap->p_img->instances->x += cub->p->dir_x * SPEED;
 		// cub->minimap->p_img->instances->y += cub->p->dir_y * SPEED;
 		// printf("angle=%f\t\tdir_x%f\t\tdir_y%f\t\t%f\t\t%f\n", angle, cub->p->dir_x, cub->p->dir_y, cos(angle), sin(angle));
-		move_step = SPEED;
-        new_x = cub->minimap->p_img->instances->x + cub->p->dir_x;
-        new_y = cub->minimap->p_img->instances->y + cub->p->dir_y;
+        new_x = cub->p->x + (cub->p->dir_x * SPEED);
+        new_y = cub->p->y + (cub->p->dir_y * SPEED);
+		cub->p->x = new_x;
+		cub->p->y = new_y;
+		// printf("%f\t\t%f\n", cub->p->x, cub->p->y);
+		// printf("%f\t\t%f\n", cub->p->dir_x, cub->p->dir_y);
+		// printf("%f\t\t%f\n", new_x, new_y);
         cub->minimap->p_img->instances->x = round(new_x);
         cub->minimap->p_img->instances->y = round(new_y);
 	}

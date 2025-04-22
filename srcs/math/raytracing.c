@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/21 15:07:21 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/22 10:37:51 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,12 +234,14 @@ int	raytrace(t_cub_data *cub)
 	double dir_y = cub->p->dir_y;
 	while(i < 1920)
 	{
-		x1 = cub->minimap->p_img->instances[0].x + 5;
-		y1 = cub->minimap->p_img->instances[0].y + 5;
+		// x1 = cub->minimap->p_img->instances[0].x + 5;
+		// y1 = cub->minimap->p_img->instances[0].y + 5;
+		x1 = cub->p->x + 5;
+		y1 = cub->p->y + 5;
 		double olddirx = dir_x;
 		x = x1 + (dir_x * cub->mlx->width);
 		y = y1 + (dir_y * cub->mlx->width);
-		printf("%f\n", dir_y);
+		// printf("%f\n", dir_y);
 		double ray_d = ray(x1, y1, x, y, cub);
 		if(mlx_is_key_down(cub->mlx, MLX_KEY_P))
 			draw_line(x1, y1, (x1 + (dir_x * 200)), (y1 + dir_y * 200), cub);
