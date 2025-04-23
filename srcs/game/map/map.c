@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:08:20 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/02 21:05:08 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/23 12:13:33 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,5 @@ void map(t_cub_data *cub)
     }
     mlx_image_to_window(cub->mlx, cub->minimap->img, 50, 50);
 	draw_map(cub);
-    // Set the player's starting position
-    cub->p->x = (double)cub->p->start_x;
-    cub->p->y = (double)cub->p->start_y;
     printf("Player starting position: %.6f, %.6f\n", cub->p->x, cub->p->y);
 }

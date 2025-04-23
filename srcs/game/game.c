@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/22 16:27:21 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/23 11:24:55 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,7 +249,7 @@ void	rotate(t_cub_data *cub)
 	// olddirx = cub->p->dir_x;
 	cub->p->dir_x = cub->p->dir_x * cos(rotation_angle) - cub->p->dir_y * sin(rotation_angle);
 	cub->p->dir_y = olddirx * sin(rotation_angle) + cub->p->dir_y * cos(rotation_angle);
-	double magnitude = sqrt(cub->p->dir_x * cub->p->dir_x + cub->p->dir_y * cub->p->dir_y);
+	// double magnitude = sqrt(cub->p->dir_x * cub->p->dir_x + cub->p->dir_y * cub->p->dir_y);
     // cub->p->dir_x /= magnitude;
     // cub->p->dir_y /= magnitude;
 	// cub->p->dir = atan2(cub->p->dir_y, cub->p->dir_x);

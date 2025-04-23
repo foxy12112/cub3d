@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/22 10:37:51 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/23 12:11:12 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,17 +227,17 @@ int	raytrace(t_cub_data *cub)
 	i = 0;
 	draw_c_f(cub);
 	double dir_inc = (double)FOV * (M_PI / 180.0) / (double)1920;
-	// double dir = atan2(cub->p->dir_y, cub->p->dir_x) - (FOV * (M_PI / 180.
-	// double dir_y_inc = sin(dir_inc);
-	// double dir_x_inc = cos(dir_inc);
 	double dir_x = cub->p->dir_x;
 	double dir_y = cub->p->dir_y;
+	double fov_rad = (double)FOV * (M_PI / 180.0);
+	double half_fov = fov_rad / 2.0;
+	double old_dir_x = dir_x;
+	dir_x = dir_x * cos(-half_fov) - dir_y * sin(-half_fov);
+	dir_y = old_dir_x * sin(-half_fov) + dir_y * cos(-half_fov);
 	while(i < 1920)
 	{
-		// x1 = cub->minimap->p_img->instances[0].x + 5;
-		// y1 = cub->minimap->p_img->instances[0].y + 5;
-		x1 = cub->p->x + 5;
-		y1 = cub->p->y + 5;
+		x1 = cub->p->x;
+		y1 = cub->p->y;
 		double olddirx = dir_x;
 		x = x1 + (dir_x * cub->mlx->width);
 		y = y1 + (dir_y * cub->mlx->width);

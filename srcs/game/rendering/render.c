@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/15 15:21:52 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/23 12:11:44 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,8 +256,8 @@ void	draw_ray(t_cub_data *cub)
 	// double dir = atan2(cub->p->dir_y, cub->p->dir_x) - (FOV * (M_PI / 180.0)) / 2.0;
 	// double dir = atan2(cub->p->dir_x, cub->p->dir_y);
 	// angle = dir;
-	x1 = cub->minimap->p_img->instances[0].x + 5;
-	y1 = cub->minimap->p_img->instances[0].y + 5;
+	x1 = cub->p->x;
+	y1 = cub->p->y;
 	x = x1 + cub->p->dir_x * 200;
 	y = y1 + cub->p->dir_y * 200;
 	draw_line(x1, y1, x, y, cub);
