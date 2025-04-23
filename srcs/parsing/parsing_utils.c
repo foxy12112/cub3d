@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:11:53 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/23 12:13:59 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/23 15:06:04 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,23 @@ static int	check_player(t_cub_data *cub)
 		return (1);
 	if (c == 'N')
 	{
-		cub->p->dir_x = 1;
+		cub->p->dir_x = 0;
 		cub->p->dir_y = -1;
 	}
 	else if (c == 'S')
 	{
-		cub->p->dir_x = -1;
+		cub->p->dir_x = 0;
 		cub->p->dir_y = 1;
 	}
 	else if (c == 'E')
 	{
 		cub->p->dir_x = 1;
-		cub->p->dir_y = 1;
+		cub->p->dir_y = 0;
 	}
 	else if (c == 'W')
 	{
 		cub->p->dir_x = -1;
-		cub->p->dir_y = -1;
+		cub->p->dir_y = 0;
 	}
 	cub->p->dir = atan2(cub->p->dir_x, cub->p->dir_y);
 	cub->p->x = (double)cub->p->start_x * 22 + 55;
