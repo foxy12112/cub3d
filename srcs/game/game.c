@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/23 20:08:29 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/24 17:45:42 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,15 @@ void	rotate(t_cub_data *cub)
 	cub->p->dir_y = olddirx * sin(rotation_angle) + cub->p->dir_y * cos(rotation_angle);
 }
 
+int	valid_location(int x, int y, t_cub_data *cub)
+{
+	if (cub->map == NULL || cub->map[y] == NULL || cub->map[y][x] == NULL)
+		return (0);
+	if (cub->map[y][x] == '1' || cub->map[y][x] == ' ')
+		return (0);
+	return (1);
+}
+
 void	movement(t_cub_data *cub)
 {
 	double	new_x;
@@ -101,10 +110,14 @@ void	movement(t_cub_data *cub)
 		new_x = cub->p->x - (cub->p->dir_y * move_speed);
 		new_y = cub->p->y + (cub->p->dir_x * move_speed);
 	}
-	cub->p->x = new_x;
-	cub->p->y = new_y;
-	cub->minimap->p_img->instances->x = round(new_x);
-	cub->minimap->p_img->instances->y = round(new_y);
+	if (valid_location((int)((new_x - 55) / 22), (int)((new_y - 55) / 22), cub))
+	{
+		cub->p->x = new_x;
+		cub->minimap->p_img->instances->x = round(new_x);
+		cub->p->y = new_y;
+		cub->minimap->p_img->instances->y = round(new_y);
+	}
+	printf("%c\tx=%d\ty=%d\n", cub->map[(int)(new_y - 55) / 22][(int)(new_x - 55) / 22], (int)(round(new_x) - 55) / 22, (int)(round(new_y) - 55) / 22);
 }
 
 void	loop_hook(void *param)
@@ -119,7 +132,7 @@ void	loop_hook(void *param)
 		rotate(cub);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_KP_0))
 		draw_ray(cub);
-	if (mlx_is_key_down)
+	// if (mlx_is_key_down)
 	movement(cub);
 	raytrace(cub);
 }
