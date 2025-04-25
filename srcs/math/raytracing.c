@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/23 12:11:12 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/25 18:40:56 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,16 +189,25 @@ static double	ray(int x0, int y0, int x1, int y1, t_cub_data *cub)
 // }
 
 
-void	draw_v_line(int x, int start, int end, mlx_image_t *img)
+void	draw_v_line(int x, int start, int end, t_cub_data *cub, int old, int oldy)
 {
-	int color = (x % 2 == 0) ? 0x4514ffff : 0xffffffff;
+	int color;
+	// if (cub->map_x % 3 == 0)
+	// 	color = 0xff0000ff;
+	if (cub->map_y % 2 == 0)
+		color = 0x00ff00ff;
+	if (old != cub->map_x || oldy != cub->map_y)
+		color = 0xff00ffff;
+	else if (old = cub->map_x && oldy == cub->map_y)
+		color = 0xffff00ff;
 	while(start++ < end)
 	{
-		mlx_put_pixel(img, x, start, color);
+		mlx_put_pixel(cub->img, x, start, color);
 	}
+	printf("%d\t%d\t%d\t%d\n", old, oldy, cub->map_x, cub->map_y);
 }
 
-void	draw_game(int x, double ray_d, t_cub_data *cub)
+void	draw_game(int x, double ray_d, t_cub_data *cub, int oldx, int oldy)
 {
 	double line_hight = ((64 / ray_d) * (WIDHT / 2)) + (cub->mlx->height / cub->p->perp_wall_dist);
 	// (void)ray_d;
@@ -212,7 +221,7 @@ void	draw_game(int x, double ray_d, t_cub_data *cub)
 	int draw_end = (draw_start + line_hight);
 	if (draw_end >= cub->mlx->height)
 		draw_end = cub->mlx->height - 1;
-	draw_v_line(x, draw_start, draw_end, cub->img);
+	draw_v_line(x, draw_start, draw_end, cub, oldx, oldy);
 }
 
 int	raytrace(t_cub_data *cub)
@@ -234,6 +243,9 @@ int	raytrace(t_cub_data *cub)
 	double old_dir_x = dir_x;
 	dir_x = dir_x * cos(-half_fov) - dir_y * sin(-half_fov);
 	dir_y = old_dir_x * sin(-half_fov) + dir_y * cos(-half_fov);
+	double	view_angle = atan2(cub->p->dir_y, cub->p->dir_x);
+	double ray_angle;
+	double plane_mag = tan(fov_rad / 2.0);
 	while(i < 1920)
 	{
 		x1 = cub->p->x;
@@ -241,18 +253,24 @@ int	raytrace(t_cub_data *cub)
 		double olddirx = dir_x;
 		x = x1 + (dir_x * cub->mlx->width);
 		y = y1 + (dir_y * cub->mlx->width);
-		// printf("%f\n", dir_y);
+		int oldmapx, oldmapy;
+		oldmapx = cub->map_x;
+		oldmapy = cub->map_y;
 		double ray_d = ray(x1, y1, x, y, cub);
-		if(mlx_is_key_down(cub->mlx, MLX_KEY_P))
-			draw_line(x1, y1, (x1 + (dir_x * 200)), (y1 + dir_y * 200), cub);
-		draw_game(i, ray_d, cub);
+		double camera_x = 2 * i / 1920.0 - 1;
+		cub->p->plane_x = -cub->p->dir_y * plane_mag;
+		cub->p->plane_y = cub->p->dir_x * plane_mag;
+		ray_dir_x = cub->p->dir_x + cub->p->plane_x * camera_x;
+		ray_dir_y = cub->p->dir_y + cub->p->plane_y * camera_x;
+		ray_angle = atan2(ray_dir_y, ray_dir_x);
+		ray_d = ray_d * cos(ray_angle - view_angle);
+		draw_game(i, ray_d, cub, oldmapx, oldmapy);
 		i += 1;
 		dir_x = dir_x * cos(dir_inc) - dir_y * sin(dir_inc);
 		dir_y = olddirx * sin(dir_inc) + dir_y * cos(dir_inc);
 	}
 	return (1);
 }
-
 
 
 //TODO fuck it time to dda

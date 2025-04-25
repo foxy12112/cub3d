@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/22 17:05:03 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/25 17:20:56 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ typedef struct s_cub_data
 	double				ray_dir_x;
 	double				ray_dir_y;
 	double				time;
+	int					map_x;
+	int					map_y;
 }						t_cub_data;
 
 void			clean_all(t_cub_data *cub);
