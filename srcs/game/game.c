@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/24 17:45:42 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/25 11:58:57 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,25 @@ void	rotate(t_cub_data *cub)
 
 int	valid_location(int x, int y, t_cub_data *cub)
 {
-	if (cub->map == NULL || cub->map[y] == NULL || cub->map[y][x] == NULL)
+	int	x1;
+	int	y1;
+	
+	x1 = (x - 50) / 22;
+	y1 = (y - 50) / 22;
+	if (cub->map == NULL || cub->map[y1] == NULL || cub->map[y1][x1] == NULL)
 		return (0);
-	if (cub->map[y][x] == '1' || cub->map[y][x] == ' ')
+	if (cub->map[y1][x1] == '1' || cub->map[y1][x1] == ' ')
+		return (0);
+	x1 = (x - 50 + 10) / 22;
+	y1 = (y - 50 + 10) / 22;
+	if (cub->map[y1][x1] == '1' || cub->map[y1][x1] == ' ')
+		return (0);
+	x1 = (x - 50) / 22;
+	if (cub->map[y1][x1] == '1' || cub->map[y1][x1] == ' ')
+		return (0);
+	x1 = (x - 50 + 10) / 22;
+	y1 = (y - 50) / 22;
+	if (cub->map[y1][x1] == '1' || cub->map[y1][x1] == ' ')
 		return (0);
 	return (1);
 }
@@ -92,32 +108,40 @@ void	movement(t_cub_data *cub)
 		move_speed = 5;
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_W))
 	{
-		new_x = cub->p->x +  (cub->p->dir_x * move_speed);
-		new_y = cub->p->y + (cub->p->dir_y * move_speed);
+		if (valid_location(cub->p->x + (cub->p->dir_x * move_speed), cub->p->y + (cub->p->dir_y * move_speed), cub))
+		{
+			new_x = cub->p->x +  (cub->p->dir_x * move_speed);
+			new_y = cub->p->y + (cub->p->dir_y * move_speed);
+		}
 	}
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_S))
 	{
-		new_x = cub->p->x + (cub->p->dir_x * -move_speed);
-		new_y = cub->p->y + (cub->p->dir_y * -move_speed);
+		if (valid_location(cub->p->x + (cub->p->dir_x * -move_speed), cub->p->y + (cub->p->dir_y * -move_speed), cub))
+		{
+			new_x = cub->p->x + (cub->p->dir_x * -move_speed);
+			new_y = cub->p->y + (cub->p->dir_y * -move_speed);
+		}
 	}
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_A))
 	{
-		new_x = cub->p->x + cub->p->dir_y * move_speed;
-		new_y = cub->p->y - cub->p->dir_x * move_speed;
+		if (valid_location(cub->p->x + cub->p->dir_y * move_speed, cub->p->y - cub->p->dir_x * move_speed, cub))
+		{
+			new_x = cub->p->x + cub->p->dir_y * move_speed;
+			new_y = cub->p->y - cub->p->dir_x * move_speed;
+		}
 	}
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_D))
 	{
-		new_x = cub->p->x - (cub->p->dir_y * move_speed);
-		new_y = cub->p->y + (cub->p->dir_x * move_speed);
+		if (valid_location(cub->p->x - cub->p->dir_y * move_speed, cub->p->y + cub->p->dir_x * move_speed, cub))
+		{
+			new_x = cub->p->x - (cub->p->dir_y * move_speed);
+			new_y = cub->p->y + (cub->p->dir_x * move_speed);
+		}
 	}
-	if (valid_location((int)((new_x - 55) / 22), (int)((new_y - 55) / 22), cub))
-	{
-		cub->p->x = new_x;
-		cub->minimap->p_img->instances->x = round(new_x);
-		cub->p->y = new_y;
-		cub->minimap->p_img->instances->y = round(new_y);
-	}
-	printf("%c\tx=%d\ty=%d\n", cub->map[(int)(new_y - 55) / 22][(int)(new_x - 55) / 22], (int)(round(new_x) - 55) / 22, (int)(round(new_y) - 55) / 22);
+	cub->minimap->p_img->instances->x = round(new_x);
+	cub->minimap->p_img->instances->y = round(new_y);
+	cub->p->y = new_y;
+	cub->p->x = new_x;
 }
 
 void	loop_hook(void *param)
@@ -132,7 +156,6 @@ void	loop_hook(void *param)
 		rotate(cub);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_KP_0))
 		draw_ray(cub);
-	// if (mlx_is_key_down)
 	movement(cub);
 	raytrace(cub);
 }
