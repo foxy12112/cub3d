@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:01:07 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/17 10:24:10 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:22:44 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ bool	collision_top(t_cub_data *cub)
 
 	x = cub->p->x;
 	y = cub->p->y - 0.05;
+
 	while(x <= cub->p->x + 0.56)
 	{
 		if (cub->map[(int)y][(int)x] == '1')
@@ -35,6 +36,7 @@ bool	collision_bottom(t_cub_data *cub)
 
 	x = cub->p->x;
 	y = cub->p->y - 0.05;
+
 	while(x <= cub->p->x + 0.56)
 	{
 		if (cub->map[(int)(y + 0.65)][(int)x] == '1')
@@ -78,6 +80,35 @@ bool	collision_right(t_cub_data *cub)
 	return (false);
 }
 
+bool	collision(t_cub_data *cub)
+{
+	if (collision_top(cub) == true)
+	{
+		cub->minimap->p_img->instances[0].y += 5;
+		return (true);
+	}
+	if (collision_bottom(cub) == true)
+	{
+		cub->minimap->p_img->instances[0].y -= 5;
+		return (true);
+	}
+	if (collision_left(cub) == true)
+	{
+		cub->minimap->p_img->instances[0].x += 5;
+		return (true);
+	}
+	if (collision_right(cub) == true)
+	{
+		cub->minimap->p_img->instances[0].x -= 5;
+		return (true);
+	}
+	return (false);
+}
+
+// void	tp_back(t_cub_data *cub)
+// {
+// 	if (collision_top(cub))
+// }
 // int	collision(t_cub_data *cub)
 // {
 // 	double	x;
@@ -122,16 +153,20 @@ void	draw_player(t_cub_data *cub)
 	int	p_start_x;
 	int	p_start_y;
 	// 160, 240;
-	p_start_x = (50 + (PSIZE / 2) +  (int)(cub->p->x) * cub->minimap->scale + (2 * cub->p->x));
-	p_start_y = (50 + (PSIZE / 2) + (int)(cub->p->y) * cub->minimap->scale + (2 * cub->p->y));
-	printf("p_start_x = %d, p_start_y = %d\n", p_start_x, p_start_y);
+	// p_start_x = (50 + (PSIZE / 2) +  (int)(cub->p->x) * cub->minimap->scale + (2 * cub->p->x));
+	// p_start_y = (50 + (PSIZE / 2) + (int)(cub->p->y) * cub->minimap->scale + (2 * cub->p->y));
+	p_start_x = cub->p->x;
+	p_start_y = cub->p->y;
+	printf("%f\t\t%f\n", cub->p->y, cub->p->x);
+	// printf("p_start_x = %d, p_start_y = %d\n", p_start_x, p_start_y);
 	cub->minimap->p_img = mlx_new_image(cub->mlx, 20, 20);
 	mlx_image_to_window(cub->mlx, cub->minimap->p_img, p_start_x, p_start_y);
-	printf("p_img_x = %d, p_img_y = %d\n", cub->minimap->p_img->instances[0].x, cub->minimap->p_img->instances[0].y);
+	// printf("p_img_x = %d, p_img_y = %d\n", cub->minimap->p_img->instances[0].x, cub->minimap->p_img->instances[0].y);
 	draw_play(cub);
 	// cub->minimap->p_img;
 	return ;
 }
+
 
 // void	rotate_player(t_cub_data *cub, mlx_key_data_t *mkd)
 // {
@@ -141,6 +176,6 @@ void	draw_player(t_cub_data *cub)
 // 	}
 // 	else if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
 // 	{
-
+		
 // 	}
 // }

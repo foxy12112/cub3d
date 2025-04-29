@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/17 11:09:50 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:11:44 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,89 @@ bool	touch(double px, double py, t_cub_data *cub)
 	return (false);
 }
 
+// void	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
+// {
+// 	int	dx;
+// 	int	dy;
+// 	int	dir;
+// 	int	i;
+// 	int	p;
+// 	int y;
+
+// 	i = 0;
+// 	if (x0 > x1)
+// 	{
+// 		ft_swap(&x0, &x1, sizeof(int));
+// 		ft_swap(&y0, &y1, sizeof(int));
+// 	}
+// 	dx = ft_abs(x1 - x0);
+// 	dy = ft_abs(y1 - y0);
+// 	dir = (y1 > y0) ? 1 : -1;
+// 	p = 2 * dy - dx;
+// 	if (dx != 0)
+// 	{
+// 		y = y0;
+// 		while(i < dx + 1 && !touch(x0 + i - 50, y - 50, cub))
+// 		{
+// 			mlx_put_pixel(cub->minimap->img, x0 + i - 50, y - 50, 0x64);
+// 			if (p >= 0)
+// 			{
+// 				y += dir;
+// 				p -= 2 * dx;
+// 			}
+// 			p += 2 * dy;
+// 			i++;
+// 		}
+// 	}
+// }
+
+// void	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
+// {
+// 	int	dx;
+// 	int	dy;
+// 	int	dir;
+// 	int	i;
+// 	int	p;
+// 	int x;
+
+// 	i = 0;
+// 	if (y0 > y1)
+// 	{
+// 		ft_swap(&x0, &x1, sizeof(int));
+// 		ft_swap(&y0, &y1, sizeof(int));
+// 	}
+// 	dx = ft_abs(x1 - x0);
+// 	dy = ft_abs(y1 - y0);
+// 	dir = (x1 > x0) ? 1 : -1;
+// 	p = 2 * dx - dy;
+// 	if (dy != 0)
+// 	{
+// 		x = x0;
+// 		while(i < dy + 1 && !touch(x - 50, y0 + i - 50, cub))
+// 		{
+// 			mlx_put_pixel(cub->minimap->img, x - 50, y0 + i - 50, 0x64);
+// 			if (p >= 0)
+// 			{
+// 				x += dir;
+// 				p -= 2 * dy;
+// 			}
+// 			p += 2 * dx;
+// 			i++;
+// 		}
+// 	}
+// }
+
+// void	draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub)
+// {
+// 	int dx = abs(x1 - x0);
+// 	int dy = abs(y1 - y0);
+
+// 	if (dx >= dy)
+// 		draw_line_x(x0, y0, x1, y1, cub);  // Shallow slope
+// 	else
+// 		draw_line_y(x0, y0, x1, y1, cub);  // Steep slope
+// }
+
 int	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
 	int	dx = x1 - x0;
@@ -99,6 +182,8 @@ int	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	int	step_y = (dy > 0) ? 1 : -1;
 	dx = ft_abs(dx);
 	dy = ft_abs(dy);
+	int start_x = x0;
+	int start_y = y0;
 	int	p = 2 * dy - dx;
 	int	i = 0;
 
@@ -114,11 +199,9 @@ int	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		x0 += step_x;
 		i++;
 	}
-	double xlen = (x0 > x1) ? x0 - x1 : x1 - x0;
-	double ylen = (y0 > y1) ? y0 - y1 : y1 - y0;
-	double dlen = sqrt(pow(xlen, 2) + pow(ylen, 2));
+	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
 	printf("%f\n", dlen);
-	return (i);
+	return (int)dlen;
 }
 
 int	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
@@ -127,6 +210,8 @@ int	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	int	dy = y1 - y0;
 	int	dx_abs = ft_abs(dx);
 	int	dy_abs = ft_abs(dy);
+	int	start_x = x0;
+	int	start_y = y0;
 	int	step_x = (dx > 0) ? 1 : -1;
 	int	step_y = (dy > 0) ? 1 : -1;
 	int	p = 2 * dx_abs - dy_abs;
@@ -143,22 +228,20 @@ int	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		y0 += step_y;
 		i++;
 	}
-	double xlen = (x0 > x1) ? x0 - x1 : x1 - x0;
-	double ylen = (y0 > y1) ? y0 - y1 : y1 - y0;
-	double dlen = sqrt(pow(xlen, 2) + pow(ylen, 2));
-	printf("%f\n", dlen);
-	return (i);
+	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
+	// printf("%f\n", dlen);
+	return (int)dlen;
 }
 
-void draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub)
+void	draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
-    int dx = abs(x1 - x0);
-    int dy = abs(y1 - y0);
+	int dx = abs(x1 - x0);
+	int dy = abs(y1 - y0);
 
-    if (dx >= dy)
-        draw_line_x(x0, y0, x1, y1, cub);
-    else
-        draw_line_y(x0, y0, x1, y1, cub);
+	if (dx >= dy)
+		draw_line_x(x0, y0, x1, y1, cub);
+	else
+		draw_line_y(x0, y0, x1, y1, cub);
 }
 
 void	draw_ray(t_cub_data *cub)
@@ -169,11 +252,14 @@ void	draw_ray(t_cub_data *cub)
 	int	y;
 	double angle;
 
-	angle = cub->p->dir * (M_PI / 180);
-	x1 = cub->minimap->p_img->instances[0].x + 5;
-	y1 = cub->minimap->p_img->instances[0].y + 5;
-	x = x1 + cos(angle - M_PI_2) * 200;
-	y = y1 + sin(angle - M_PI_2) * 200;
+	double dir_inc = (double)FOV * (M_PI / 180.0) / (double)1920;
+	// double dir = atan2(cub->p->dir_y, cub->p->dir_x) - (FOV * (M_PI / 180.0)) / 2.0;
+	// double dir = atan2(cub->p->dir_x, cub->p->dir_y);
+	// angle = dir;
+	x1 = cub->p->x;
+	y1 = cub->p->y;
+	x = x1 + cub->p->dir_x * 200;
+	y = y1 + cub->p->dir_y * 200;
 	draw_line(x1, y1, x, y, cub);
 }
 
@@ -184,58 +270,23 @@ void	draw_fov(t_cub_data *cub)
 	int x;
 	int y;
 	double angle;
-	int	i;
-	double dir;
+	double	i;
 
-	dir = cub->p->dir;
 	i = 0;
+	int count = 0;
+	double dir_inc = (double)FOV * (M_PI / 180.0) / (double)1920;
+	double dir = atan2(cub->p->dir_y, cub->p->dir_x) - (FOV * (M_PI / 180.0)) / 2.0;
 	while(i < FOV)
 	{
-		angle = dir * (M_PI / 180);
+		angle = dir;
 		x1 = cub->minimap->p_img->instances[0].x + 5;
 		y1 = cub->minimap->p_img->instances[0].y + 5;
-		x = x1 + cos(angle - M_PI_2) * 200;
-		y = y1 + sin(angle - M_PI_2) * 200;
+		x = x1 + cos(angle) * 200;
+		y = y1 + sin(angle) * 200;
 		draw_line(x1, y1, x, y, cub);
-		i++;
-		dir += 0.5;
-	    }
+		i += 1;
+		dir += dir_inc;
+		count++;
+	}
+	printf("%d\n", count);
 }
-
-// int	create_trgb(int t, int r, int g, int b)
-// {
-// 	return (t << 24 | r << 16 | g << 8 | b);
-// }
-
-// void	render_background(t_cub_data *cub)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	x = 0;
-// 	while (x < cub->mlx->width)
-// 	{
-// 		y = 0;
-// 		while (y < cub->mlx->height)
-// 		{
-// 			if (y < cub->mlx->height / 2)
-// 				img_pix_put(cub, x, y, create_trgb(0, cub->texture->ceiling->r,
-// 						cub->texture->ceiling->g, cub->texture->ceiling->b));
-// 			else
-// 				img_pix_put(cub, x, y, create_trgb(0, cub->texture->floor->r,
-// 						cub->texture->floor->g, cub->texture->floor->b));
-// 			y++;
-// 		}
-// 		x++;
-// 	}
-// }
-
-// int	render(t_cub_data *cub)
-// {
-// 	render_background(cub);
-// 	raycasting(cub);
-// 	mlx_image_to_window(cub->mlx, cub->img, 0, 0);
-// 	mlx_image_to_window(cub->mlx, cub->minimap->img, 10, 10);
-// 	return (0);
-// }
-

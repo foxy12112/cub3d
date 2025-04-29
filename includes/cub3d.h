@@ -1,20 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/24 12:30:58 by psostari         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
 # include "libs.h"
-# include "../MLX42/include/MLX42/MLX42.h"
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -24,10 +11,11 @@
 # include <unistd.h>
 # include <ctype.h>
 # include <limits.h>
-# include "libs.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 
 # define SPEED 1
-# define ROT_SPEED 5
+# define LENGTH 5
+# define ROT_SPEED 0.05
 # define RECTANGLE 20
 # define PSIZE 10
 # define FOV 90
@@ -36,7 +24,7 @@
 # define SOUTH 180
 # define EAST 90
 # define HEIGHT 1080
-# define WIDTH 1920
+# define WIDHT 1920
 # ifndef SUCCESS
 #  define SUCCESS 0
 # endif
@@ -87,6 +75,7 @@ typedef struct s_player_data
 	double				plane_x;
 	double				plane_y;
 	double				camera_angle;
+	int					perp_wall_dist;
 }						t_player_data;
 
 typedef struct s_loc
@@ -147,8 +136,8 @@ typedef struct s_cub_data
 	int					calculated;
 	double				ray_dir_x;
 	double				ray_dir_y;
+	double				time;
 	int					side;
-	double				wallX;
 	double              delta_dist_x;
     double              delta_dist_y;
     double              side_dist_x;
@@ -160,14 +149,10 @@ typedef struct s_cub_data
     double              perpwalldist;
 }						t_cub_data;
 
-void			*create_image(t_cub_data *cub, char *str);
-
 void			clean_all(t_cub_data *cub);
 void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
 void			ft_error(t_cub_data *cub, const char *error_msg);
-int				init_cub(char *argv[], t_cub_data *cub);
 int				init(char *argv[], t_cub_data *cub);
-int				init_texture(t_cub_data *cub);
 int				add_texture(int i, t_texture_data *texture, char *line);
 char			*rm_s(char *str);
 int				init_map(t_cub_data *cub, int fd);
@@ -182,7 +167,6 @@ void			ft_ftoa(double n, char *res, int afterpoint);
 void			draw_player(t_cub_data *cub);
 int				percent(double value, double total);
 void			draw_ray(t_cub_data *cub);
-
 // int			collision(t_cub_data *cub);
 bool			collision_left(t_cub_data *cub);
 bool			collision_right(t_cub_data *cub);
@@ -190,16 +174,63 @@ bool			collision_top(t_cub_data *cub);
 bool			collision_bottom(t_cub_data *cub);
 void			scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height);
 mlx_texture_t	*scale_tex(mlx_texture_t *texture, int width, int height);
+bool			touch(double px, double py, t_cub_data *cub);
 
 void			draw_c_f(t_cub_data *cub);
 void			draw_line(int x0, int y0, int x1, int y1, t_cub_data *cub);
 void			ft_swap(void *a, void *b, size_t size);
 int				ft_abs(int value);
-void			copy_pixels(uint8_t *dst, uint8_t *src);
-void			scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height);
-int				is_wall(t_cub_data *cub, int x, int y);
-uint32_t 		get_pixel_color(mlx_image_t *img, uint32_t x, uint32_t y);
-bool			touch(double px, double py, t_cub_data *cub);
+void			draw_fov(t_cub_data *cub);
+
+void			calc_location(t_cub_data *cub, double angle);
+int				check_texture_file(char *path, char *texture_name);
+int				check_texture_format(const char *path);
+
+//parsing
+int				parsing(t_cub_data *cub);
+int				check_map(t_cub_data *cub);
+int				check_map_exists(t_cub_data *cub);
+int				check_top(t_cub_data *cub);
+int				check_bottom(t_cub_data *cub);
+int				check_sides(t_cub_data *cub);
+// int				check_player(t_cub_data *cub);
+int				check_leaks(char **map, t_cub_data *cub);
+int				check_map_validity(t_cub_data *cub);
+int				check_map_dim(t_cub_data *cub);
+int				check_row(t_cub_data *cub);
+int				check_map_elements(t_cub_data *cub);
+int				check_invalid_chars(t_cub_data *cub);
+int				check_texture(const char *path, const char *texture_name);
+int				check_textures(t_cub_data *cub);
+int				parse_rgb_line(char *line);
+int				check_rgb(int *rgb, char *line);
+void			get_rgb(t_cub_data *map, int *rgb, char **split_line);
+void			printMap(t_cub_data *cub);
+void			free_double_array(char **array);
+
+//debug
+void			print_map_lines(char **map);
+void			print_minimap_data(t_minimap *minimap);
+void			print_mapinfo(t_cub_data *data);
+void			print_player_info(t_cub_data *data);
+void			display_data(t_cub_data *data);
+int				raytrace(t_cub_data *cub);
+bool			collision(t_cub_data *cub);
+double	correct_dir(double angle);
+
+// // ========== RAYCASTING ==========
+void	raycasting(t_cub_data *cub);
+void	init_ray(t_cub_data *cub, int x);
+void	calculate_dist(t_cub_data *cub);
+void	calculate_step(t_cub_data *cub);
+void	perform_dda(t_cub_data *cub);
+void	calculate_column(t_cub_data *cub, int *line_height, int *start, int *end);
+// void	calculate_texture(t_cub_data *cub);
+int		calculate_texture(t_cub_data *cub, mlx_image_t *tex);
+
+void	draw_texture(t_cub_data *cub, int x, int texture);
+void	draw_column(t_cub_data *cub, int x);
+void	img_pix_put(t_cub_data *cub, int x, int y, int color);
 
 //parsing
 int				parsing(t_cub_data *cub);
@@ -225,95 +256,25 @@ void			set_player_position(t_cub_data *cub, int j, int i, char c);
 int				check_and_find_player(t_cub_data *cub);
 void			set_player_direction(t_cub_data *cub, char c);
 
-//debug
-void			print_map_lines(char **map);
-void			print_minimap_data(t_minimap *minimap);
-void			print_mapinfo(t_cub_data *data);
-void			print_player_info(t_cub_data *data);
-void			display_data(t_cub_data *data);
-
-//raycasting
-void		img_pix_put(t_cub_data *cub, int x, int y, int color);
-void		calculate_column(t_cub_data *cub, int *line_height, int *start, int *end);
-void		calculate_texture(t_cub_data *cub);
-void		draw_texture(t_cub_data *cub, int x, int texture);
-void		draw_column(t_cub_data *cub, int x);
-void		calculate_dist(t_cub_data *cub);
-void		calculate_step(t_cub_data *cub);
-void		perform_dda(t_cub_data *cub);
-void		init_ray(t_cub_data *cub, int x);
-void		raycasting(t_cub_data *cub);
-
+//init
+int				init_texture(t_cub_data *cub);
+int				add_texture(int i, t_texture_data *texture, char *line);
+int				init_map(t_cub_data *cub, int fd);
+int				init_color(t_texture_data *texture);
+void			reverse(char *str, int len);
+int				int_to_str(int x, char str[], int d);
+void			ft_ftoa(double n, char *res, int afterpoint);
+char			*rm_s(char *str);
+mlx_texture_t	*scale_tex(mlx_texture_t *texture, int width, int height);
+void			*create_image(t_cub_data *cub, char *str);
+int				get_color(int r, int g, int b, int a);
 void			init_player(t_cub_data *cub);
+int				init(char *argv[], t_cub_data *cub);
+void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
+int				percent(double value, double total);
+void			ft_swap(void *a, void *b, size_t size);
+int				ft_abs(int value);
 
-void	draw_rays_on_minimap(t_cub_data *cub);
-void	draw_ray_on_minimap(t_cub_data *cub, double ray_dir);
-
-// // ========== RAYCASTING ==========
-// void	raycasting(t_cub_data *cub);
-// void	init_ray(t_cub_data *cub, int x);
-// void	calculate_dist(t_cub_data *cub);
-// void	calculate_step(t_cub_data *cub);
-// void	perform_dda(t_cub_data *cub);
-// void	calculate_column(t_cub_data *cub, int *line_height, int *start, int *end);
-// void	calculate_texture(t_cub_data *cub);
-// void	draw_texture(t_cub_data *cub, int x, int texture);
-// void	draw_column(t_cub_data *cub, int x);
-// void	img_pix_put(t_cub_data *cub, int x, int y, int color);
-
-// // ========== PARSING ==========
-// int				parsing(t_cub_data *cub);
-// int				check_map(t_cub_data *cub);
-// int				check_map_exists(t_cub_data *cub);
-// int				check_top(t_cub_data *cub);
-// int				check_bottom(t_cub_data *cub);
-// int				check_sides(t_cub_data *cub);
-// int				check_player(t_cub_data *cub);
-// int				check_leaks(char **map, t_cub_data *cub);
-// int				check_map_validity(t_cub_data *cub);
-// int				check_map_dim(t_cub_data *cub);
-// int				check_row(t_cub_data *cub);
-// int				check_map_elements(t_cub_data *cub);
-// int				check_invalid_chars(t_cub_data *cub);
-// int				check_textures(t_cub_data *cub);
-// int				parse_rgb_line(char *line);
-// int				check_rgb(int *rgb, char *line);
-// void			get_rgb(t_cub_data *map, int *rgb, char **split_line);
-// void			print_map(t_cub_data *cub);
-// void			free_double_array(char **array);
-// void			set_player_position(t_cub_data *cub, int j, int i, char c);
-// int				check_and_find_player(t_cub_data *cub);
-// void			set_player_direction(t_cub_data *cub, char c);
-// void			init_player(t_cub_data *cub);
-
-// ========== DEBUGGING & PRINT HELPERS ==========
-// void			print_map_lines(char **map);
-// void			print_minimap_data(t_minimap *minimap);
-// void			print_mapinfo(t_cub_data *data);
-// void			print_player_info(t_cub_data *data);
-// void			display_data(t_cub_data *data);
-
-// ========== MINIMAP & MAP DRAWING ==========
-// void	draw_wall(t_cub_data *cub, int x, int y, int rec_size);
-// void	draw_square(t_cub_data *cub, int wall, int x, int y, int rec_size);
-// void	draw_map(t_cub_data *cub);
-// void	draw_rays(t_cub_data *cub);
-// void	map(t_cub_data *cub);
-// void	calculate_size(t_cub_data *cub);
-
-// ========== ERROR HANDLING ==========
-// void	ft_error(t_cub_data *cub, const char *error_msg);
-// void	clean_all(t_cub_data *cub);
-
-// ========== COLLISION DETECTION ==========
-// bool		collision_top(t_cub_data *cub);
-// bool		collision_bottom(t_cub_data *cub);
-// bool		collision_left(t_cub_data *cub);
-// bool		collision_right(t_cub_data *cub);
-
-// // ========== PLAYER DRAWING ==========
-// void		draw_play(t_cub_data *cub);
-// void		draw_player(t_cub_data *cub);
-
-
+int	valid_location(int x, int y, t_cub_data *cub);
+mlx_image_t	*get_wall_texture(t_cub_data *cub);
 #endif

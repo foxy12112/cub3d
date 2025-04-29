@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/17 10:33:33 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:36:51 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	draw_c_f(t_cub_data *cub)
 
 	i = 0;
 	j = 0;
-	while(i < cub->mlx->height / 2)
+	while (i < cub->mlx->height / 2)
 	{
-		while(j < cub->mlx->width)
+		while (j < cub->mlx->width)
 		{
 			mlx_put_pixel(cub->img, j, i, cub->ceiling);
 			j++;
@@ -29,9 +29,9 @@ void	draw_c_f(t_cub_data *cub)
 		j = 0;
 		i++;
 	}
-	while(i < cub->mlx->height)
+	while (i < cub->mlx->height)
 	{
-		while(j < cub->mlx->width)
+		while (j < cub->mlx->width)
 		{
 			mlx_put_pixel(cub->img, j, i, cub->floor);
 			j++;
@@ -41,104 +41,127 @@ void	draw_c_f(t_cub_data *cub)
 	}
 }
 
+double	normalize_angle(double angle)
+{
+	angle = fmod(angle, 2 * M_PI);
+	if (angle < 0)
+		angle += 2 * M_PI;
+	return (angle);
+}
+
+void	rotate(t_cub_data *cub)
+{
+	double	olddirx;
+	double	oldplanex;
+	double	rotation_angle;
+	int		dir;
+	double	angle;
+
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
+		dir = 1;
+	else if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
+		dir = -1;
+	else
+		return ;
+	rotation_angle = dir * ROT_SPEED;
+	angle += dir * (ROT_SPEED * 180 / M_PI);
+	olddirx = cub->p->dir_x;
+	cub->p->dir_x = cub->p->dir_x * cos(rotation_angle) - cub->p->dir_y * sin(rotation_angle);
+	cub->p->dir_y = olddirx * sin(rotation_angle) + cub->p->dir_y * cos(rotation_angle);
+}
+
+int	valid_location(int x, int y, t_cub_data *cub)
+{
+	int	x1;
+	int	y1;
+
+	x1 = (x - 50) / 22;
+	y1 = (y - 50) / 22;
+	if (cub->map == NULL || cub->map[y1] == NULL || cub->map[y1][x1] == NULL)
+		return (0);
+	if (cub->map[y1][x1] == '1' || cub->map[y1][x1] == ' ')
+		return (0);
+	x1 = (x - 50 + 10) / 22;
+	y1 = (y - 50 + 10) / 22;
+	if (cub->map[y1][x1] == '1' || cub->map[y1][x1] == ' ')
+		return (0);
+	x1 = (x - 50) / 22;
+	if (cub->map[y1][x1] == '1' || cub->map[y1][x1] == ' ')
+		return (0);
+	x1 = (x - 50 + 10) / 22;
+	y1 = (y - 50) / 22;
+	if (cub->map[y1][x1] == '1' || cub->map[y1][x1] == ' ')
+		return (0);
+	return (1);
+}
+
 void	movement(t_cub_data *cub)
 {
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_W) && !collision_top(cub))
-		cub->minimap->p_img->instances[0].y -= SPEED; // Move up on minimap
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_S) && !collision_bottom(cub))
-		cub->minimap->p_img->instances[0].y += SPEED; // Move down on minimap
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_A) && !collision_left(cub))
-		cub->minimap->p_img->instances[0].x -= SPEED; // Move left on minimap
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_D) && !collision_right(cub))
-		cub->minimap->p_img->instances[0].x += SPEED; // Move right on minimap
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
-		cub->p->dir--;
-	else if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
-		cub->p->dir++;
-	if (cub->p->dir > 360)
-		cub->p->dir = 0;
-	if (cub->p->dir < 0)
-		cub->p->dir = 360;
+	double	new_x;
+	double	new_y;
+	int		move_speed;
 
-	printf("Minimap position: (%d, %d)\n", cub->minimap->p_img->instances[0].x, cub->minimap->p_img->instances[0].y);
-	printf("Player angle: %f\n", cub->p->dir);
-}
-
-// void ft_hook(void* param)
-// {
-// 	t_cub_data* cub = (t_cub_data*)param;
-
-// 	movement(cub);
-// 	cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / (double)22;
-// 	cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)22;
-// 	// printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
-// 	// draw_ray(cub);
-// 	// printf("%.5f\n", cub->p->dir);
-// }
-
-void	draw_ray_on_minimap(t_cub_data *cub, double ray_dir)
-{
-	int		x0;
-	int		y0;
-	int		x1;
-	int		y1;
-	double	ray_x;
-	double	ray_y;
-	double	step_size;
-	double	distance;
-
-	step_size = 0.1;
-	distance = 0.0;
-	x0 = cub->minimap->p_img->instances[0].x + 5;
-	y0 = cub->minimap->p_img->instances[0].y + 5;
-	ray_x = cub->p->x;
-	ray_y = cub->p->y;
-	while (distance < 200)
+	move_speed = SPEED;
+	new_x = cub->p->x;
+	new_y = cub->p->y;
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT_SHIFT))
+		move_speed = 5;
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_W))
 	{
-		ray_x += cos(ray_dir) * step_size;
-		ray_y += sin(ray_dir) * step_size;
-		distance += step_size;
-		if (cub->map[(int)ray_y][(int)ray_x] == '1')
-			break ;
+		if (valid_location(cub->p->x + (cub->p->dir_x * move_speed), cub->p->y + (cub->p->dir_y * move_speed), cub))
+		{
+			new_x = cub->p->x +  (cub->p->dir_x * move_speed);
+			new_y = cub->p->y + (cub->p->dir_y * move_speed);
+		}
 	}
-	x1 = x0 + (ray_x - cub->p->x) * 22;
-	y1 = y0 + (ray_y - cub->p->y) * 22;
-	draw_line(x0, y0, x1, y1, cub);
-}
-
-void	draw_rays_on_minimap(t_cub_data *cub)
-{
-	double	ray_dir;
-	double	fov_start;
-	double	fov_end;
-	double	fov_step;
-
-	fov_start = cub->p->dir - (FOV / 2);
-	fov_end = cub->p->dir + (FOV / 2);
-	fov_step = 1.0;
-	ray_dir = fov_start;
-	while (ray_dir <= fov_end)
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_S))
 	{
-		draw_ray_on_minimap(cub, ray_dir * (M_PI / 180.0));
-		ray_dir += fov_step;
+		if (valid_location(cub->p->x + (cub->p->dir_x * -move_speed), cub->p->y + (cub->p->dir_y * -move_speed), cub))
+		{
+			new_x = cub->p->x + (cub->p->dir_x * -move_speed);
+			new_y = cub->p->y + (cub->p->dir_y * -move_speed);
+		}
 	}
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_A))
+	{
+		if (valid_location(cub->p->x + cub->p->dir_y * move_speed, cub->p->y - cub->p->dir_x * move_speed, cub))
+		{
+			new_x = cub->p->x + cub->p->dir_y * move_speed;
+			new_y = cub->p->y - cub->p->dir_x * move_speed;
+		}
+	}
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_D))
+	{
+		if (valid_location(cub->p->x - cub->p->dir_y * move_speed, cub->p->y + cub->p->dir_x * move_speed, cub))
+		{
+			new_x = cub->p->x - (cub->p->dir_y * move_speed);
+			new_y = cub->p->y + (cub->p->dir_x * move_speed);
+		}
+	}
+	cub->minimap->p_img->instances->x = round(new_x);
+	cub->minimap->p_img->instances->y = round(new_y);
+	cub->p->y = new_y;
+	cub->p->x = new_x;
 }
 
-void ft_hook(void* param)
+void	loop_hook(void *param)
 {
-    t_cub_data* cub = (t_cub_data*)param;
+	t_cub_data	*cub;
+	double		turn_speed;
 
-    movement(cub);
-    cub->p->x = (double)(cub->minimap->p_img->instances[0].x - 50) / (double)22;
-    cub->p->y = (double)(cub->minimap->p_img->instances[0].y - 50) / (double)22;
-    cub->p->dir_x = cos(cub->p->dir * M_PI / 180.0);
-    cub->p->dir_y = sin(cub->p->dir * M_PI / 180.0);
-    draw_rays_on_minimap(cub);
-    printf("Actual position: (%.2f, %.2f)\n", cub->p->x, cub->p->y);
-    printf("Direction vector: (%f, %f)\n", cub->p->dir_x, cub->p->dir_y);
+	cub = (t_cub_data *)param;
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_ESCAPE))
+		exit(0);
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT) || mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
+		rotate(cub);
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_KP_0))
+		draw_ray(cub);
+	movement(cub);
+	raycasting(cub);
+	// texturize(cub);
 }
 
-void game_loop(t_cub_data *cub)
+void	game_loop(t_cub_data *cub)
 {
 	cub->ceiling = get_color(cub->texture->ceiling->r, cub->texture->ceiling->g, cub->texture->ceiling->b, 255);
 	cub->floor = get_color(cub->texture->floor->r, cub->texture->floor->g, cub->texture->floor->b, 255);
@@ -146,12 +169,9 @@ void game_loop(t_cub_data *cub)
 	mlx_image_to_window(cub->mlx, cub->img, 0, 0);
 	cub->img->instances->z = 0;
 	draw_c_f(cub);
-	raycasting(cub);
 	map(cub);
 	draw_player(cub);
-	mlx_key_hook(cub->mlx, event, cub);
-	mlx_loop_hook(cub->mlx, ft_hook, cub);
+	mlx_loop_hook(cub->mlx, &loop_hook, cub);
 	mlx_loop(cub->mlx);
 	mlx_terminate(cub->mlx);
 }
-

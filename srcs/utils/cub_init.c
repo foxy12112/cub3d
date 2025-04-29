@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:40:54 by petrasostar       #+#    #+#             */
-/*   Updated: 2025/04/10 09:56:34 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/24 10:20:25 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	init_texture(t_cub_data *cub)
 
 int	add_texture(int i, t_texture_data *texture, char *line)
 {
+
 	if (!line || *line == '\0')
 		return (i);
 	line = rm_s(line);
@@ -108,3 +109,4 @@ int	init_color(t_texture_data *texture)
 	tmp = NULL ;
 	return (1);
 }
+

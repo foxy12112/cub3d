@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 09:23:31 by psostari          #+#    #+#             */
-/*   Updated: 2025/04/17 10:09:55 by psostari         ###   ########.fr       */
+/*   Created: 2025/04/24 12:25:41 by psostari          #+#    #+#             */
+/*   Updated: 2025/04/29 10:03:31 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ void	perform_dda(t_cub_data *cub)
 			cub->map_y += cub->step_y;
 			cub->side = 1;
 		}
+		if (cub->map_y < 0 || cub->map_y >= cub->map_height
+			|| cub->map_x < 0 || cub->map_x >= cub->map_width)
+			break ;
 		if (cub->map[cub->map_y][cub->map_x] == '1')
 			wall = 1;
 	}

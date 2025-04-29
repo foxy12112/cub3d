@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:55:55 by petrasostar       #+#    #+#             */
-/*   Updated: 2025/03/19 09:34:25 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/24 10:35:01 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,57 @@ int	check_map_exists(t_cub_data *cub)
 
 int	check_player(t_cub_data *cub)
 {
-	int	i;
-	int	j;
-	int	player_count;
+	int		i;
+	int		j;
+	int		player_count;
+	char	c;
 
-	i = 0;
+	c = '\0';
 	player_count = 0;
+	i = 0;
+	j = 0;
 	while (cub->map[i])
 	{
-		j = 0;
 		while (cub->map[i][j])
 		{
-			if (cub->map[i][j] == 'N' || cub->map[i][j] == 'S' ||
-				cub->map[i][j] == 'E' || cub->map[i][j] == 'W')
+			if (cub->map[i][j] == 'N' || cub->map[i][j] == 'S'
+				|| cub->map[i][j] == 'E' || cub->map[i][j] == 'W')
 			{
 				player_count++;
 				cub->p->start_x = j;
 				cub->p->start_y = i;
+				c = cub->map[i][j];
 			}
 			j++;
 		}
+		j = 0;
 		i++;
 	}
 	if (player_count != 1)
-		return (ft_error(cub, "Player error"), FAILURE);
-	cub->p->x = (double)cub->p->start_x;
-	cub->p->y = (double)cub->p->start_y;
+		return (1);
+	if (c == 'N')
+	{
+		cub->p->dir_x = 0;
+		cub->p->dir_y = -1;
+	}
+	else if (c == 'S')
+	{
+		cub->p->dir_x = 0;
+		cub->p->dir_y = 1;
+	}
+	else if (c == 'E')
+	{
+		cub->p->dir_x = 1;
+		cub->p->dir_y = 0;
+	}
+	else if (c == 'W')
+	{
+		cub->p->dir_x = -1;
+		cub->p->dir_y = 0;
+	}
+	cub->p->dir = atan2(cub->p->dir_x, cub->p->dir_y);
+	cub->p->x = (double)cub->p->start_x * 22 + 55;
+	cub->p->y = (double)cub->p->start_y * 22 + 55;
 	return (0);
 }
 

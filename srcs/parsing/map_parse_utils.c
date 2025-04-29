@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:34:40 by petrasostar       #+#    #+#             */
-/*   Updated: 2025/04/10 09:49:59 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/24 09:43:59 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,34 +32,6 @@ int	check_top(t_cub_data *cub)
 		return (ft_error(cub, "top not closed"), 1);
 	return (0);
 }
-
-// int	check_bottom(t_cub_data *cub)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	x = 0;
-// 	y = 0;
-// 	if (!cub->map || !cub->map[y])
-// 		return (ft_error(cub, "Map is empty or not properly initialized"), 1);
-// 	while (cub->map[y])
-// 		y++;
-// 	y--;
-// 	while (cub->map[y][x] && (cub->map[y][x] == ' ' || cub->map[y][x] == '\t'))
-// 		x++;
-// 	while (cub->map[y][x])
-// 	{
-// 		if (cub->map[y][x] != '1' && cub->map[y][x] != ' ')
-// 			return (ft_error(cub, "bottom not closed"), 1);
-// 		x++;
-// 	}
-// 	x--;
-// 	while (x >= 0 && (cub->map[y][x] == ' ' || cub->map[y][x] == '\t'))
-// 		x--;
-// 	if (cub->map[y][x] != '1')
-// 		return (ft_error(cub, "bottom not closed"), 1);
-// 	return (0);
-// }
 
 int	check_bottom(t_cub_data *cub)
 {

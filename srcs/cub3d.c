@@ -6,47 +6,11 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:36:02 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/15 12:40:17 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/24 12:22:00 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// static void	print_2(t_cub_data *cub)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (cub->texture->no)
-// 		printf("%s\n", cub->texture->no);
-// 	if (cub->texture->so)
-// 		printf("%s\n", cub->texture->so);
-// 	if (cub->texture->we)
-// 		printf("%s\n", cub->texture->we);
-// 	if (cub->texture->ea)
-// 		printf("%s\n", cub->texture->ea);
-// 	if (cub->texture->ceiling->ceiling)
-// 		printf("%s\n", cub->texture->ceiling->ceiling);
-// 	if (cub->texture->ceiling->r)
-// 		printf("r--%d\n", cub->texture->ceiling->r);
-// 	if (cub->texture->ceiling->g)
-// 		printf("g--%d\n", cub->texture->ceiling->g);
-// 	if (cub->texture->ceiling->b)
-// 		printf("b--%d\n", cub->texture->ceiling->b);
-// 	if (cub->texture->floor->floor)
-// 		printf("%s\n", cub->texture->floor->floor);
-// 	if (cub->texture->floor->r)
-// 		printf("r--%d\n", cub->texture->floor->r);
-// 	if (cub->texture->floor->g)
-// 		printf("g--%d\n", cub->texture->floor->g);
-// 	if (cub->texture->floor->b)
-// 		printf("b--%d\n", cub->texture->floor->b);
-// 	while (cub->map[i])
-// 	{
-// 		printf("%s\n", cub->map[i]);
-// 		i++;
-// 	}
-// }
 
 // int	main(int argc, char *argv[])
 // {
@@ -58,6 +22,8 @@
 // 	if (argc != 2)
 // 		return (free(cub), printf("Wrogn number of Arguments\n"), 1);
 // 	cub->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
+// 	if (!cub->mlx)
+// 		return(printf("haiii\n"), 1);
 // 	if (init(argv, cub) == 1)
 // 		return (ft_error(cub, "error in init"), EXIT_FAILURE);
 // 	if (parsing(cub) == 1)
@@ -67,42 +33,30 @@
 // 	// if (game_loop(cub) == 1)
 // 	// 	return (ft_error(), EXIT_FAILURE);
 // 	// initialize(argv, cub);
-// 	clean_all(cub);
-// 	return (0);
+// 	// clean_all(cub);
+// // 	return (0);
 // }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-    t_cub_data *cub;
+	t_cub_data	*cub;
 
-    // Allocate memory for the game data structure
-    cub = malloc(sizeof(t_cub_data));
-    if (!cub)
-        return (printf("Malloc error: cub\n"), EXIT_FAILURE);
-
-    // Check the number of arguments
-    if (argc != 2)
-        return (free(cub), printf("Wrong number of Arguments\n"), 1);
-
-    // Initialize mlx (graphics library)
-    cub->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
-    if (init(argv, cub) == 1)
-        return (ft_error(cub, "error in init"), EXIT_FAILURE);
-
-    if (init_texture(cub) == 1)
-        return (ft_error(cub, "error in texture initialization"), EXIT_FAILURE);
-
-    print_map(cub);
-
-    if (check_invalid_chars(cub) == FAILURE)
-        return (ft_error(cub, "Invalid character in map"), EXIT_FAILURE);
-
-    if (parsing(cub) == 1)
-        return (ft_error(cub, "error in parsing"), EXIT_FAILURE);
-    // Start the game loop
-    game_loop(cub);
-
-    clean_all(cub);
-
-    return (0);
+	cub = malloc(sizeof(t_cub_data));
+	if (!cub)
+		return (printf("Malloc error: cub\n"), EXIT_FAILURE);
+	if (argc != 2)
+		return (free(cub), printf("Wrong number of Arguments\n"), 1);
+	cub->mlx = mlx_init(WIDHT, HEIGHT, "cub3d", false);
+	if (init(argv, cub) == 1)
+		return (ft_error(cub, "error in init"), EXIT_FAILURE);
+	if (init_texture(cub) == 1)
+		return (ft_error(cub, "error in texture initialization"), EXIT_FAILURE);
+	print_map(cub);
+	if (check_invalid_chars(cub) == FAILURE)
+		return (ft_error(cub, "Invalid character in map"), EXIT_FAILURE);
+	if (parsing(cub) == 1)
+		return (ft_error(cub, "error in parsing"), EXIT_FAILURE);
+	game_loop(cub);
+	clean_all(cub);
+	return (0);
 }

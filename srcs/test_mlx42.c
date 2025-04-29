@@ -1,24 +1,12 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   test_mlx42.c                                       :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2025/03/20 10:29:23 by psostari          #+#    #+#             */
-// /*   Updated: 2025/03/20 10:29:26 by psostari         ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+#include "../MLX42/MLX42.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-// #include "../MLX42/MLX42.h"
-// #include <stdio.h>
-// #include <stdlib.h>
-
-// void hook(void* param)
-// {
-// 	(void)param;
-
-// }
+void hook(void* param)
+{
+	(void)param;
+	
+}
 
 // int main(void)
 // {

@@ -6,7 +6,7 @@
 /*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/15 12:05:59 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/24 09:26:42 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	init(char *argv[], t_cub_data *cub)
 	cub->text = safe_malloc(sizeof(t_textbox), cub, __func__);
 	cub->minimap->size_x = 0;
 	cub->minimap->size_y = 0;
-	cub->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
+	cub->mlx = mlx_init(WIDHT, HEIGHT, "cub3d", false);
 	if (!cub->mlx)
 	{
 		return (ft_error(cub, "Failed to initialize mlx"), EXIT_FAILURE);
