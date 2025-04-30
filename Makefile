@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psostari <psostari@student.42.fr>          +#+  +:+       +#+         #
+#    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/04/29 09:37:45 by psostari         ###   ########.fr        #
+#    Updated: 2025/04/30 09:00:03 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ COMPILER	=	cc
 INCLUDES	=	-I includes -I main-libs
 SUBMODULE	=	main-libs/Makefile
 LIB_FLAGS = -Lmain-libs -ls -L./MLX42/build -lmlx42
-CFLAGS		=	-g -fsanitize=address #-Wall -Werror -Wextra
+CFLAGS		=	-g -fsanitize=address #-Wall -Werror -Wextra 
 EXTRA_FLAGS	=	-ffast-math #-0fast
 ERROR_FILE	=	error.log
 

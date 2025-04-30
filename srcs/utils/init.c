@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/24 09:26:42 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/30 09:09:29 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	init(char *argv[], t_cub_data *cub)
 	cub->texture->floor = safe_malloc(sizeof(t_floor_data), cub, __func__);
 	cub->minimap = safe_malloc(sizeof(t_minimap), cub, __func__);
 	cub->text = safe_malloc(sizeof(t_textbox), cub, __func__);
+	cub->move = safe_malloc(sizeof(t_move_data), cub, __func__);
 	cub->minimap->size_x = 0;
 	cub->minimap->size_y = 0;
 	cub->mlx = mlx_init(WIDHT, HEIGHT, "cub3d", false);
@@ -56,6 +57,8 @@ int	init(char *argv[], t_cub_data *cub)
 	if (fd < 0)
 		return (ft_error(cub, "Failed to open the .cub file"), 1);
 	line = get_next_line(fd);
+	cub->map_x = 0;
+	cub->map_y = 0;
 	while (i < 6)
 	{
 		i = add_texture(i, cub->texture, rm_s(line));
@@ -64,6 +67,7 @@ int	init(char *argv[], t_cub_data *cub)
 		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	init_map(cub, fd);
 	init_color(cub->texture);
 	init_texture(cub);

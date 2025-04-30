@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 18:55:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/17 09:55:27 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/30 09:09:02 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,30 @@ int	check_invalid_chars(t_cub_data *cub)
 		}
 		y++;
 	}
+	return (0);
+}
+// void	minimap_size(t_cub_data *cub)
+// {
+// 	int	y;
+
+// 	y = 0;
+// 	cub->minimap->size_x = 0;
+// 	while (cub->map[y])
+// 	{
+// 		if (y > 0 && cub->map[y + 1] != NULL)
+// 			if ((int)ft_strlen(cub->map[y]) >= cub->minimap->size_x)
+// 				cub->minimap->size_x = ft_strlen(cub->map[y]);
+// 		y++;
+// 	}
+// 	cub->minimap->size_y = y;
+// }
+
+int	parsing(t_cub_data *cub)
+{
+	if (check_textures(cub) == 1)
+		ft_error(cub, "error in textures");
+	if (check_map(cub) == 1)
+		ft_error(cub, "error in map parsing");
+	// minimap_size(cub);
 	return (0);
 }

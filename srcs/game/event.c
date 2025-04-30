@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:30:21 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/29 09:42:03 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/30 09:01:02 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	event_handler(mlx_key_data_t mkd, void *param)
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_KP_0) && mkd.action != MLX_RELEASE)
 		draw_ray(cub);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_KP_ENTER) && mkd.action != MLX_RELEASE)
-		raycasting(cub);
+		raytrace(cub);
 }
 
 void	event(mlx_key_data_t mkd, void *param)

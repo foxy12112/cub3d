@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/29 10:36:51 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/30 09:01:22 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	valid_location(int x, int y, t_cub_data *cub)
 {
 	int	x1;
 	int	y1;
-
 	x1 = (x - 50) / 22;
 	y1 = (y - 50) / 22;
 	if (cub->map == NULL || cub->map[y1] == NULL || cub->map[y1][x1] == NULL)
@@ -159,6 +158,7 @@ void	loop_hook(void *param)
 	movement(cub);
 	raycasting(cub);
 	// texturize(cub);
+	raytrace(cub);
 }
 
 void	game_loop(t_cub_data *cub)
