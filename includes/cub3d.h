@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/25 17:20:56 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/28 17:13:42 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ typedef struct s_texture_data
 	char				*so;
 	char				*we;
 	char				*ea;
-	mlx_image_t			*no_tex;
-	mlx_image_t			*so_tex;
-	mlx_image_t			*we_tex;
-	mlx_image_t			*ea_tex;
+	mlx_texture_t			*no_tex;
+	mlx_texture_t			*so_tex;
+	mlx_texture_t			*we_tex;
+	mlx_texture_t			*ea_tex;
 	t_floor_data		*floor;
 	t_ceiling_data		*ceiling;
 }						t_texture_data;
@@ -160,9 +160,9 @@ int				add_texture(int i, t_texture_data *texture, char *line);
 char			*rm_s(char *str);
 int				init_map(t_cub_data *cub, int fd);
 int				init_color(t_texture_data *texture);
-void			*create_image(t_cub_data *cub, char *str);
+mlx_texture_t	*create_image(t_cub_data *cub, char *str);
 void			game_loop(t_cub_data *cub);
-int				get_color(int r, int g, int b, int a);
+unsigned int				get_color(int r, int g, int b, int a);
 void			event_handler(mlx_key_data_t mkd, void *param);
 void			map(t_cub_data *cub);
 void			event(mlx_key_data_t mkd, void *param);
@@ -220,6 +220,7 @@ void			display_data(t_cub_data *data);
 int				raytrace(t_cub_data *cub);
 bool			collision(t_cub_data *cub);
 double	correct_dir(double angle);
+unsigned int	get_pixel_color(uint8_t *p);
 
 #endif
 //TODO change tenary operators to normal if condition

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 19:16:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/09 14:19:15 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/28 17:15:32 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,20 @@ mlx_texture_t	*scale_tex(mlx_texture_t *texture, int width, int height)
 	return (dst);
 }
 
-void	*create_image(t_cub_data *cub, char *str)
+mlx_texture_t	*create_image(t_cub_data *cub, char *str)
 {
 	mlx_texture_t	*texture;
-	mlx_image_t		*image;
 
-	texture = scale_tex(mlx_load_png(str), 1024, 1024);
+	// texture = scale_tex(mlx_load_png(str), 1024, 1024);
+	texture = mlx_load_png(str);
+	texture = scale_tex(texture, 1024, 1024);
 	if (!texture)
 		ft_error(cub, "scaling failed");
-	image = mlx_texture_to_image(cub->mlx, texture);
-	if (!image)
-		ft_error(cub, "texture to image failed");
-	mlx_delete_texture(texture);
-	return (image);
+	return (texture);
 }
 
 
-int	get_color(int r, int g, int b, int a)
+unsigned int	get_color(int r, int g, int b, int a)
 {
 	return ((r & 0xff) << 24 | (g & 0xff) << 16 | (b & 0xff) << 8 | (a & 0xff) << 0);
 }

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/25 18:40:56 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/30 08:49:42 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,39 +189,57 @@ static double	ray(int x0, int y0, int x1, int y1, t_cub_data *cub)
 // }
 
 
-void	draw_v_line(int x, int start, int end, t_cub_data *cub, int old, int oldy)
+// void	draw_v_line(int x, int start, int end, t_cub_data *cub, int old, int oldy)
+// {
+// 	int color = 0xff0000ff;
+// 	if (old = cub->map_x && oldy == cub->map_y)
+// 		color = 0xffff00ff;
+// 	while(start++ < end)
+// 	{
+// 		mlx_put_pixel(cub->img, x, start, color);
+// 	}
+// }
+
+void	texturize(t_cub_data *cub, int x, int start, int end, int line_height, mlx_texture_t *tex)
 {
-	int color;
-	// if (cub->map_x % 3 == 0)
-	// 	color = 0xff0000ff;
-	if (cub->map_y % 2 == 0)
-		color = 0x00ff00ff;
-	if (old != cub->map_x || oldy != cub->map_y)
-		color = 0xff00ffff;
-	else if (old = cub->map_x && oldy == cub->map_y)
-		color = 0xffff00ff;
-	while(start++ < end)
+	int	tex_y;
+	double	step;
+	double	tex_pos;
+	int		ind;
+	int		y;
+
+	step = 1.0 * tex->height / line_height;
+	tex_pos = (start - HEIGHT / 2 + line_height / 2) * step;
+	y = 0;
+	while(y >= 0 && y < HEIGHT)
 	{
-		mlx_put_pixel(cub->img, x, start, color);
+		if (((y >= start && y <= end) || start > HEIGHT) && x < 1023)
+		{
+			tex_y = (int)tex_pos & (tex->height - 1);
+			tex_pos += step;
+			ind = (tex_y * tex->width + x) * tex->bytes_per_pixel;
+			mlx_put_pixel(cub->img, x, y, get_pixel_color(&(tex->pixels[ind])));
+		}
+		else if (y < start)
+			mlx_put_pixel(cub->img, x, y, cub->floor);
+		else if (y > end)
+			mlx_put_pixel(cub->img, x, y, cub->ceiling);
+		y++;
 	}
-	printf("%d\t%d\t%d\t%d\n", old, oldy, cub->map_x, cub->map_y);
 }
 
-void	draw_game(int x, double ray_d, t_cub_data *cub, int oldx, int oldy)
+void	draw_game(int x, double ray_d, t_cub_data *cub, int oldx, int oldy, double ray_dir_x)
 {
-	double line_hight = ((64 / ray_d) * (WIDHT / 2)) + (cub->mlx->height / cub->p->perp_wall_dist);
-	// (void)ray_d;
-	// int line_hight = (int)(cub->mlx->height / cub->p->perp_wall_dist);
+	double line_hight = ((32 / ray_d) * (WIDHT / 2)) + (cub->mlx->height / cub->p->perp_wall_dist); 
 	if (line_hight >= cub->mlx->height)
 		line_hight = cub->mlx->height;
 	if (line_hight <= 20)
 		line_hight = 20;
 	int	draw_start = (HEIGHT - line_hight) / 2;
-	// draw_start = (draw_start < 0) ? 0 : draw_start;
 	int draw_end = (draw_start + line_hight);
 	if (draw_end >= cub->mlx->height)
 		draw_end = cub->mlx->height - 1;
-	draw_v_line(x, draw_start, draw_end, cub, oldx, oldy);
+	texturize(cub, x, draw_start, draw_end, line_hight, cub->texture->ea_tex, ray_dir_X); //TODO
 }
 
 int	raytrace(t_cub_data *cub)
@@ -264,7 +282,7 @@ int	raytrace(t_cub_data *cub)
 		ray_dir_y = cub->p->dir_y + cub->p->plane_y * camera_x;
 		ray_angle = atan2(ray_dir_y, ray_dir_x);
 		ray_d = ray_d * cos(ray_angle - view_angle);
-		draw_game(i, ray_d, cub, oldmapx, oldmapy);
+		draw_game(i, ray_d, cub, oldmapx, oldmapy, ray_dir_x);
 		i += 1;
 		dir_x = dir_x * cos(dir_inc) - dir_y * sin(dir_inc);
 		dir_y = olddirx * sin(dir_inc) + dir_y * cos(dir_inc);
@@ -273,4 +291,3 @@ int	raytrace(t_cub_data *cub)
 }
 
 
-//TODO fuck it time to dda

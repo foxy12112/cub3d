@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/25 17:21:47 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/27 13:38:45 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,21 +144,9 @@ void	movement(t_cub_data *cub)
 	cub->p->x = new_x;
 }
 
-// void	texturize(t_cub_data *cub)
-// {
-// 	//TODO	select x position and y position of texture, 
-// 	//TODO	
-// 	//TODO	
-// 	//TODO	
-// 	//TODO	
-// 	//TODO	
-// 	//TODO	
-// }
-
 void	loop_hook(void *param)
 {
 	t_cub_data	*cub;
-	double		turn_speed;
 
 	cub = (t_cub_data *)param;
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_ESCAPE))
@@ -169,7 +157,6 @@ void	loop_hook(void *param)
 		draw_ray(cub);
 	movement(cub);
 	raytrace(cub);
-	// texturize(cub);
 }
 
 void	game_loop(t_cub_data *cub)
