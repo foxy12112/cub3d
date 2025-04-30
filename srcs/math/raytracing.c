@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/30 08:49:42 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/30 13:53:47 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,12 @@ static double	ray(int x0, int y0, int x1, int y1, t_cub_data *cub)
 	int dy = abs(y1 - y0);
 
 	if (dx >= dy)
+	{
+		cub->side = 0;
 		return (ray_x(x0, y0, x1, y1, cub));
-	else
-		return(ray_y(x0, y0, x1, y1, cub));
+	}
+	cub->side = 1;
+	return(ray_y(x0, y0, x1, y1, cub));
 }
 
 // static int	dda_ra_h(int startx, int starty, t_cub_data *cub)
@@ -200,24 +203,36 @@ static double	ray(int x0, int y0, int x1, int y1, t_cub_data *cub)
 // 	}
 // }
 
-void	texturize(t_cub_data *cub, int x, int start, int end, int line_height, mlx_texture_t *tex)
+void	texturize(t_cub_data *cub, int x, int start, int end, int line_height, mlx_texture_t *tex, double ray_d)
 {
 	int	tex_y;
 	double	step;
 	double	tex_pos;
 	int		ind;
 	int		y;
+	double	wall_x;
+	int		tex_x;
 
 	step = 1.0 * tex->height / line_height;
 	tex_pos = (start - HEIGHT / 2 + line_height / 2) * step;
-	y = 0;
-	while(y >= 0 && y < HEIGHT)
+	y = start;
+	if (cub->side = 0)
+		wall_x = cub->p->y + ray_d * cub->ray_dir_y;
+	else
+		wall_x = cub->p->x + ray_d * cub->ray_dir_x;
+	wall_x -= floor(wall_x);
+	tex_x = (int)(wall_x * (double)tex->width);
+	if (cub->side == 0 && cub->ray_dir_x > 0)
+		tex_x = tex->width - tex_x - 1;
+	if (cub->side == 1 && cub->ray_dir_y < 0)
+		tex_x = tex->width - tex_x - 1;
+	while(y < end)
 	{
-		if (((y >= start && y <= end) || start > HEIGHT) && x < 1023)
+		if (((y >= start && y <= end) || start > HEIGHT))
 		{
 			tex_y = (int)tex_pos & (tex->height - 1);
 			tex_pos += step;
-			ind = (tex_y * tex->width + x) * tex->bytes_per_pixel;
+			ind = (tex_y * tex->width + tex_x) * tex->bytes_per_pixel;
 			mlx_put_pixel(cub->img, x, y, get_pixel_color(&(tex->pixels[ind])));
 		}
 		else if (y < start)
@@ -239,7 +254,7 @@ void	draw_game(int x, double ray_d, t_cub_data *cub, int oldx, int oldy, double 
 	int draw_end = (draw_start + line_hight);
 	if (draw_end >= cub->mlx->height)
 		draw_end = cub->mlx->height - 1;
-	texturize(cub, x, draw_start, draw_end, line_hight, cub->texture->ea_tex, ray_dir_X); //TODO
+	texturize(cub, x, draw_start, draw_end, line_hight, get_wall_texture(cub), ray_d); //TODO
 }
 
 int	raytrace(t_cub_data *cub)
@@ -278,9 +293,9 @@ int	raytrace(t_cub_data *cub)
 		double camera_x = 2 * i / 1920.0 - 1;
 		cub->p->plane_x = -cub->p->dir_y * plane_mag;
 		cub->p->plane_y = cub->p->dir_x * plane_mag;
-		ray_dir_x = cub->p->dir_x + cub->p->plane_x * camera_x;
-		ray_dir_y = cub->p->dir_y + cub->p->plane_y * camera_x;
-		ray_angle = atan2(ray_dir_y, ray_dir_x);
+		cub->ray_dir_x = cub->p->dir_x + cub->p->plane_x * camera_x;
+		cub->ray_dir_y = cub->p->dir_y + cub->p->plane_y * camera_x;
+		ray_angle = atan2(cub->ray_dir_y, cub->ray_dir_x);
 		ray_d = ray_d * cos(ray_angle - view_angle);
 		draw_game(i, ray_d, cub, oldmapx, oldmapy, ray_dir_x);
 		i += 1;

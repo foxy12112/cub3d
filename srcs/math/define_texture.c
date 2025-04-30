@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define_texture.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:04:24 by psostari          #+#    #+#             */
-/*   Updated: 2025/04/29 11:01:25 by psostari         ###   ########.fr       */
+/*   Updated: 2025/04/30 12:56:16 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	img_pix_put(t_cub_data *cub, int x, int y, int color)
 // 	}
 // }
 
-mlx_image_t	*get_wall_texture(t_cub_data *cub)
+mlx_texture_t	*get_wall_texture(t_cub_data *cub)
 {
 	if (cub->side == 0 && cub->ray_dir_x < 0)
 		return (cub->texture->we_tex);

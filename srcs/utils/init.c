@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 19:38:51 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/30 09:09:29 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/30 12:55:38 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	init(char *argv[], t_cub_data *cub)
 	cub->move = safe_malloc(sizeof(t_move_data), cub, __func__);
 	cub->minimap->size_x = 0;
 	cub->minimap->size_y = 0;
-	cub->mlx = mlx_init(WIDHT, HEIGHT, "cub3d", false);
 	if (!cub->mlx)
 	{
 		return (ft_error(cub, "Failed to initialize mlx"), EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/30 09:01:22 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/30 09:39:48 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ void	loop_hook(void *param)
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_KP_0))
 		draw_ray(cub);
 	movement(cub);
-	raycasting(cub);
+	// raycasting(cub);
 	// texturize(cub);
 	raytrace(cub);
 }

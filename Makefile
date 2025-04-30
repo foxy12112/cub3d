@@ -6,7 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/04/30 09:00:03 by ldick            ###   ########.fr        #
+#    Updated: 2025/04/30 10:22:56 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ PARSING			=	$(addprefix parsing/, $(_PARSING))
 _DEBUG			=	debug.c
 DEBUG			=	$(addprefix debug/, $(_DEBUG))
 
-_MATH			=	raycasting.c define_texture.c
+_MATH			=	raycasting.c define_texture.c raytracing.c
 MATH			=	$(addprefix math/, $(_MATH))
 
 _UTILS			=	ft_ftoa.c init.c init_utils.c tmp.c cub_init.c

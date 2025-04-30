@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/04/30 09:11:05 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/30 12:56:40 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,8 +278,8 @@ int				int_to_str(int x, char str[], int d);
 void			ft_ftoa(double n, char *res, int afterpoint);
 char			*rm_s(char *str);
 mlx_texture_t	*scale_tex(mlx_texture_t *texture, int width, int height);
-void			*create_image(t_cub_data *cub, char *str);
-int				get_color(int r, int g, int b, int a);
+// void			*create_image(t_cub_data *cub, char *str);
+// int				get_color(int r, int g, int b, int a);
 void			init_player(t_cub_data *cub);
 int				init(char *argv[], t_cub_data *cub);
 void			*safe_malloc(size_t size, t_cub_data *cub, const char *func_name);
@@ -289,6 +289,7 @@ int				ft_abs(int value);
 unsigned int	get_pixel_color(uint8_t *p);
 
 int	valid_location(int x, int y, t_cub_data *cub);
-mlx_image_t	*get_wall_texture(t_cub_data *cub);
+mlx_texture_t	*get_wall_texture(t_cub_data *cub);
+
 #endif
 //TODO change tenary operators to normal if condition

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 18:55:37 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/30 09:09:02 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/30 09:50:26 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,3 @@ int	check_invalid_chars(t_cub_data *cub)
 // 	}
 // 	cub->minimap->size_y = y;
 // }
-
-int	parsing(t_cub_data *cub)
-{
-	if (check_textures(cub) == 1)
-		ft_error(cub, "error in textures");
-	if (check_map(cub) == 1)
-		ft_error(cub, "error in map parsing");
-	// minimap_size(cub);
-	return (0);
-}

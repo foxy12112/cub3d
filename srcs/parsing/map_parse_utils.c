@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:34:40 by petrasostar       #+#    #+#             */
-/*   Updated: 2025/04/30 09:02:54 by ldick            ###   ########.fr       */
+/*   Updated: 2025/04/30 10:38:07 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,21 @@ int		check_leaks(char **map, t_cub_data *cub)
 		y++;
 		x = 0;
 	}
-	return (true);
+	return (0);
+}
+
+int	check_sides(t_cub_data *cub)
+{
+	int	y;
+
+	y = 0;
+	while (cub->map[y])
+	{
+		if ((cub->map[y][0] != ' ' && cub->map[y][0] != '1') || (cub->map[y][ft_strlen(cub->map[y]) - 1] != ' ' && cub->map[y][ft_strlen(cub->map[y]) - 1] != '1'))
+			return (ft_error(cub, "sides not closed"), 1);
+		y++;
+	}
+	return (0);
 }
 
 int	check_map_validity(t_cub_data *cub)
