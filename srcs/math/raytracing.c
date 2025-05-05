@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/04 14:20:51 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/05 18:24:48 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static double	ray_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		if (cub->side_dist_x)
 		i++;
 	}
+	cub->hit_x = (x0 - 50) / 22;
+	cub->hit_y = (y0 - 50) / 22;
 	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
 	cub->p->perp_wall_dist = x0 - dx;
 	return dlen;
@@ -71,7 +73,8 @@ static double	ray_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		}
 		i++;
 	}
-	cub->
+	cub->hit_x = (x0 - 50) / 22;
+	cub->hit_y = (y0 - 50) / 22;
 	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
 	cub->p->perp_wall_dist = y0 - dy;
 	return dlen;
@@ -241,12 +244,41 @@ void	texturize(t_cub_data *cub, int x, int start, int end, int line_height, mlx_
 	}
 }
 
-mlx_texture_t	*get_correct_texture(t_cub_data *cub, double ray_d)
+int	is_out_of_bound(char **map, int x, int y)
 {
-	double	wall_position;
+	if (!map[y])
+		return (1);
+	if (!map[y][x])
+		return (1);
+	return (0);
+}
 
-	wall_position = ;
-	printf("%f\n", wall_position);
+mlx_texture_t	*get_correct_texture(t_cub_data *cub)
+{
+	if (cub->map[cub->hit_y][cub->hit_x] == '1')
+	{
+		if (!is_out_of_bound(cub->map, cub->hit_x, cub->hit_y + 1))
+		{
+			if (cub->map[cub->hit_y + 1][cub->hit_x] == '0')
+				return (cub->texture->no_tex);
+		}
+		if (!is_out_of_bound(cub->map, cub->hit_x, cub->hit_y - 1))
+		{
+			if (cub->map[cub->hit_y - 1][cub->hit_x] == '0')
+				return (cub->texture->so_tex);
+		}
+		if (!is_out_of_bound(cub->map, cub->hit_x + 1, cub->hit_y))
+		{
+			if (cub->map[cub->hit_y][cub->hit_x + 1] == '0')
+				return (cub->texture->ea_tex);
+		}
+		if (!is_out_of_bound(cub->map, cub->hit_x - 1, cub->hit_y))
+		{
+			if (cub->map[cub->hit_y][cub->hit_x - 1] == '0')
+				return (cub->texture->we_tex);
+		}
+	}
+	return (cub->texture->missing_texture);
 }
 
 void	draw_game(int x, double ray_d, t_cub_data *cub, int oldx, int oldy, double ray_dir_x)
@@ -260,7 +292,7 @@ void	draw_game(int x, double ray_d, t_cub_data *cub, int oldx, int oldy, double 
 	int draw_end = (draw_start + line_hight);
 	if (draw_end >= cub->mlx->height)
 		draw_end = cub->mlx->height - 1;
-	texturize(cub, x, draw_start, draw_end, line_hight, get_wall_texture(cub), ray_d); //TODO
+	texturize(cub, x, draw_start, draw_end, line_hight, get_correct_texture(cub), ray_d); //TODO
 }
 
 int	raytrace(t_cub_data *cub)

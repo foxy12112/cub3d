@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:40:54 by petrasostar       #+#    #+#             */
-/*   Updated: 2025/04/24 10:20:25 by psostari         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:13:57 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	init_texture(t_cub_data *cub)
 	cub->texture->no_tex = create_image(cub, cub->texture->no);
 	cub->texture->so_tex = create_image(cub, cub->texture->so);
 	cub->texture->we_tex = create_image(cub, cub->texture->we);
+	cub->texture->missing_texture = create_image(cub, "textures/missing_texture.png");
 	return (0);
 }
 

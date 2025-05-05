@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/04 14:12:11 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/05 12:08:46 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	movement(t_cub_data *cub)
 	}
 	cub->minimap->p_img->instances->x = round(new_x);
 	cub->minimap->p_img->instances->y = round(new_y);
-	printf("%f\t%f\n", (new_x - 50) / 22, (new_y - 50) / 22);
+	// printf("%f\t%f\n", (new_x - 50) / 22, (new_y - 50) / 22);
 	cub->p->y = new_y;
 	cub->p->x = new_x;
 }
