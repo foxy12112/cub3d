@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/30 09:01:34 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/08 13:52:54 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,25 @@ void	scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height)
 	}
 }
 
-int	is_wall(t_cub_data *cub, int x, int y)
-{
-	int	map_x;
-	int	map_y;
+// int	is_wall(t_cub_data *cub, int x, int y)
+// {
+// 	int	map_x;
+// 	int	map_y;
 
-	// Translate the minimap coordinates to map coordinates
-	map_x = (x) / (22);
-	map_y = (y) / (22);
+// 	// Translate the minimap coordinates to map coordinates
+// 	map_x = (x) / (22);
+// 	map_y = (y) / (22);
 
-	// Check if the coordinates are within the map boundaries
-	if (map_x < 0 || map_x >= cub->minimap->size_x || map_y < 0 || map_y >= cub->minimap->size_y)
-		return (1);
+// 	// Check if the coordinates are within the map boundaries
+// 	if (map_x < 0 || map_x >= cub->minimap->size_x || map_y < 0 || map_y >= cub->minimap->size_y)
+// 		return (1);
 
-	// Check if the current position is a wall
-	if (cub->map[map_y][map_x] == '1')
-		return (1);
+// 	// Check if the current position is a wall
+// 	if (cub->map[map_y][map_x] == '1')
+// 		return (1);
 
-	return (0);
-}
+// 	return (0);
+// }
 
 unsigned int	get_pixel_color(uint8_t *p)
 {
