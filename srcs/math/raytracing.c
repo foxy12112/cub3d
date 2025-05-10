@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/09 16:04:55 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/10 17:42:03 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,9 +240,11 @@ void	texturize(t_cub_data *cub, int x, int start, int end, int line_height, mlx_
 	int dy = tex->height;
 	int dx = line_height;
 	int err = dx / 2;
-	while(y < end)
+	while(y <= end)
 	{
-		tex_y = (int)tex_pos & 1023;
+		tex_y = (int)tex_pos % tex->height;
+		if (tex_y < 0)
+			tex_y += tex->height;
 		uint32_t color = get_pixel_color(&(tex->pixels[(tex_y * tex->width + tex_x) * 4]));
 		mlx_put_pixel(cub->img, x, y, color);
 		tex_pos += step;
@@ -357,13 +359,15 @@ int	raytrace(t_cub_data *cub)
 		x1 = cub->p->x;
 		y1 = cub->p->y;
 		double olddirx = dir_x;
+		double camera_x = 2 * i / 1920.0 - 1;
 		x = x1 + (dir_x * cub->mlx->width);
 		y = y1 + (dir_y * cub->mlx->width);
+		// x = x1 + (cub->ray_dir_x * cub->mlx->width);
+		// y = y1 + (cub->ray_dir_y * cub->mlx->width);
 		int oldmapx, oldmapy;
 		oldmapx = cub->map_x;
 		oldmapy = cub->map_y;
 		double ray_d = ray(x1, y1, x, y, cub);
-		double camera_x = 2 * i / 1920.0 - 1;
 		cub->p->plane_x = -cub->p->dir_y * plane_mag;
 		cub->p->plane_y = cub->p->dir_x * plane_mag;
 		cub->ray_dir_x = cub->p->dir_x + cub->p->plane_x * camera_x;

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/09 18:20:14 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/10 17:33:44 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	rotate(t_cub_data *cub)
 	olddirx = cub->p->dir_x;
 	cub->p->dir_x = cub->p->dir_x * cos(rotation_angle) - cub->p->dir_y * sin(rotation_angle);
 	cub->p->dir_y = olddirx * sin(rotation_angle) + cub->p->dir_y * cos(rotation_angle);
-	oldplanex = cub->p->plane_x;
-	cub->p->plane_x = cub->p->plane_x * cos(rotation_angle) - cub->p->plane_y - sin(rotation_angle);
-	cub->p->plane_y = oldplanex * sin(rotation_angle) + cub->p->plane_y * cos(rotation_angle);
+	// oldplanex = cub->p->plane_x;
+	// cub->p->plane_x = cub->p->plane_x * cos(rotation_angle) - cub->p->plane_y - sin(rotation_angle);
+	// cub->p->plane_y = oldplanex * sin(rotation_angle) + cub->p->plane_y * cos(rotation_angle);
 }
 
 int	valid_location(int x, int y, t_cub_data *cub)
