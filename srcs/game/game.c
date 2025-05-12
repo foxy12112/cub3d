@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/10 17:33:44 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/11 16:57:21 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	movement(t_cub_data *cub)
 	{
 		if (valid_location(cub->p->x + (cub->p->dir_x * move_speed), cub->p->y + (cub->p->dir_y * move_speed), cub))
 		{
-			new_x = cub->p->x +  (cub->p->dir_x * move_speed);
+			new_x = cub->p->x + (cub->p->dir_x * move_speed);
 			new_y = cub->p->y + (cub->p->dir_y * move_speed);
 		}
 	}

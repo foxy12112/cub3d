@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/10 17:42:03 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/12 18:44:07 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,27 +224,30 @@ void	texturize(t_cub_data *cub, int x, int start, int end, int line_height, mlx_
 	double	wall_x;
 	int		tex_x;
 
-	step = 1.0 * (double)tex->height / (double)line_height;
-	tex_pos = (start - HEIGHT / 2 + line_height / 2) * step;
 	y = start;
 	if (cub->side == 0)
-		wall_x = cub->p->y + ray_d * cub->ray_dir_y;
+		wall_x = (cub->p->y - 50) / 22 + ray_d * cub->ray_dir_y;
 	else
-		wall_x = cub->p->x + ray_d * cub->ray_dir_x;
+		wall_x = (cub->p->x - 50) / 22 + ray_d * cub->ray_dir_x;
+		// printf("%f\n", cub->ray_dir_y);
 	wall_x -= floor(wall_x);
+	wall_x = cub->hit_x;
 	tex_x = (int)(wall_x * (double)tex->width);
-	if (cub->side == 0 && cub->ray_dir_x > 0)
-		tex_x = tex->width - tex_x - 1;
-	if (cub->side == 1 && cub->ray_dir_y < 0)
-		tex_x = tex->width - tex_x - 1;
-	int dy = tex->height;
-	int dx = line_height;
-	int err = dx / 2;
+	// if (cub->side == 0 && cub->ray_dir_x > 0)
+	// 	tex_x = tex->width - tex_x - 1;
+	// if (cub->side == 1 && cub->ray_dir_y < 0)
+		tex_x = (int)wall_x * tex->width;
+	step = (double)tex->height / (double)line_height;
+	// step = tex->height / line_height;
+	tex_pos = (start - HEIGHT / 2 + line_height / 2) * step;
+	// printf("%d\t\t%d\n", (cub->hit_x - 50) / 22, (cub->hit_y - 50) / 22);
 	while(y <= end)
 	{
 		tex_y = (int)tex_pos % tex->height;
 		if (tex_y < 0)
 			tex_y += tex->height;
+		if (tex_y >= tex->height)
+			tex_y = tex->height - 1;
 		uint32_t color = get_pixel_color(&(tex->pixels[(tex_y * tex->width + tex_x) * 4]));
 		mlx_put_pixel(cub->img, x, y, color);
 		tex_pos += step;
@@ -329,7 +332,13 @@ void	draw_game(int x, double ray_d, t_cub_data *cub, int oldx, int oldy, double 
 	int draw_end = (draw_start + line_hight);
 	if (draw_end >= cub->mlx->height)
 		draw_end = cub->mlx->height - 1;
-	texturize(cub, x, draw_start, draw_end, line_hight, get_wall_texture(cub), ray_d); //TODO
+	mlx_texture_t * texture;
+	if (((cub->hit_x - 50) / 22) % 2 == 0)
+		texture = cub->texture->ea_tex;
+	else
+		texture = cub->texture->we_tex;
+	// texturize(cub, x, draw_start, draw_end, line_hight, get_wall_texture(cub), ray_d); //TODO
+	texturize(cub, x, draw_start, draw_end, line_hight, texture, ray_d); //TODO
 }
 
 int	raytrace(t_cub_data *cub)
@@ -360,6 +369,8 @@ int	raytrace(t_cub_data *cub)
 		y1 = cub->p->y;
 		double olddirx = dir_x;
 		double camera_x = 2 * i / 1920.0 - 1;
+		cub->ray_dir_x = cub->p->dir_x + cub->p->plane_x * camera_x;
+		cub->ray_dir_y = cub->p->dir_y + cub->p->plane_y * camera_x;
 		x = x1 + (dir_x * cub->mlx->width);
 		y = y1 + (dir_y * cub->mlx->width);
 		// x = x1 + (cub->ray_dir_x * cub->mlx->width);
@@ -370,14 +381,12 @@ int	raytrace(t_cub_data *cub)
 		double ray_d = ray(x1, y1, x, y, cub);
 		cub->p->plane_x = -cub->p->dir_y * plane_mag;
 		cub->p->plane_y = cub->p->dir_x * plane_mag;
-		cub->ray_dir_x = cub->p->dir_x + cub->p->plane_x * camera_x;
-		cub->ray_dir_y = cub->p->dir_y + cub->p->plane_y * camera_x;
 		ray_angle = atan2(cub->ray_dir_y, cub->ray_dir_x);
 		ray_d = ray_d * cos(ray_angle - view_angle);
 		draw_game(i, ray_d, cub, oldmapx, oldmapy, ray_dir_x);
 		i += 1;
 		dir_x = dir_x * cos(dir_inc) - dir_y * sin(dir_inc);
-		dir_y = olddirx * sin(dir_inc) + dir_y * cos(dir_inc);
+		dir_y = olddirx * sin(dir_inc) + dir_y * cos(dir_inc); //TODO texture problem located in here, CAUSED BY X
 	}
 	return (1);
 }

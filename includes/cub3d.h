@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/05/08 14:40:02 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/11 15:10:38 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,6 +295,8 @@ unsigned int	get_pixel_color(uint8_t *p);
 int	valid_location(int x, int y, t_cub_data *cub);
 mlx_texture_t	*get_wall_texture(t_cub_data *cub);
 bool	is_wall(t_cub_data *cub, int hit_x, int hit_y);
+int	is_out_of_bound(char **map, int x, int y);
+
 
 #endif
 //TODO change tenary operators to normal if condition

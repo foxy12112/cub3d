@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:04:24 by psostari          #+#    #+#             */
-/*   Updated: 2025/05/04 11:30:42 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/11 16:41:32 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,8 @@ void	draw_column(t_cub_data *cub, int x)
 	{
 		tex_y = (int)tex_pos & (tex->height - 1);
 		tex_pos += step;
-		color = *(int *)(tex->pixels + 4 * (tex_y * tex->width + tex_x));
+		// color = *(int *)(tex->pixels + 4 * (tex_y * tex->width + tex_x));
+		color = get_pixel_color(&(tex->pixels[(tex_y * tex->width + tex_x) * 4]));
 		img_pix_put(cub, x, y, color);
 		y++;
 	}
