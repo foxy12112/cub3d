@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:11:53 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/09 18:22:49 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/17 17:51:58 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ static int	check_player(t_cub_data *cub)
 		cub->p->plane_y = 0;
 	}
 	cub->p->dir = atan2(cub->p->dir_x, cub->p->dir_y);
+	cub->map_y = cub->p->start_x;
+	cub->map_x = cub->p->start_y;
 	cub->p->x = (double)cub->p->start_x * 22 + 55;
 	cub->p->y = (double)cub->p->start_y * 22 + 55;
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/08 13:52:54 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/17 17:51:30 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ bool	touch(double px, double py, t_cub_data *cub)
 
 	y = py / (22);
 	x = px / (22);
-	cub->map_x = x;
-	cub->map_y = y;
 	if (x > cub->minimap->size_x || x < 0 || y < 0 || y > cub->minimap->size_y)
 		return (true);
 	if (!cub->map[y])

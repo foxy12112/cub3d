@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/05/11 15:10:38 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/17 17:47:01 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,7 +255,6 @@ int				check_map_exists(t_cub_data *cub);
 int				check_top(t_cub_data *cub);
 int				check_bottom(t_cub_data *cub);
 int				check_sides(t_cub_data *cub);
-int				check_player(t_cub_data *cub);
 int				check_leaks(char **map, t_cub_data *cub);
 int				check_map_validity(t_cub_data *cub);
 int				check_map_dim(t_cub_data *cub);

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/12 18:44:07 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/17 17:33:35 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,29 +225,33 @@ void	texturize(t_cub_data *cub, int x, int start, int end, int line_height, mlx_
 	int		tex_x;
 
 	y = start;
+	// if (cub->side == 1)
+	// 	wall_x = cub->p->x + ray_d * cub->ray_dir_x;
+	// else
+	// 	wall_x = cub->p->y + ray_d * cub->ray_dir_y;
 	if (cub->side == 0)
-		wall_x = (cub->p->y - 50) / 22 + ray_d * cub->ray_dir_y;
+	wall_x = cub->p->y + ray_d * cub->ray_dir_y;
 	else
-		wall_x = (cub->p->x - 50) / 22 + ray_d * cub->ray_dir_x;
-		// printf("%f\n", cub->ray_dir_y);
+	wall_x = cub->p->x + ray_d * cub->ray_dir_x;
+	// printf("%f\n", cub->ray_dir_y);
 	wall_x -= floor(wall_x);
-	wall_x = cub->hit_x;
-	tex_x = (int)(wall_x * (double)tex->width);
-	// if (cub->side == 0 && cub->ray_dir_x > 0)
-	// 	tex_x = tex->width - tex_x - 1;
-	// if (cub->side == 1 && cub->ray_dir_y < 0)
-		tex_x = (int)wall_x * tex->width;
+	// wall_x = cub->hit_x;
+	tex_x = (int)(wall_x * tex->width);
+	if (tex_x < 0)
+		tex_x = 0;
+	if (tex_x >= tex->width)
+		tex_x = tex->width - 1;
+	if (cub->side == 0 && cub->ray_dir_x > 0)
+		tex_x = tex->width - tex_x - 1;
+	if (cub->side == 1 && cub->ray_dir_y < 0)
+		tex_x = tex->width - tex_x - 1;
 	step = (double)tex->height / (double)line_height;
-	// step = tex->height / line_height;
 	tex_pos = (start - HEIGHT / 2 + line_height / 2) * step;
-	// printf("%d\t\t%d\n", (cub->hit_x - 50) / 22, (cub->hit_y - 50) / 22);
 	while(y <= end)
 	{
 		tex_y = (int)tex_pos % tex->height;
 		if (tex_y < 0)
 			tex_y += tex->height;
-		if (tex_y >= tex->height)
-			tex_y = tex->height - 1;
 		uint32_t color = get_pixel_color(&(tex->pixels[(tex_y * tex->width + tex_x) * 4]));
 		mlx_put_pixel(cub->img, x, y, color);
 		tex_pos += step;
@@ -334,12 +338,20 @@ void	draw_game(int x, double ray_d, t_cub_data *cub, int oldx, int oldy, double 
 		draw_end = cub->mlx->height - 1;
 	mlx_texture_t * texture;
 	if (((cub->hit_x - 50) / 22) % 2 == 0)
-		texture = cub->texture->ea_tex;
+		texture = cub->texture->no_tex;
 	else
-		texture = cub->texture->we_tex;
+		texture = cub->texture->so_tex;
 	// texturize(cub, x, draw_start, draw_end, line_hight, get_wall_texture(cub), ray_d); //TODO
 	texturize(cub, x, draw_start, draw_end, line_hight, texture, ray_d); //TODO
 }
+
+// void	save_location_until_new_wall(t_cub_data *cub)
+// {
+// 	static int x;
+// 	static int y;
+
+// 	if ()
+// }
 
 int	raytrace(t_cub_data *cub)
 {
@@ -385,8 +397,9 @@ int	raytrace(t_cub_data *cub)
 		ray_d = ray_d * cos(ray_angle - view_angle);
 		draw_game(i, ray_d, cub, oldmapx, oldmapy, ray_dir_x);
 		i += 1;
+		// save_location_until_new_wall(cub, );
 		dir_x = dir_x * cos(dir_inc) - dir_y * sin(dir_inc);
-		dir_y = olddirx * sin(dir_inc) + dir_y * cos(dir_inc); //TODO texture problem located in here, CAUSED BY X
+		dir_y = olddirx * sin(dir_inc) + dir_y * cos(dir_inc); //TODO 
 	}
 	return (1);
 }

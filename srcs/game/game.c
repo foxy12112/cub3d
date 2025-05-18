@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/11 16:57:21 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/18 13:56:05 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,32 @@ double	normalize_angle(double angle)
 	return (angle);
 }
 
+void	rotate_right(t_cub_data *cub)
+{
+	double	olddirx;
+	double	oldplanex;
+	
+	olddirx = cub->p->dir_x;
+	oldplanex = cub->p->plane_x;
+	cub->p->dir_x = cub->p->dir_x * cos(-ROT_SPEED) - cub->p->dir_y * sin(-ROT_SPEED);
+	cub->p->dir_y = olddirx * sin(-ROT_SPEED) + cub->p->dir_y * cos(-ROT_SPEED);
+	cub->p->plane_x = cub->p->plane_x * cos(-ROT_SPEED) - cub->p->plane_y * sin(-ROT_SPEED);
+	cub->p->plane_y = oldplanex * sin(-ROT_SPEED) + cub->p->plane_y * cos(-ROT_SPEED);
+}
+
+void	rotate_left(t_cub_data *cub)
+{
+	double	olddirx;
+	double	oldplanex;
+	
+	olddirx = cub->p->dir_x;
+	oldplanex = cub->p->plane_x;
+	cub->p->dir_x = cub->p->dir_x * cos(ROT_SPEED) - cub->p->dir_y * sin(ROT_SPEED);
+	cub->p->dir_y = olddirx * sin(ROT_SPEED) + cub->p->dir_y * cos(ROT_SPEED);
+	cub->p->plane_x = cub->p->plane_x * cos(ROT_SPEED) - cub->p->plane_y * sin(ROT_SPEED);
+	cub->p->plane_y = oldplanex * sin(ROT_SPEED) + cub->p->plane_y * cos(ROT_SPEED);
+}
+
 void	rotate(t_cub_data *cub)
 {
 	double	olddirx;
@@ -58,19 +84,11 @@ void	rotate(t_cub_data *cub)
 	double	angle;
 
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
-		dir = 1;
+		rotate_right(cub);
 	else if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
-		dir = -1;
+		rotate_left(cub);
 	else
 		return ;
-	rotation_angle = dir * ROT_SPEED;
-	angle += dir * (ROT_SPEED * 180 / M_PI);
-	olddirx = cub->p->dir_x;
-	cub->p->dir_x = cub->p->dir_x * cos(rotation_angle) - cub->p->dir_y * sin(rotation_angle);
-	cub->p->dir_y = olddirx * sin(rotation_angle) + cub->p->dir_y * cos(rotation_angle);
-	// oldplanex = cub->p->plane_x;
-	// cub->p->plane_x = cub->p->plane_x * cos(rotation_angle) - cub->p->plane_y - sin(rotation_angle);
-	// cub->p->plane_y = oldplanex * sin(rotation_angle) + cub->p->plane_y * cos(rotation_angle);
 }
 
 int	valid_location(int x, int y, t_cub_data *cub)
@@ -160,9 +178,10 @@ void	loop_hook(void *param)
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_KP_0))
 		draw_ray(cub);
 	movement(cub);
-	// raycasting(cub);
+	draw_c_f(cub);
+	raycasting(cub);
 	// texturize(cub);
-	raytrace(cub);
+	// raytrace(cub);
 }
 
 void	game_loop(t_cub_data *cub)
@@ -172,7 +191,6 @@ void	game_loop(t_cub_data *cub)
 	cub->img = mlx_new_image(cub->mlx, cub->mlx->width, cub->mlx->height);
 	mlx_image_to_window(cub->mlx, cub->img, 0, 0);
 	cub->img->instances->z = 0;
-	draw_c_f(cub);
 	map(cub);
 	draw_player(cub);
 	mlx_loop_hook(cub->mlx, &loop_hook, cub);

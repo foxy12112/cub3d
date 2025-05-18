@@ -6,11 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/04/30 10:22:56 by ldick            ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-#    Updated: 2025/03/07 14:50:49 by petrasostar      ###   ########.fr        #
+#    Updated: 2025/05/17 17:46:30 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +41,7 @@ ERROR_FILE	=	error.log
 #											Sources												#
 #################################################################################################
 
-_PARSING		=	map_parse_utils.c parsing.c map_validity.c parsing_rgb.c utils.c print_map.c parsing_texture.c
+_PARSING		=	map_parse_utils.c parsing.c map_validity.c parsing_rgb.c utils.c print_map.c parsing_texture.c parsing_utils.c
 PARSING			=	$(addprefix parsing/, $(_PARSING))
 
 _DEBUG			=	debug.c
