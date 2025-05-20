@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:37:47 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/18 13:56:05 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/20 12:27:10 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,11 +177,13 @@ void	loop_hook(void *param)
 		rotate(cub);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_KP_0))
 		draw_ray(cub);
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_P))
+		draw_fov(cub);
 	movement(cub);
-	draw_c_f(cub);
-	raycasting(cub);
+	// draw_c_f(cub);
+	// raycasting(cub);
 	// texturize(cub);
-	// raytrace(cub);
+	raytrace(cub);
 }
 
 void	game_loop(t_cub_data *cub)

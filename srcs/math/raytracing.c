@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/17 17:33:35 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/20 12:53:18 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,10 +230,11 @@ void	texturize(t_cub_data *cub, int x, int start, int end, int line_height, mlx_
 	// else
 	// 	wall_x = cub->p->y + ray_d * cub->ray_dir_y;
 	if (cub->side == 0)
-	wall_x = cub->p->y + ray_d * cub->ray_dir_y;
+		wall_x = cub->p->y + ray_d * cub->ray_dir_y;
 	else
-	wall_x = cub->p->x + ray_d * cub->ray_dir_x;
+		wall_x = cub->p->x + ray_d * cub->ray_dir_x;
 	// printf("%f\n", cub->ray_dir_y);
+	wall_x /= 29;
 	wall_x -= floor(wall_x);
 	// wall_x = cub->hit_x;
 	tex_x = (int)(wall_x * tex->width);
@@ -241,10 +242,10 @@ void	texturize(t_cub_data *cub, int x, int start, int end, int line_height, mlx_
 		tex_x = 0;
 	if (tex_x >= tex->width)
 		tex_x = tex->width - 1;
-	if (cub->side == 0 && cub->ray_dir_x > 0)
-		tex_x = tex->width - tex_x - 1;
-	if (cub->side == 1 && cub->ray_dir_y < 0)
-		tex_x = tex->width - tex_x - 1;
+	// if (cub->side == 0 && cub->ray_dir_x > 0)
+	// 	tex_x = tex->width - tex_x - 1;
+	// if (cub->side == 1 && cub->ray_dir_y < 0)
+	// 	tex_x = tex->width - tex_x - 1;
 	step = (double)tex->height / (double)line_height;
 	tex_pos = (start - HEIGHT / 2 + line_height / 2) * step;
 	while(y <= end)
@@ -337,7 +338,7 @@ void	draw_game(int x, double ray_d, t_cub_data *cub, int oldx, int oldy, double 
 	if (draw_end >= cub->mlx->height)
 		draw_end = cub->mlx->height - 1;
 	mlx_texture_t * texture;
-	if (((cub->hit_x - 50) / 22) % 2 == 0)
+	if (((cub->hit_x - 50) / 22) % 2 == 0 && (cub->hit_y - 50) / 22 % 2 == 0)
 		texture = cub->texture->no_tex;
 	else
 		texture = cub->texture->so_tex;

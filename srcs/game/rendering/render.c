@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/17 17:51:30 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/19 11:17:29 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,7 +280,7 @@ void	draw_fov(t_cub_data *cub)
 	i = 0;
 	int count = 0;
 	double dir_inc = (double)FOV * (M_PI / 180.0) / (double)1920;
-	double dir = atan2(cub->p->dir_y, cub->p->dir_x) - (FOV * (M_PI / 180.0)) / 2.0;
+	double dir = atan2(cub->ray_dir_y, cub->ray_dir_x) - (FOV * (M_PI / 180.0)) / 2.0;
 	while(i < FOV)
 	{
 		angle = dir;
