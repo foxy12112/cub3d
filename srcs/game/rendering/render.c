@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:51:48 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/19 11:17:29 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/25 18:01:30 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,17 @@ void	scale(mlx_texture_t *new, mlx_texture_t *tex, int width, int height)
 
 unsigned int	get_pixel_color(uint8_t *p)
 {
-	uint32_t	b;
-	uint32_t	g;
-	uint32_t	r;
-	uint32_t	a;
+	uint8_t	b;
+	uint8_t	g;
+	uint8_t	r;
+	uint8_t	a;
 
-	r = *(p);
+	r = *(p + 0);
 	g = *(p + 1);
 	b = *(p + 2);
 	a = *(p + 3);
-	return (get_color(r, g, b, a));
+	// return (get_color(r, g, b, a));
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
 bool	touch(double px, double py, t_cub_data *cub)

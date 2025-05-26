@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/05/19 11:23:19 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/22 15:05:11 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,6 @@ typedef struct s_player_data
 	int					perp_wall_dist;
 }						t_player_data;
 
-typedef struct s_loc
-{
-	int					x;
-	int					y;
-}						t_loc;
 
 typedef struct s_move_data
 {
@@ -129,6 +124,54 @@ typedef struct s_textbox
 	int					active;
 	char				*text;
 }						t_textbox;
+
+typedef struct s_coordinates
+{
+	int					x;
+	int					y;
+}						t_coordinates;
+
+typedef	struct	s_increment
+{
+	double	dir_inc;
+	double	dir_x;
+	double	dir_y;
+	double	fov_rad;
+	double	half_fov;
+	double	view_angle;
+	double	plane_mag;
+	double	old_dir_x;
+}						t_increment;
+
+typedef struct s_calculations
+{
+	int			dx;
+	int			dy;
+	double		step_x;
+	double		step_y;
+	int			start_x;
+	int			start_y;
+	int			decision;
+	int			counter;
+}				t_calculations;
+
+typedef struct s_raycasting
+{
+	double			camera_x;
+	double			ray_dir_x;
+	double			ray_dir_y;
+	double			side_dist_x;
+	double			side_dist_y;
+	double			delta_dist_x;
+	double			delta_dist_y;
+	double			perp_wall_dist;
+	double			ray_distance;
+	double			ray_angle;
+	int				counter;
+	t_coordinates	position;
+	t_coordinates	position1;
+	t_increment		increment;
+}				t_raycasting;
 
 typedef struct s_cub_data
 {

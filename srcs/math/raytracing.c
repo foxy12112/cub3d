@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:29:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/20 12:53:18 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/25 15:25:06 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static double	ray_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 			p += 2 * dy;
 			x0 += step_x;
 		}
-		if (cub->side_dist_x)
+		// if (cub->side_dist_x)
 		i++;
 	}
 	if (dx > dy)
@@ -214,6 +214,52 @@ static double	ray(int x0, int y0, int x1, int y1, t_cub_data *cub)
 // 	}
 // }
 
+// void	texturize(t_cub_data *cub, int x, int start, int end, int line_height, mlx_texture_t *tex, double ray_d, t_raycasting ray_data)
+// {
+// 	int	tex_y;
+// 	double	step;
+// 	double	tex_pos;
+// 	int		ind;
+// 	int		y;
+// 	double	wall_x;
+// 	int		tex_x;
+
+// 	y = start;
+// 	// if (cub->side == 1)
+// 	// 	wall_x = cub->p->x + ray_d * cub->ray_dir_x;
+// 	// else
+// 	// 	wall_x = cub->p->y + ray_d * cub->ray_dir_y;
+// 	if (cub->side == 0)
+// 		wall_x = cub->p->y + ray_d * ray_data.ray_dir_y;
+// 	else
+// 		wall_x = cub->p->x + ray_d * ray_data.ray_dir_x;
+// 	// printf("%f\n", cub->ray_dir_y);
+// 	// wall_x /= 29;
+// 	wall_x -= floor(wall_x);
+// 	// wall_x = cub->hit_x;
+// 	tex_x = (int)(wall_x * tex->width);
+// 	if (tex_x < 0)
+// 		tex_x = 0;
+// 	if (tex_x >= tex->width)
+// 		tex_x = tex->width - 1;
+// 	// if (cub->side == 0 && cub->ray_dir_x > 0)
+// 	// 	tex_x = tex->width - tex_x - 1;
+// 	// if (cub->side == 1 && cub->ray_dir_y < 0)
+// 	// 	tex_x = tex->width - tex_x - 1;
+// 	step = (double)tex->height / (double)line_height;
+// 	tex_pos = (start - HEIGHT / 2 + line_height / 2) * step;
+// 	while(y <= end)
+// 	{
+// 		tex_y = (int)tex_pos % tex->height;
+// 		if (tex_y < 0)
+// 			tex_y += tex->height;
+// 		uint32_t color = get_pixel_color(&(tex->pixels[(tex_y * tex->width + tex_x) * 4]));
+// 		mlx_put_pixel(cub->img, x, y, color);
+// 		tex_pos += step;
+// 		y++;
+// 	}
+// }
+
 void	texturize(t_cub_data *cub, int x, int start, int end, int line_height, mlx_texture_t *tex, double ray_d)
 {
 	int	tex_y;
@@ -224,30 +270,23 @@ void	texturize(t_cub_data *cub, int x, int start, int end, int line_height, mlx_
 	double	wall_x;
 	int		tex_x;
 
+	step = 1.0 * (double)tex->height / (double)line_height;
+	tex_pos = (start - HEIGHT / 2 + line_height / 2) * step;
 	y = start;
-	// if (cub->side == 1)
-	// 	wall_x = cub->p->x + ray_d * cub->ray_dir_x;
-	// else
-	// 	wall_x = cub->p->y + ray_d * cub->ray_dir_y;
 	if (cub->side == 0)
 		wall_x = cub->p->y + ray_d * cub->ray_dir_y;
 	else
 		wall_x = cub->p->x + ray_d * cub->ray_dir_x;
-	// printf("%f\n", cub->ray_dir_y);
-	wall_x /= 29;
+	wall_x /= 28;
 	wall_x -= floor(wall_x);
-	// wall_x = cub->hit_x;
-	tex_x = (int)(wall_x * tex->width);
-	if (tex_x < 0)
-		tex_x = 0;
-	if (tex_x >= tex->width)
-		tex_x = tex->width - 1;
-	// if (cub->side == 0 && cub->ray_dir_x > 0)
-	// 	tex_x = tex->width - tex_x - 1;
-	// if (cub->side == 1 && cub->ray_dir_y < 0)
-	// 	tex_x = tex->width - tex_x - 1;
-	step = (double)tex->height / (double)line_height;
-	tex_pos = (start - HEIGHT / 2 + line_height / 2) * step;
+	tex_x = (int)(wall_x * (double)tex->width);
+	if (cub->side == 0 && cub->ray_dir_x > 0)
+		tex_x = tex->width - tex_x - 1;
+	if (cub->side == 1 && cub->ray_dir_y < 0)
+		tex_x = tex->width - tex_x - 1;
+	int dy = tex->height;
+	int dx = line_height;
+	int err = dx / 2;
 	while(y <= end)
 	{
 		tex_y = (int)tex_pos % tex->height;
@@ -346,6 +385,29 @@ void	draw_game(int x, double ray_d, t_cub_data *cub, int oldx, int oldy, double 
 	texturize(cub, x, draw_start, draw_end, line_hight, texture, ray_d); //TODO
 }
 
+// void	draw_game(t_raycasting ray_data, t_cub_data *cub)
+// {
+// 	double	line_height;
+// 	int		draw_start;
+// 	int		draw_end;
+
+// 	// line_height = HEIGHT / ray_data.perp_wall_dist;
+// 	line_height = ((32 / ray_data.perp_wall_dist) * (WIDHT / 2)) + (cub->mlx->height / cub->p->perp_wall_dist);
+// 	if (line_height >= HEIGHT)
+// 		line_height = HEIGHT;
+// 	if (line_height <= 20)
+// 		line_height = 20;
+// 	printf("%f\n", ray_data.perp_wall_dist);
+// 	draw_start = -line_height / 2 + HEIGHT / 2;
+// 	if (draw_start < 0)
+// 		draw_start = 0;
+// 	draw_end = line_height / 2 + HEIGHT / 2;
+// 	if (draw_end >= HEIGHT)
+// 		draw_end = HEIGHT - 1;
+// 	printf("%f\t%d\t%d\n", line_height, draw_start, draw_end);
+// 	texturize(cub, ray_data.counter, draw_start, draw_end, line_height, cub->texture->ea_tex, ray_data.perp_wall_dist, ray_data);
+// }
+
 // void	save_location_until_new_wall(t_cub_data *cub)
 // {
 // 	static int x;
@@ -353,6 +415,9 @@ void	draw_game(int x, double ray_d, t_cub_data *cub, int oldx, int oldy, double 
 
 // 	if ()
 // }
+
+
+
 
 int	raytrace(t_cub_data *cub)
 {
@@ -406,3 +471,77 @@ int	raytrace(t_cub_data *cub)
 }
 
 
+// int	raytrace(t_cub_data *cub)
+// {
+// 	t_raycasting	ray_data;
+	
+// 	ray_data.counter = 0;
+// 	ray_data.camera_x = 2 * ray_data.counter / (double)WIDHT - 1;
+// 	ray_data.increment.fov_rad = (double)FOV * (M_PI / 180);
+// 	ray_data.increment.half_fov = ray_data.increment.fov_rad / 2.0;
+// 	ray_data.increment.dir_inc = ray_data.increment.fov_rad / (double)WIDHT;
+// 	ray_data.increment.dir_x = cub->p->dir_x * cos(-ray_data.increment.half_fov) - cub->p->dir_y * sin(-ray_data.increment.half_fov);
+// 	ray_data.increment.dir_y = cub->p->dir_x * sin(-ray_data.increment.half_fov) + cub->p->dir_y * cos(-ray_data.increment.half_fov);
+// 	ray_data.increment.view_angle = atan2(cub->p->dir_y, cub->p->dir_x);
+// 	while(ray_data.counter < WIDHT)
+// 	{
+// 		ray_data.position.x = cub->p->x;
+// 		ray_data.position.y = cub->p->y;
+// 		ray_data.ray_dir_x = cub->p->dir_x + cub->p->plane_x * ray_data.camera_x;
+// 		ray_data.ray_dir_y = cub->p->dir_y + cub->p->plane_y * ray_data.camera_x;
+// 		ray_data.position1.x = ray_data.position.x + (ray_data.increment.dir_x * WIDHT);
+// 		ray_data.position1.y = ray_data.position.y + (ray_data.increment.dir_y * WIDHT);
+// 		ray_data.ray_distance = ray(ray_data.position.x, ray_data.position.y, ray_data.position1.x, ray_data.position1.y, cub);
+// 		cub->p->plane_x = -cub->p->dir_y * ray_data.increment.plane_mag;
+// 		cub->p->plane_y = cub->p->dir_y * ray_data.increment.plane_mag;
+// 		ray_data.ray_angle = atan2(ray_data.ray_dir_x, ray_data.ray_dir_y);
+// 		ray_data.perp_wall_dist = ray_data.ray_distance * cos(ray_data.ray_angle - ray_data.increment.view_angle);
+// 		draw_game(ray_data, cub);
+// 		ray_data.counter++;
+// 		ray_data.increment.dir_x = ray_data.increment.dir_x * cos(ray_data.increment.dir_inc) - ray_data.increment.dir_y * sin(ray_data.increment.dir_inc);
+// 		ray_data.increment.dir_y = ray_data.increment.old_dir_x * sin(ray_data.increment.dir_inc) - ray_data.increment.dir_y * cos(ray_data.increment.dir_inc);
+// 	}
+// 	return (1);
+// }
+
+// int	ft_temp_abs(int *value)
+// {
+// 	if (*value < 0)
+// 		*value = -*value;
+// }
+
+// static t_raycasting	ray_x(t_raycasting ray, t_cub_data *cub)
+// {
+// 	t_calculations calc;
+
+// 	calc.dx = ray.position1.x - ray.position.x;
+// 	calc.dy = ray.position1.y - ray.position.y;
+// 	if (calc.dx > 0)
+// 		calc.step_x = 2;
+// 	else
+// 		calc.dx = -2;
+// 	if (calc.dy > 0)
+// 		calc.step_y = 2;
+// 	else
+// 		calc.step_y = -2;
+// 	ft_temp_abs(&calc.dx);
+// 	ft_temp_abs(&calc.dy);
+// 	calc.start_x = ray.position.x;
+// 	calc.start_y = ray.position.y;
+// 	calc.counter = 0;
+// 	calc.decision = (2 * calc.dy) - calc.dx;
+// 	while (calc.counter <= calc.dx && !touch(ray.position.x - 50, ray.position.y - 50, cub))
+// 	{
+// 		if (calc.decision >= 0)
+// 		{
+// 			ray.position.y += calc.step_y;
+// 			calc.decision -= 2 * calc.dx;
+// 		}
+// 		else
+// 		{
+// 			ray.position.x += calc.step_x;
+// 			calc.decision += 2 * calc.dx;
+// 		}
+// 		if ()
+// 	}
+// }

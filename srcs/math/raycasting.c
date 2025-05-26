@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:25:41 by psostari          #+#    #+#             */
-/*   Updated: 2025/05/20 12:24:21 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/25 18:01:50 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,26 @@ void	raycasting(t_cub_data *cub)
 	int		x = 0;
 	while(x < WIDHT)
 	{
-		double camerax = 2 * x / (double)WIDHT - 1;
-		double raydirx = cub->p->dir_x + cub->p->plane_x * camerax;
-		double raydiry = cub->p->dir_y + cub->p->plane_y * camerax;
-		
+		double camerax = 2.0 * (double)x / (double)WIDHT - 1.0;
+		double raydirx = cub->p->dir_x + (cub->p->plane_x * camerax);
+		double raydiry = cub->p->dir_y + (cub->p->plane_y * camerax);
+
 		int mapx = (int)((cub->p->x - 50) / 22);
 		int mapy = (int)((cub->p->y - 50) / 22);
 		double	sidedistx;
 		double	sidedisty;
-		double	deltadistx = sqrt(1 + pow(raydiry, 2) / pow(raydirx, 2));
-		double	deltadisty = sqrt( 1 + pow(raydirx, 2) / pow(raydiry, 2));
+		// double	deltadistx = sqrt(1 + pow(raydiry, 2) / pow(raydirx, 2));
+		// double	deltadisty = sqrt( 1 + pow(raydirx, 2) / pow(raydiry, 2));
+		double		deltadisty;
+		double		deltadistx;
+		if (raydirx == 0)
+			deltadistx = 1e30;
+		else
+			deltadistx = fabs(1 / raydirx);
+		if (raydiry == 0)
+			deltadisty = 1e30;
+		else
+			deltadisty = fabs(1 / raydirx);
 		double	perpwalldist;
 		
 		int stepx;
@@ -116,26 +126,16 @@ void	raycasting(t_cub_data *cub)
 		
 		int hit = 0;
 		int side;
+		stepx = 1 - (2 * (raydirx < 0));
+		stepy = 1 - (2 * (raydiry < 0));
 		if (raydirx < 0)
-		{
-			stepx = -1;
 			sidedistx = (((cub->p->x - 50) / 22) - mapx) * deltadistx;
-		}
 		else
-		{
-			stepx = 1;
-			sidedistx = (mapx + 1.0 - ((cub->p->x - 50) / 22)) * deltadistx;
-		}
+			sidedistx = (mapx - ((cub->p->x - 50) / 22) + 1.0) * deltadistx;
 		if (raydiry < 0)
-		{
-			stepy = -1;
-			sidedistx = (((cub->p->y - 50) / 22) - mapy) * deltadisty;
-		}
+			sidedisty = (((cub->p->y - 50) / 22) - mapy) * deltadisty;
 		else
-		{
-			stepy = 1;
-			sidedisty = (mapy + 1.0 - ((cub->p->y - 50) / 22)) * deltadisty;
-		}
+			sidedisty = (mapy - ((cub->p->y - 50) / 22) + 1.0) * deltadisty;
 		while (hit == 0)
 		{
 			if (sidedistx < sidedisty)
@@ -158,14 +158,21 @@ void	raycasting(t_cub_data *cub)
 		else
 			perpwalldist = (sidedisty - deltadisty);
 		int line_height = (int) HEIGHT / perpwalldist;
+		
 		int drawstart = -line_height / 2 + HEIGHT / 2;
+		
 		if (drawstart < 0)
 			drawstart = 0;
+		
 		int drawend = line_height / 2 + HEIGHT / 2;
+		
 		if (drawend >= HEIGHT)
 			drawend = HEIGHT - 1;
+		
 		double wallx;
+		
 		mlx_texture_t *tex;
+		
 		if (side == 0 && raydirx < 0)
 			tex = cub->texture->we_tex;
 		else if (side == 0 && raydirx > 0)
@@ -174,29 +181,48 @@ void	raycasting(t_cub_data *cub)
 			tex = cub->texture->no_tex;
 		else
 			tex = cub->texture->so_tex;
+		
 		if (side == 0)
-			wallx = cub->p->y+ perpwalldist * raydiry;
+		{
+			// wallx = (cub->p->y - 50) / 22 + perpwalldist * raydiry;
+			wallx = (perpwalldist * raydiry) + ((cub->p->y - 50) / 22);
+			wallx -= (int)wallx;
+			wallx *= (double)tex->width;
+			if (stepx <= 0)
+				wallx = tex->width - wallx - 1;
+		}
 		else
-			wallx = cub->p->x + perpwalldist * raydirx;
-		wallx -= floor(wallx);
+		{
+			// wallx = (cub->p->y - 50) / 22 + perpwalldist * raydiry;
+			wallx = (perpwalldist * raydirx) + ((cub->p->x - 50) / 22);
+			wallx -= (int)wallx;
+			wallx *= (double)tex->width;
+			if (stepy >= 0)
+				wallx = tex->width - wallx - 1;
+		}
+		// wallx -= floor(wallx);
+		
 		int texx = (int)(wallx * (double)(tex->width));
+		
 		if (side == 0 && raydirx > 0)
 			texx = tex->width - texx - 1;
+		
 		if (side == 1 && raydiry < 0)
 			texx = tex->width - texx - 1;
+		
 		double step = 1.0 * tex->height / line_height;
+		
 		double texpos = (drawstart - HEIGHT / 2 + line_height / 2) * step;
+		
 		int y = drawstart;
-		printf("%d\t\t\td\n", drawstart);
+		// printf("%d\t\t\td\n", drawstart);
+		wallx *= tex->bytes_per_pixel;
 		while (y < drawend)
 		{
 			int texy = (int)texpos & (tex->height - 1);
 			texpos += step;
-			uint8_t r = tex->pixels[(tex->height * texy + texx) * 4];
-			uint8_t g = tex->pixels[(tex->height * texy + texx) * 4 + 1];
-			uint8_t b = tex->pixels[(tex->height * texy + texx) * 4 + 2];
-			uint8_t a = tex->pixels[(tex->height * texy + texx) * 4 + 3];
-			uint32_t color = get_color(r, g, b, a);
+			int pixels = (tex->width * texy) + texx;
+			uint32_t color = get_pixel_color(&(tex->pixels[((texy * 4) * tex->width + (texx * 4))]));
 			mlx_put_pixel(cub->img, x, y, color);
 			y++;
 		}
