@@ -14,12 +14,14 @@
 
 int	check_extension(char *path)
 {
-	int	lenght;
+	int lenght;
 
 	lenght = ft_strlen(path);
-	printf("%c\t%c\t%c\t%c\n", path[lenght - 1], path[lenght - 2], path[lenght - 3], path[lenght - 4]);
-	if (path[lenght - 1] != 'b' || path[lenght - 2] != 'u' || path[lenght - 3] != 'c' || path[lenght - 4] != '.')
+	printf("%c\t%c\t%c\t%c\n", path[lenght - 1], path[lenght - 2], path[lenght
+		- 3], path[lenght - 4]);
+	if (path[lenght - 1] != 'b' || path[lenght - 2] != 'u' || path[lenght
+		- 3] != 'c' || path[lenght - 4] != '.')
 		return (0);
-	return(1);
+	return (1);
 	// printf("%c\n", path[lenght - 1]);
 }

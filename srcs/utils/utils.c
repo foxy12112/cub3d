@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: foxy <foxy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:51:03 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/29 16:34:39 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/29 18:34:15 by foxy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,34 @@ char	*rm_s(char *str)
 		str[j++] = str[i++];
 	str[j] = '\0';
 	len = ft_strlen(str) - 1;
-	while (len >= 0 && (str[len] == ' ' || str[len] == '\t'
-			|| str[len] == '\n' || str[len] == '\r'))
+	while (len >= 0 && (str[len] == ' ' || str[len] == '\t' || str[len] == '\n'
+			|| str[len] == '\r'))
 		str[len--] = '\0';
 	return (str);
 }
 
 unsigned int	get_color(int r, int g, int b, int a)
 {
-	if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0
-		&& b <= 255 && a >= 0 && a <= 255)
+	if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255 && a >= 0
+		&& a <= 255)
 		return ((r << 24) | (g << 16) | (b << 8) | a);
 	return (0);
 }
+
+
+int	ft_isnum(char *str)
+{
+	int		i;
+	char	**tmp;
+	int		color;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] < '0' || str[i] > '9') && str[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+// TODO fix

@@ -14,7 +14,7 @@
 
 int	is_valid_location(t_cub_data *cub, int move_speed, int x, int y)
 {
-	(void)move_speed;//TODO remove
+	(void)move_speed; // TODO remove
 	if (!cub->map || !cub->map[y] || !cub->map[y][x])
 		return (0);
 	if (cub->map[y][x] == '1' || cub->map[y][x] == ' ')

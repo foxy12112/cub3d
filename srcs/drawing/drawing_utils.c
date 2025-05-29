@@ -32,17 +32,26 @@ bool	touch(double px, double py, t_cub_data *cub)
 
 int	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
-	int	dx = x1 - x0;
-	int	dy = y1 - y0;
-	int	step_x = (dx > 0) ? 1 : -1;
-	int	step_y = (dy > 0) ? 1 : -1;
+	int		dx;
+	int		dy;
+	int		step_x;
+	int		step_y;
+	int		start_x;
+	int		start_y;
+	int		p;
+	int		i;
+	double	dlen;
+
+	dx = x1 - x0;
+	dy = y1 - y0;
+	step_x = (dx > 0) ? 1 : -1;
+	step_y = (dy > 0) ? 1 : -1;
 	dx = abs(dx);
 	dy = abs(dy);
-	int start_x = x0;
-	int start_y = y0;
-	int	p = 2 * dy - dx;
-	int	i = 0;
-
+	start_x = x0;
+	start_y = y0;
+	p = 2 * dy - dx;
+	i = 0;
 	while (i <= dx && !touch(x0, y0, cub))
 	{
 		mlx_put_pixel(cub->omg, x0, y0, 0xffffffff);
@@ -55,23 +64,35 @@ int	draw_line_x(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		x0 += step_x;
 		i++;
 	}
-	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
+	dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
 	// printf("%f\n", dlen);
-	return (int)dlen;
+	return ((int)dlen);
 }
 
 int	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
-	int	dx = x1 - x0;
-	int	dy = y1 - y0;
-	int	dx_abs = abs(dx);
-	int	dy_abs = abs(dy);
-	int	start_x = x0;
-	int	start_y = y0;
-	int	step_x = (dx > 0) ? 1 : -1;
-	int	step_y = (dy > 0) ? 1 : -1;
-	int	p = 2 * dx_abs - dy_abs;
-	int	i = 0;
+	int		dx;
+	int		dy;
+	int		dx_abs;
+	int		dy_abs;
+	int		start_x;
+	int		start_y;
+	int		step_x;
+	int		step_y;
+	int		p;
+	int		i;
+	double	dlen;
+
+	dx = x1 - x0;
+	dy = y1 - y0;
+	dx_abs = abs(dx);
+	dy_abs = abs(dy);
+	start_x = x0;
+	start_y = y0;
+	step_x = (dx > 0) ? 1 : -1;
+	step_y = (dy > 0) ? 1 : -1;
+	p = 2 * dx_abs - dy_abs;
+	i = 0;
 	while (i <= dy_abs && !touch(x0, y0, cub))
 	{
 		mlx_put_pixel(cub->omg, x0, y0, 0xffffffff);
@@ -84,16 +105,18 @@ int	draw_line_y(int x0, int y0, int x1, int y1, t_cub_data *cub)
 		y0 += step_y;
 		i++;
 	}
-	double dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
+	dlen = sqrt(pow(x0 - start_x, 2) + pow(y0 - start_y, 2));
 	// printf("%f\n", dlen);
-	return (int)dlen;
+	return ((int)dlen);
 }
 
 void	bresenham(int x0, int y0, int x1, int y1, t_cub_data *cub)
 {
-	int dx = abs(x1 - x0);
-	int dy = abs(y1 - y0);
+	int	dx;
+	int	dy;
 
+	dx = abs(x1 - x0);
+	dy = abs(y1 - y0);
 	if (dx >= dy)
 		draw_line_x(x0, y0, x1, y1, cub);
 	else

@@ -12,8 +12,7 @@
 
 #include "cub3d.h"
 
-
-int game(t_cub_data *cub)
+int	game(t_cub_data *cub)
 {
 	cub->img = mlx_new_image(cub->mlx, WIDHT, HEIGHT);
 	mlx_image_to_window(cub->mlx, cub->img, 0, 0);

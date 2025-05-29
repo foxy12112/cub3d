@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: foxy <foxy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:41:17 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/29 16:41:34 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/29 18:30:46 by foxy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,36 @@ void	choose_step(t_cub_data *cub, t_raycasting *ray)
 	if (ray->ray_dir_x < 0)
 	{
 		ray->step_x = -1;
-		ray->sidedist_x = (cub->player_x - (double)ray->map_x) * ray->deltadist_x;
+		ray->sidedist_x = (cub->player_x - (double)ray->map_x)
+			* ray->deltadist_x;
 	}
 	else
 	{
 		ray->step_x = 1;
-		ray->sidedist_x = ((double)ray->map_x + 1.0 - cub->player_x) * ray->deltadist_x;
+		ray->sidedist_x = ((double)ray->map_x + 1.0 - cub->player_x)
+			* ray->deltadist_x;
 	}
 	if (ray->ray_dir_y < 0)
 	{
 		ray->step_y = -1;
-		ray->sidedist_y = (cub->player_y - (double)ray->map_y) * ray->deltadist_y;
+		ray->sidedist_y = (cub->player_y - (double)ray->map_y)
+			* ray->deltadist_y;
 	}
 	else
 	{
 		ray->step_y = 1;
-		ray->sidedist_y = ((double)ray->map_y + 1.0 - cub->player_y) * ray->deltadist_y;
+		ray->sidedist_y = ((double)ray->map_y + 1.0 - cub->player_y)
+			* ray->deltadist_y;
 	}
 }
 
-void	init_dda(t_cub_data *cub, t_raycasting *ray, int x, double temp_dir_x, double temp_dir_y)
+void	init_dda(t_cub_data *cub, t_raycasting *ray, int x, t_direction dir)
 {
 	ray->map_x = (int)(cub->player_x);
 	ray->map_y = (int)(cub->player_y);
 	ray->camera_x = (double)2 * (double)x / (double)WIDHT - 1.0;
-	ray->ray_dir_x = temp_dir_x;
-	ray->ray_dir_y = temp_dir_y;
+	ray->ray_dir_x = dir.temp_dir_x;
+	ray->ray_dir_y = dir.temp_dir_y;
 	if (ray->ray_dir_x == 0)
 		ray->deltadist_x = 1e30;
 	else

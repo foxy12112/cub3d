@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: foxy <foxy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/05/29 15:15:39 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/29 18:32:23 by foxy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,13 @@ typedef struct s_drawing
 	double			tex_pos;
 }				t_drawing;
 
+typedef struct s_direction
+{
+	double	temp_dir_x;
+	double	temp_dir_y;
+	double	dir_inc;
+}				t_direction;
+
 typedef struct s_cub_data
 {
 	mlx_t				*mlx;
@@ -109,6 +116,8 @@ int				init(char **argv, t_cub_data *cub);
 //INIT_UTILS
 int	check_extension(char *path);
 
+void	init_dda(t_cub_data *cub, t_raycasting *ray, int x, t_direction dir);
+void	choose_step(t_cub_data *cub, t_raycasting *ray);
 //PARSING
 int				parsing(t_cub_data *cub);
 //PARSING_UTILS

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: foxy <foxy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:08:22 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/29 16:06:22 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/29 18:35:08 by foxy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	scale(mlx_texture_t *new, mlx_texture_t *old)
 	while (y < TEX_HEIGHT)
 	{
 		x = 0;
-		while(x < TEX_WIDTH)
+		while (x < TEX_WIDTH)
 		{
 			temp = x * old->width / TEX_WIDTH;
 			src = ((y * old->height / TEX_HEIGHT) * old->width + temp) * 4;
@@ -67,25 +67,8 @@ mlx_texture_t	*correct_texture(char *line, int *i)
 	return (scaled);
 }
 
-int		ft_isnum(char *str)
+int	get_background(char *line, int *i)
 {
-	int	i;
-
-	i = 0;
-	while(str[i])
-	{
-		if ((str[i] < '0' || str[i] > '9') && str[i] != ' ')
-			return (0);
-		i++;
-	}
-	return (1);
-} //TODO fix
-
-int		get_background(char *line, int *i)
-{
-	char	**tmp;
-	int		color;
-
 	tmp = ft_split(line, ',');
 	if (!tmp || !tmp[0] || !tmp[1] || !tmp[2])
 		return (0);
@@ -109,7 +92,7 @@ int	add_textures(t_cub_data *cub)
 	i = 0;
 	fd = open(cub->map_path, O_RDONLY);
 	line = get_next_line(fd);
-	while(line && i < 6)
+	while (line && i < 6)
 	{
 		if (ft_strncmp(line, "NO", 2) == 0)
 			cub->texture_north = correct_texture(line + 2, &i);
@@ -126,7 +109,8 @@ int	add_textures(t_cub_data *cub)
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (!cub->texture_east || !cub->texture_north || !cub->texture_south || !cub->texture_west || !cub->ceiling || !cub->floor)
+	if (!cub->texture_east || !cub->texture_north || !cub->texture_south
+		|| !cub->texture_west || !cub->ceiling || !cub->floor)
 		return (free(line), 0);
 	free(line);
 	return (fd);
@@ -137,7 +121,7 @@ void	free_split(char **split)
 	int	i;
 
 	i = 0;
-	while(split[i])
+	while (split[i])
 	{
 		free(split[i]);
 		i++;
@@ -158,7 +142,7 @@ int	add_map(t_cub_data *cub)
 		return (0);
 	fd = open(cub->map_path, O_RDONLY);
 	line = get_next_line(fd);
-	while(line)
+	while (line)
 	{
 		if (line[0] == '\n')
 		{
@@ -182,7 +166,7 @@ int	add_map(t_cub_data *cub)
 	split[i] = NULL;
 	free(line);
 	i = 0;
-	while(split[i])
+	while (split[i])
 	{
 		tmp = ft_strchr(split[i], '\n');
 		if (tmp)
@@ -194,8 +178,7 @@ int	add_map(t_cub_data *cub)
 	cub->map[i] = NULL;
 	free_split(split);
 	return (1);
-} //TODO shorten, maek betta, cheek mor possibilities
-
+} // TODO shorten, maek betta, cheek mor possibilities
 int	set_player(t_cub_data *cub, char c)
 {
 	if (c == 'N')
@@ -240,24 +223,23 @@ int	add_player(t_cub_data *cub)
 	y = 0;
 	player_count = 0;
 	c = '\0';
-	while(cub->map[y])
+	while (cub->map[y++])
 	{
 		if ((int)ft_strlen(cub->map[y]) > cub->map_width)
 			cub->map_width = (int)ft_strlen(cub->map[y]);
-		while(cub->map[y][x])
+		while (cub->map[y][x++])
 		{
-			if (cub->map[y][x] == 'N' || cub->map[y][x] == 'S' || cub->map[y][x] == 'E' || cub->map[y][x] == 'W')
+			if (cub->map[y][x] == 'N' || cub->map[y][x] == 'S'
+				|| cub->map[y][x] == 'E' || cub->map[y][x] == 'W')
 			{
 				player_count++;
 				cub->player_x = (double)x;
 				cub->player_y = (double)y;
 				c = cub->map[y][x];
 			}
-			x++;
 		}
 		x = 0;
 		cub->map_height++;
-		y++;
 	}
 	if (player_count != 1)
 		return (0);
