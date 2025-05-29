@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/24 11:45:43 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/29 16:12:12 by ldick            ###   ########.fr       */
+/*   Created: 2025/05/24 12:07:25 by ldick             #+#    #+#             */
+/*   Updated: 2025/05/28 17:34:16 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int argc, char *argv[])
+int	parsing(t_cub_data *cub)
 {
-	t_cub_data	*cub;
-
-	if (argc != 2)
-		return (printf("Wrong number of Arguments\n"), 1);
-	cub = malloc(sizeof(t_cub_data));
-	if (!init(argv, cub))
-		return (printf("Error\n"), 0);
-	if (!parsing(cub))
-		return (printf("Error\n"), 0);
-	if (!validate(cub))
-		return (printf("Error\n"), 0);
-	game(cub);
+	if (!add_textures(cub))
+		return (0);
+	if (!add_map(cub))
+		return (0);
+	if (!add_player(cub))
+		return (0);
+	return (1);
 }

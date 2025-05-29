@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/24 11:45:43 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/29 16:12:12 by ldick            ###   ########.fr       */
+/*   Created: 2025/05/28 15:47:47 by ldick             #+#    #+#             */
+/*   Updated: 2025/05/28 16:09:52 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int argc, char *argv[])
+int	check_extension(char *path)
 {
-	t_cub_data	*cub;
+	int	lenght;
 
-	if (argc != 2)
-		return (printf("Wrong number of Arguments\n"), 1);
-	cub = malloc(sizeof(t_cub_data));
-	if (!init(argv, cub))
-		return (printf("Error\n"), 0);
-	if (!parsing(cub))
-		return (printf("Error\n"), 0);
-	if (!validate(cub))
-		return (printf("Error\n"), 0);
-	game(cub);
+	lenght = ft_strlen(path);
+	printf("%c\t%c\t%c\t%c\n", path[lenght - 1], path[lenght - 2], path[lenght - 3], path[lenght - 4]);
+	if (path[lenght - 1] != 'b' || path[lenght - 2] != 'u' || path[lenght - 3] != 'c' || path[lenght - 4] != '.')
+		return (0);
+	return(1);
+	// printf("%c\n", path[lenght - 1]);
 }

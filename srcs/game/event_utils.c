@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   event_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/24 11:45:43 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/29 16:12:12 by ldick            ###   ########.fr       */
+/*   Created: 2025/05/26 14:16:36 by ldick             #+#    #+#             */
+/*   Updated: 2025/05/29 16:07:34 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int argc, char *argv[])
+int	is_valid_location(t_cub_data *cub, int move_speed, int x, int y)
 {
-	t_cub_data	*cub;
-
-	if (argc != 2)
-		return (printf("Wrong number of Arguments\n"), 1);
-	cub = malloc(sizeof(t_cub_data));
-	if (!init(argv, cub))
-		return (printf("Error\n"), 0);
-	if (!parsing(cub))
-		return (printf("Error\n"), 0);
-	if (!validate(cub))
-		return (printf("Error\n"), 0);
-	game(cub);
+	(void)move_speed;//TODO remove
+	if (!cub->map || !cub->map[y] || !cub->map[y][x])
+		return (0);
+	if (cub->map[y][x] == '1' || cub->map[y][x] == ' ')
+		return (0);
+	return (1);
 }

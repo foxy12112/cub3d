@@ -6,11 +6,11 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/05/17 17:46:30 by ldick            ###   ########.fr        #
+#    Updated: 2025/05/29 16:04:44 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME = cub3D
 
 #################################################################################################
 #											Colors												#
@@ -33,33 +33,30 @@ COMPILER	=	cc
 INCLUDES	=	-I includes -I main-libs
 SUBMODULE	=	main-libs/Makefile
 LIB_FLAGS = -Lmain-libs -ls -L./MLX42/build -lmlx42
-CFLAGS		=	-g -fsanitize=address #-Wall -Werror -Wextra 
-EXTRA_FLAGS	=	-ffast-math #-0fast
+CFLAGS		=	-g  -Wall -Werror -Wextra #-fsanitize=address
+EXTRA_FLAGS	=	#-ffast-math #-0fast
 ERROR_FILE	=	error.log
 
 #################################################################################################
 #											Sources												#
 #################################################################################################
 
-_PARSING		=	map_parse_utils.c parsing.c map_validity.c parsing_rgb.c utils.c print_map.c parsing_texture.c parsing_utils.c
-PARSING			=	$(addprefix parsing/, $(_PARSING))
+_RAYCASTING		=	raycasting.c
+RAYCASTING		=	$(addprefix raycasting/, $(_RAYCASTING))
 
-_DEBUG			=	debug.c
-DEBUG			=	$(addprefix debug/, $(_DEBUG))
-
-_MATH			=	raycasting.c define_texture.c raytracing.c
-MATH			=	$(addprefix math/, $(_MATH))
-
-_UTILS			=	ft_ftoa.c init.c init_utils.c tmp.c cub_init.c
-UTILS			=	$(addprefix utils/, $(_UTILS))
-
-_ERROR			+=	error.c
-ERROR			=	$(addprefix error/, $(_ERROR))
-
-_GAME			=	game.c event.c map/map.c player/player.c rendering/render.c rendering/movement.c
+_GAME			=	event_utils.c event.c game.c
 GAME			=	$(addprefix game/, $(_GAME))
 
-_SRCS			=	cub3d.c $(ERROR) $(UTILS) $(MATH) $(PARSING) $(GAME)
+_DRAWING		=	drawing_utils.c drawing.c
+DRAWING			=	$(addprefix drawing/, $(_DRAWING))
+
+_INIT			=	init_utils.c init.c parsing_utils.c parsing.c validate.c
+INIT			=	$(addprefix init/, $(_INIT))
+
+_UTILS			=	utils.c
+UTILS			=	$(addprefix utils/, $(_UTILS))
+
+_SRCS			=	cub3d.c $(UTILS) $(INIT) $(DRAWING) $(GAME) $(RAYCASTING)
 SRCS			=	$(addprefix srcs/, $(_SRCS))
 
 OBJS			=	$(SRCS:srcs/%.c=bin/%.o)
@@ -88,12 +85,10 @@ all:			MLX42 $(NAME)
 bin:
 				@echo "\t\t\t$(BLUE) Making bin directory"
 				@mkdir -p bin/utils
-				@mkdir -p bin/math
-				@mkdir -p bin/error
-				@mkdir -p bin/parsing
-				@mkdir -p bin/game/map
-				@mkdir -p bin/game/player
-				@mkdir -p bin/game/rendering
+				@mkdir -p bin/init
+				@mkdir -p bin/drawing
+				@mkdir -p bin/game
+				@mkdir -p bin/raycasting
 
 bin/%.o:		srcs/%.c | bin
 				@echo "$(GREEN) Compiling $(Compiler) $(CLR_RMV) -c -o $(YELLOW) $@ $(CYAN) $^ $(GREEN) $(EXTRA_FLAGS) $(CFLAGS) $(GREEN) $(INCLUDES) $(NC)"
