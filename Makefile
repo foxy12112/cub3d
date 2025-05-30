@@ -6,7 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/05/29 16:04:44 by ldick            ###   ########.fr        #
+#    Updated: 2025/05/30 16:47:09 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ COMPILER	=	cc
 INCLUDES	=	-I includes -I main-libs
 SUBMODULE	=	main-libs/Makefile
 LIB_FLAGS = -Lmain-libs -ls -L./MLX42/build -lmlx42
-CFLAGS		=	-g  -Wall -Werror -Wextra #-fsanitize=address
+CFLAGS		=	-g  -Wall -Werror -Wextra -fsanitize=address
 EXTRA_FLAGS	=	#-ffast-math #-0fast
 ERROR_FILE	=	error.log
 
@@ -41,16 +41,16 @@ ERROR_FILE	=	error.log
 #											Sources												#
 #################################################################################################
 
-_RAYCASTING		=	raycasting.c
+_RAYCASTING		=	raycasting.c raycasting_utils.c
 RAYCASTING		=	$(addprefix raycasting/, $(_RAYCASTING))
 
-_GAME			=	event_utils.c event.c game.c
+_GAME			=	event_utils.c event.c game.c movement.c
 GAME			=	$(addprefix game/, $(_GAME))
 
 _DRAWING		=	drawing_utils.c drawing.c
 DRAWING			=	$(addprefix drawing/, $(_DRAWING))
 
-_INIT			=	init_utils.c init.c parsing_utils.c parsing.c validate.c
+_INIT			=	init_utils.c init.c parsing_utils.c parsing.c validate.c texture_utils.c
 INIT			=	$(addprefix init/, $(_INIT))
 
 _UTILS			=	utils.c

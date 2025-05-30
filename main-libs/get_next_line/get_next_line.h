@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 15:15:28 by ldick             #+#    #+#             */
-/*   Updated: 2024/04/29 12:58:31 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/30 16:29:31 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 /**
  * @brief reads from a a file
  * reads a text until a new line is encountered
- * @note reads one line at a time, using a while loop you can read throuh a text file line by line
+ * @note reads one line at a time, using a while loop 
+ * you can read throuh a text file line by line
  * 
  * @param[in] fd - the file descriptor from which to read from
  * @return read line

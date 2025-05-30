@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: foxy <foxy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:51:03 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/29 18:34:15 by foxy             ###   ########.fr       */
+/*   Updated: 2025/05/30 16:27:27 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,9 @@ unsigned int	get_color(int r, int g, int b, int a)
 	return (0);
 }
 
-
 int	ft_isnum(char *str)
 {
 	int		i;
-	char	**tmp;
-	int		color;
 
 	i = 0;
 	while (str[i])
@@ -62,4 +59,15 @@ int	ft_isnum(char *str)
 	}
 	return (1);
 }
-// TODO fix
+
+void	free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+}

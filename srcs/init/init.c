@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: foxy <foxy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:00:34 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/29 18:33:08 by foxy             ###   ########.fr       */
+/*   Updated: 2025/05/30 15:34:36 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ int	init(char **argv, t_cub_data *cub)
 	cub->map = malloc(sizeof(char *) * 1024);
 	cub->map_height = 0;
 	cub->map_width = 0;
+	cub->player_direction_x = 0;
+	cub->player_direction_y = 0;
+	cub->player_plane_x = 0;
+	cub->player_plane_y = 0;
 	if (!cub->map)
 		return (0);
 	return (1);

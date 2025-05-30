@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: foxy <foxy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:02:49 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/29 18:32:51 by foxy             ###   ########.fr       */
+/*   Updated: 2025/05/30 14:13:20 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	dda_loop(t_cub_data *cub)
 	int				x;
 	double			old_dir_x;
 
-	x = 0;
+	x = -1;
 	dir.temp_dir_x = cub->player_direction_x;
 	dir.temp_dir_y = cub->player_direction_y;
 	dir.dir_inc = FOV * (M_PI / 180) / (double)WIDHT;
@@ -90,7 +90,7 @@ void	dda_loop(t_cub_data *cub)
 		- dir.temp_dir_y * sin(-((FOV * (M_PI / 180)) / 2));
 	dir.temp_dir_y = old_dir_x * sin(-((FOV * (M_PI / 180)) / 2))
 		+ dir.temp_dir_y * cos(-((FOV * (M_PI / 180)) / 2));
-	while (x++ < WIDHT)
+	while (++x < WIDHT)
 	{
 		init_dda(cub, &ray, x, dir);
 		ray = perform_dda(ray, cub);
