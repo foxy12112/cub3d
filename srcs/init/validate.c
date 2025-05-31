@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:28:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/30 19:06:46 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/31 14:39:44 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	correct_map(t_cub_data *cub)
 			*newline = '\0';
 		y++;
 	}
+	cub->map[(int)cub->player_start_y][(int)cub->player_start_x] = '0';
 }
 
 int	check_closed(t_cub_data *cub)

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 17:55:42 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/30 19:32:31 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/31 15:28:31 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	draw_player(t_cub_data *cub)
 	int	x;
 	int	y;
 
-	y = 0;
+	y = -5;
 	while (y < 5)
 	{
-		x = 0;
+		x = -5;
 		while (x < 5)
 		{
 			mlx_put_pixel(cub->img, cub->player_x * 22 + x,

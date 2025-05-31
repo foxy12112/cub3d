@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:00:34 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/30 15:34:36 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/31 14:41:22 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	init(char **argv, t_cub_data *cub)
 	if (!cub->mlx)
 		return (0);
 	if (!check_extension(argv[1]))
-		return (printf("Error\n"), free(cub->mlx), 0);
+		return (printf("Error\nwrong extension\n"), free(cub->mlx), 0);
 	if (!check_file_existance(argv[1]))
-		return (printf("Error\n"), free(cub->mlx), 0);
+		return (printf("Error\nfile doesnt exist\n"), free(cub->mlx), 0);
 	cub->map_path = argv[1];
 	cub->map = malloc(sizeof(char *) * 1024);
 	cub->map_height = 0;

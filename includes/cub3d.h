@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/05/30 19:26:44 by ldick            ###   ########.fr       */
+/*   Updated: 2025/05/31 16:41:34 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define LENGTH 5
 # define ROT_SPEED 0.05
 # define RECTANGLE 20
-# define PSIZE 10
+# define PLAYER_SIZE 10
 # define FOV 90
 # define NORTH 0
 # define WEST 270
@@ -141,7 +141,8 @@ void				free_split(char **split);
 
 // EVENTS
 void				events(void *param);
-int					is_valid_location(t_cub_data *cub, int x, int y);
+// int					is_valid_location(t_cub_data *cub, int x, int y);
+int					is_valid_location(t_cub_data *cub, double x, double y);
 // DRAWING
 void				draw_background(t_cub_data *cub);
 mlx_texture_t		*select_texture(t_cub_data *cub, t_raycasting ray);
@@ -162,5 +163,6 @@ int					validate_textures(t_cub_data *cub);
 void				correct_map(t_cub_data *cub);
 void				movement_vertical(t_cub_data *cub);
 void				draw_player(t_cub_data *cub);
+t_raycasting		perform_dda(t_raycasting ray, t_cub_data *cub);
 
 #endif
