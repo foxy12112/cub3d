@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/05/31 16:41:34 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/01 15:04:47 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_cub_data
 	double			player_start_y;
 	t_minimap_data	minimap;
 	t_drawing		draw;
+	bool			mouse_on_off;
 }					t_cub_data;
 
 // INIT
@@ -164,5 +165,6 @@ void				correct_map(t_cub_data *cub);
 void				movement_vertical(t_cub_data *cub);
 void				draw_player(t_cub_data *cub);
 t_raycasting		perform_dda(t_raycasting ray, t_cub_data *cub);
+void				free_texture(t_cub_data *cub);
 
 #endif

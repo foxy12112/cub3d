@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:12:09 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/30 19:21:50 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/01 14:58:11 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	draw_map(t_cub_data *cub)
 void	exit_game(t_cub_data *cub)
 {
 	free_split(cub->map);
-	free(cub->map);
 	mlx_delete_texture(cub->texture_north);
 	mlx_delete_texture(cub->texture_south);
 	mlx_delete_texture(cub->texture_east);

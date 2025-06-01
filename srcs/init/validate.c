@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:28:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/31 14:39:44 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/01 16:37:08 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_closed(t_cub_data *cub)
 				if (!cub->map[y][x + 1])
 					return (printf("Error\nright side not closed\n"), 0);
 				if (!cub->map[y + 1][x])
-					return (printf("Error\noverhand not closed\n"), 0);
+					return (printf("Error\noverhang not closed\n"), 0);
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:01:16 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/30 19:31:32 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/01 13:52:22 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 		cub->player_x = cub->player_start_x;
 		cub->player_y = cub->player_start_y;
 	}
+	if (keydata.key == MLX_KEY_ENTER && keydata.action == MLX_RELEASE)
+		cub->mouse_on_off = !cub->mouse_on_off;
 }
 
 int	game(t_cub_data *cub)

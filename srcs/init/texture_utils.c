@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 15:36:40 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/30 16:17:53 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/01 13:58:26 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ mlx_texture_t	*correct_texture(char *line, int *i)
 		return (free(scaled), NULL);
 	scale(scaled, tex);
 	*i += 1;
+	mlx_delete_texture(tex);
 	return (scaled);
 }

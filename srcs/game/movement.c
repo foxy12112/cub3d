@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:35:15 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/31 16:59:24 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/01 13:50:13 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ void	mouse(t_cub_data *cub)
 	int	mouse_x;
 	int	mouse_y;
 
-	mlx_get_mouse_pos(cub->mlx, &mouse_x, &mouse_y);
-	if (mouse_x > WIDHT / 2)
-		rotate(cub, -1);
-	if (mouse_x < WIDHT / 2)
-		rotate(cub, 1);
-	mlx_set_mouse_pos(cub->mlx, WIDHT / 2, HEIGHT / 2);
+	if (cub->mouse_on_off == true)
+	{
+		mlx_get_mouse_pos(cub->mlx, &mouse_x, &mouse_y);
+		if (mouse_x > WIDHT / 2)
+			rotate(cub, -1);
+		if (mouse_x < WIDHT / 2)
+			rotate(cub, 1);
+		mlx_set_mouse_pos(cub->mlx, WIDHT / 2, HEIGHT / 2);
+	}
 }
 
 void	rotate(t_cub_data *cub, int direction)
