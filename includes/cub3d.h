@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/06/01 15:04:47 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/02 13:54:56 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,32 +88,42 @@ typedef struct s_direction
 	double			dir_inc;
 }					t_direction;
 
+typedef struct s_validation_counter
+{
+	int			west_texture;
+	int			east_texture;
+	int			north_texture;
+	int			south_texture;
+	int			ceiling;
+	int			floor;
+}				t_validation_counter;
 typedef struct s_cub_data
 {
-	mlx_t			*mlx;
-	mlx_image_t		*img;
-	mlx_image_t		*omg;
-	char			*map_path;
-	mlx_texture_t	*texture_north;
-	mlx_texture_t	*texture_south;
-	mlx_texture_t	*texture_east;
-	mlx_texture_t	*texture_west;
-	int				floor;
-	int				ceiling;
-	char			**map;
-	int				map_height;
-	int				map_width;
-	double			player_y;
-	double			player_x;
-	double			player_direction_x;
-	double			player_direction_y;
-	double			player_plane_x;
-	double			player_plane_y;
-	double			player_start_x;
-	double			player_start_y;
-	t_minimap_data	minimap;
-	t_drawing		draw;
-	bool			mouse_on_off;
+	mlx_t					*mlx;
+	mlx_image_t				*img;
+	mlx_image_t				*omg;
+	char					*map_path;
+	mlx_texture_t			*texture_north;
+	mlx_texture_t			*texture_south;
+	mlx_texture_t			*texture_east;
+	mlx_texture_t			*texture_west;
+	int						floor;
+	int						ceiling;
+	char					**map;
+	int						map_height;
+	int						map_width;
+	double					player_y;
+	double					player_x;
+	double					player_direction_x;
+	double					player_direction_y;
+	double					player_plane_x;
+	double					player_plane_y;
+	double					player_start_x;
+	double					player_start_y;
+	t_minimap_data			minimap;
+	t_drawing				draw;
+	bool					mouse_on_off;
+	t_validation_counter	counter;
 }					t_cub_data;
 
 // INIT
@@ -128,7 +138,7 @@ void				choose_step(t_cub_data *cub, t_raycasting *ray);
 // PARSING
 int					parsing(t_cub_data *cub);
 // PARSING_UTILS
-int					get_background(char *line, int *i);
+int					get_background(char *line);
 int					add_textures(t_cub_data *cub);
 int					add_player(t_cub_data *cub);
 int					add_map(t_cub_data *cub);
@@ -159,7 +169,7 @@ void				mouse(t_cub_data *cub);
 void				movement(t_cub_data *cub);
 void				copy_pixels(uint8_t *dst, uint8_t *src);
 void				scale(mlx_texture_t *new, mlx_texture_t *old);
-mlx_texture_t		*correct_texture(char *line, int *i);
+mlx_texture_t		*correct_texture(char *line);
 int					validate_textures(t_cub_data *cub);
 void				correct_map(t_cub_data *cub);
 void				movement_vertical(t_cub_data *cub);

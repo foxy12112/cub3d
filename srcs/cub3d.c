@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 11:45:43 by ldick             #+#    #+#             */
-/*   Updated: 2025/06/01 16:36:00 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/02 14:33:32 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	leaks(void)
 void	freeall(t_cub_data *cub)
 {
 	free_texture(cub);
-	if (cub->map)
-		free_split(cub->map);
 	if (cub->img && cub->mlx)
 		mlx_delete_image(cub->mlx, cub->img);
 	if (cub->omg && cub->mlx)
@@ -43,6 +41,7 @@ int	main(int argc, char *argv[])
 	if (!parsing(cub))
 		return (printf("Error\nparsing failed\n"), freeall(cub), 0);
 	if (!validate(cub))
-		return (printf("Error\nvalidation failed\n"), freeall(cub), 0);
+		return (printf("Error\nvalidation failed\n"), freeall(cub),
+			free_split(cub->map), 0);
 	game(cub);
 }

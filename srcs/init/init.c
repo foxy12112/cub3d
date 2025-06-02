@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:00:34 by ldick             #+#    #+#             */
-/*   Updated: 2025/06/01 14:38:32 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/02 14:09:42 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@ int	check_file_existance(char *line)
 		return (0);
 	close(fd);
 	return (1);
+}
+
+void	init_data(t_cub_data *cub)
+{
+	cub->counter.floor = 0;
+	cub->counter.ceiling = 0;
+	cub->counter.east_texture = 0;
+	cub->counter.west_texture = 0;
+	cub->counter.south_texture = 0;
+	cub->counter.north_texture = 0;
 }
 
 int	init(char **argv, t_cub_data *cub)
@@ -43,5 +53,6 @@ int	init(char **argv, t_cub_data *cub)
 	cub->player_plane_x = 0;
 	cub->player_plane_y = 0;
 	cub->mouse_on_off = true;
+	init_data(cub);
 	return (1);
 }

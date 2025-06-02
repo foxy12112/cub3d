@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:01:16 by ldick             #+#    #+#             */
-/*   Updated: 2025/06/01 13:52:22 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/02 13:03:32 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ int	game(t_cub_data *cub)
 	mlx_key_hook(cub->mlx, &keyhook, cub);
 	mlx_loop_hook(cub->mlx, &events, cub);
 	mlx_loop(cub->mlx);
+	mlx_terminate(cub->mlx);
 	return (0);
 }

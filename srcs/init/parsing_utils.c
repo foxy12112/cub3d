@@ -6,13 +6,13 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:08:22 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/31 16:56:06 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/02 15:38:09 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	get_background(char *line, int *i)
+int	get_background(char *line)
 {
 	char	**tmp;
 	int		color;
@@ -25,39 +25,70 @@ int	get_background(char *line, int *i)
 	free(tmp[1]);
 	free(tmp[2]);
 	free(tmp);
-	*i += 1;
 	if (!color)
 		return (0);
 	return (color);
+}
+
+void	counter(t_cub_data *cub, char *line)
+{
+		if (ft_strncmp(line, "NO", 2) == 0)
+			cub->counter.north_texture++;
+		if (ft_strncmp(line, "SO", 2) == 0)
+			cub->counter.south_texture++;
+		if (ft_strncmp(line, "EA", 2) == 0)
+			cub->counter.east_texture++;
+		if (ft_strncmp(line, "WE", 2) == 0)
+			cub->counter.west_texture++;
+		if (ft_strncmp(line, "F", 1) == 0)
+			cub->counter.floor++;
+		if (ft_strncmp(line, "C", 1) == 0)
+			cub->counter.ceiling++;
+}
+
+int	validate_counter(t_cub_data *cub)
+{
+	if (cub->counter.floor != 1)
+		return (0);
+	if (cub->counter.ceiling != 1)
+		return (0);
+	if (cub->counter.west_texture != 1)
+		return (0);
+	if (cub->counter.east_texture != 1)
+		return (0);
+	if (cub->counter.south_texture != 1)
+		return (0);
+	if (cub->counter.north_texture != 1)
+		return (0);
+	return (1);
 }
 
 int	add_textures(t_cub_data *cub)
 {
 	int		fd;
 	char	*line;
-	int		i;
 
-	i = 0;
 	fd = open(cub->map_path, O_RDONLY);
 	line = get_next_line(fd);
-	while (line && i < 6)
+	while (line)
 	{
 		if (ft_strncmp(line, "NO", 2) == 0)
-			cub->texture_north = correct_texture(line + 2, &i);
+			cub->texture_north = correct_texture(line + 2);
 		if (ft_strncmp(line, "SO", 2) == 0)
-			cub->texture_south = correct_texture(line + 2, &i);
+			cub->texture_south = correct_texture(line + 2);
 		if (ft_strncmp(line, "EA", 2) == 0)
-			cub->texture_east = correct_texture(line + 2, &i);
+			cub->texture_east = correct_texture(line + 2);
 		if (ft_strncmp(line, "WE", 2) == 0)
-			cub->texture_west = correct_texture(line + 2, &i);
+			cub->texture_west = correct_texture(line + 2);
 		if (ft_strncmp(line, "F", 1) == 0)
-			cub->floor = get_background(line + 1, &i);
+			cub->floor = get_background(line + 1);
 		if (ft_strncmp(line, "C", 1) == 0)
-			cub->ceiling = get_background(line + 1, &i);
+			cub->ceiling = get_background(line + 1);
+		counter(cub, line);
 		free(line);
 		line = get_next_line(fd);
 	}
-	return (close(fd), free(line), 1);
+	return (close(fd), free(line), validate_counter(cub));
 }
 
 int	add_map(t_cub_data *cub)
@@ -69,13 +100,21 @@ int	add_map(t_cub_data *cub)
 	i = 0;
 	fd = open(cub->map_path, O_RDONLY);
 	line = get_next_line(fd);
+	while(line)
+	{
+		if (!ft_strchr("NSWEFC\n", line[0]))
+			break ;
+		free(line);
+		line = get_next_line(fd);
+	}
 	while (line)
 	{
 		if (line[0] == '\n')
 		{
-			free(line);
-			line = get_next_line(fd);
-			continue ;
+			if (i > 0)
+				return (free(line), free_split(cub->map), 0);
+			else
+				return (free(line), 0);
 		}
 		if (!ft_strchr("NSWEFC", line[0]))
 		{
@@ -111,10 +150,10 @@ int	set_player(t_cub_data *cub, char c, int x, int y)
 		cub->player_direction_x = -1;
 		cub->player_plane_x = -0.66;
 	}
-	cub->player_x = (double)x;
-	cub->player_y = (double)y;
-	cub->player_start_x = (double)x;
-	cub->player_start_y = (double)y;
+	cub->player_x = (double)x + 0.5;
+	cub->player_y = (double)y + 0.5;
+	cub->player_start_x = (double)x + 0.5;
+	cub->player_start_y = (double)y + 0.5;
 	return (1);
 }
 

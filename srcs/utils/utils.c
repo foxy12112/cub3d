@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:51:03 by ldick             #+#    #+#             */
-/*   Updated: 2025/06/01 14:57:52 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/02 14:10:23 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	free_split(char **split)
 	i = 0;
 	while (split[i])
 	{
-		free(split[i]);
+		if (split[i])
+			free(split[i]);
 		i++;
 	}
 	free(split);
