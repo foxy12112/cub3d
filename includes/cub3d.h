@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/06/02 13:54:56 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/03 10:33:48 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,7 @@ int					init(char **argv, t_cub_data *cub);
 // INIT_UTILS
 int					check_extension(char *path);
 
-void				init_dda(t_cub_data *cub, t_raycasting *ray, int x,
-						t_direction dir);
+void				init_dda(t_cub_data *cub, t_raycasting *ray, int x);
 void				choose_step(t_cub_data *cub, t_raycasting *ray);
 // PARSING
 int					parsing(t_cub_data *cub);
