@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:16:36 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/31 16:59:42 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/03 11:02:49 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ int	is_valid_location(t_cub_data *cub, double x, double y)
 	current_map_y = (int)cub->player_y;
 	if (current_map_x != map_x && current_map_y != map_y)
 	{
-		if (cub->map[current_map_y][map_x] == '1' || cub->map[current_map_y][map_x] == ' ')
+		if (cub->map[current_map_y][map_x] == '1' ||
+			cub->map[current_map_y][map_x] == ' ')
 			return (0);
-		if (cub->map[map_y][current_map_x] == '1' || cub->map[map_y][current_map_x] == ' ')
+		if (cub->map[map_y][current_map_x] == '1' ||
+			cub->map[map_y][current_map_x] == ' ')
 			return (0);
 	}
 	return (1);
 }
-

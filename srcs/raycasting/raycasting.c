@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:02:49 by ldick             #+#    #+#             */
-/*   Updated: 2025/06/03 10:33:55 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/03 11:07:12 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	dda_loop(t_cub_data *cub)
 	t_raycasting	ray;
 	int				x;
 	double			plane_len;
-	
+
 	plane_len = tan(FOV * 0.5 * M_PI / 180);
 	x = -1;
 	while (++x < WIDHT)
@@ -91,4 +91,3 @@ void	dda_loop(t_cub_data *cub)
 		draw_line(ray, cub, x);
 	}
 }
-// TODO fix plane, completelly wrong wa da faq

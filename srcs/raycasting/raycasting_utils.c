@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:41:17 by ldick             #+#    #+#             */
-/*   Updated: 2025/06/03 10:32:58 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/03 11:03:14 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ void	init_dda(t_cub_data *cub, t_raycasting *ray, int x)
 	ray->map_x = (int)(cub->player_x);
 	ray->map_y = (int)(cub->player_y);
 	ray->camera_x = (double)2 * (double)x / (double)WIDHT - 1.0;
-	ray->ray_dir_x = cub->player_direction_x + (cub->player_plane_x) * ray->camera_x;
-	ray->ray_dir_y = cub->player_direction_y + (cub->player_plane_y) * ray->camera_x;
+	ray->ray_dir_x = cub->player_direction_x + cub->player_plane_x
+		* ray->camera_x;
+	ray->ray_dir_y = cub->player_direction_y + cub->player_plane_y
+		* ray->camera_x;
 	if (ray->ray_dir_x == 0)
 		ray->deltadist_x = 1e30;
 	else
