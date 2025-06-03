@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:08:22 by ldick             #+#    #+#             */
-/*   Updated: 2025/06/03 11:00:54 by psostari         ###   ########.fr       */
+/*   Updated: 2025/06/03 11:19:22 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	get_background(char *line)
-{
-	char	**tmp;
-	int		color;
-
-	tmp = ft_split(line, ',');
-	if (!tmp || !tmp[0] || !tmp[1] || !tmp[2])
-		return (0);
-	color = get_color(ft_atoi(tmp[0]), ft_atoi(tmp[1]), ft_atoi(tmp[2]), 255);
-	free(tmp[0]);
-	free(tmp[1]);
-	free(tmp[2]);
-	free(tmp);
-	if (!color)
-		return (0);
-	return (color);
-}
 
 void	counter(t_cub_data *cub, char *line)
 {
@@ -91,43 +73,6 @@ int	add_textures(t_cub_data *cub)
 	return (close(fd), free(line), validate_counter(cub));
 }
 
-// int	add_map(t_cub_data *cub)
-// {
-// 	char	*line;
-// 	int		fd;
-// 	int		i;
-
-// 	i = 0;
-// 	fd = open(cub->map_path, O_RDONLY);
-// 	line = get_next_line(fd);
-// 	while (line)
-// 	{
-// 		if (!ft_strchr("NSWEFC\n", line[0]))
-// 			break ;
-// 		free(line);
-// 		line = get_next_line(fd);
-// 	}
-// 	while (line)
-// 	{
-// 		if (line[0] == '\n')
-// 		{
-// 			if (i > 0)
-// 				return (free(line), free_split(cub->map), 0);
-// 			else
-// 				return (free(line), 0);
-// 		}
-// 		if (!ft_strchr("NSWEFC", line[0]))
-// 		{
-// 			cub->map[i] = ft_strdup(line);
-// 			i++;
-// 		}
-// 		free(line);
-// 		line = get_next_line(fd);
-// 	}
-// 	cub->map[i] = NULL;
-// 	return (free(line), 1);
-// }
-
 int	add_map(t_cub_data *cub)
 {
 	char	*line;
@@ -136,12 +81,8 @@ int	add_map(t_cub_data *cub)
 
 	i = 0;
 	fd = open(cub->map_path, O_RDONLY);
-	cub->map = malloc(sizeof(char *) * 1024);
-	if (fd < 0 || !cub->map)
-	{
-		printf("Error: Failed to open file or allocate memory\n");
-		return (0);
-	}
+	if (fd < 0)
+		return (printf("Error\nfailed to open map"), 0);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -149,10 +90,8 @@ int	add_map(t_cub_data *cub)
 		{
 			free(line);
 			free_split(cub->map);
-			cub->map = NULL; //prevent double free
-			close(fd);
-			printf("Error: Empty line in map\n");
-			return (0);
+			cub->map = NULL;
+			return (close(fd), printf("Error\nempty line in map"), 0);
 		}
 		if (!ft_strchr("NSWEFC\n", line[0]))
 			cub->map[i++] = ft_strdup(line);
@@ -160,37 +99,7 @@ int	add_map(t_cub_data *cub)
 		line = get_next_line(fd);
 	}
 	cub->map[i] = NULL;
-	close(fd);
-	return (1);
-}
-
-int	set_player(t_cub_data *cub, char c, int x, int y)
-{
-	if (c == 'N')
-	{
-		cub->player_direction_y = -1;
-		cub->player_plane_y = 0.66;
-	}
-	if (c == 'S')
-	{
-		cub->player_direction_y = 1;
-		cub->player_plane_y = -0.66;
-	}
-	if (c == 'E')
-	{
-		cub->player_direction_x = 1;
-		cub->player_plane_x = 0.66;
-	}
-	if (c == 'W')
-	{
-		cub->player_direction_x = -1;
-		cub->player_plane_x = -0.66;
-	}
-	cub->player_x = (double)x + 0.5;
-	cub->player_y = (double)y + 0.5;
-	cub->player_start_x = (double)x + 0.5;
-	cub->player_start_y = (double)y + 0.5;
-	return (1);
+	return (close(fd), 1);
 }
 
 int	add_player(t_cub_data *cub)
