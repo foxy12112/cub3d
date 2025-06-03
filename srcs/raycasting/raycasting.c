@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:02:49 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/30 14:13:20 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/03 11:07:12 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,30 +77,17 @@ int	calculate_texture(t_cub_data *cub, t_raycasting ray, mlx_texture_t *tex)
 void	dda_loop(t_cub_data *cub)
 {
 	t_raycasting	ray;
-	t_direction		dir;
 	int				x;
-	double			old_dir_x;
+	double			plane_len;
 
+	plane_len = tan(FOV * 0.5 * M_PI / 180);
 	x = -1;
-	dir.temp_dir_x = cub->player_direction_x;
-	dir.temp_dir_y = cub->player_direction_y;
-	dir.dir_inc = FOV * (M_PI / 180) / (double)WIDHT;
-	old_dir_x = dir.temp_dir_x;
-	dir.temp_dir_x = dir.temp_dir_x * cos(-((FOV * (M_PI / 180)) / 2))
-		- dir.temp_dir_y * sin(-((FOV * (M_PI / 180)) / 2));
-	dir.temp_dir_y = old_dir_x * sin(-((FOV * (M_PI / 180)) / 2))
-		+ dir.temp_dir_y * cos(-((FOV * (M_PI / 180)) / 2));
 	while (++x < WIDHT)
 	{
-		init_dda(cub, &ray, x, dir);
+		cub->player_plane_x = -cub->player_direction_y * plane_len;
+		cub->player_plane_y = cub->player_direction_x * plane_len;
+		init_dda(cub, &ray, x);
 		ray = perform_dda(ray, cub);
 		draw_line(ray, cub, x);
-		old_dir_x = dir.temp_dir_x;
-		dir.temp_dir_x = dir.temp_dir_x * cos(dir.dir_inc) - dir.temp_dir_y
-			* sin(dir.dir_inc);
-		dir.temp_dir_y = old_dir_x * sin(dir.dir_inc) + dir.temp_dir_y
-			* cos(dir.dir_inc);
 	}
 }
-
-// TODO fix plane, completelly wrong wa da faq
