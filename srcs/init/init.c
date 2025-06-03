@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:00:34 by ldick             #+#    #+#             */
-/*   Updated: 2025/06/02 14:09:42 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/03 14:27:55 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,26 @@ int	init(char **argv, t_cub_data *cub)
 	cub->mlx = mlx_init(WIDHT, HEIGHT, "cub3D", false);
 	if (!cub->mlx)
 		return (0);
-	if (!check_extension(argv[1]))
-		return (printf("Error\nwrong extension\n"), free(cub->mlx), 0);
-	if (!check_file_existance(argv[1]))
-		return (printf("Error\nfile doesnt exist\n"), free(cub->mlx), 0);
+	if (!check_extension(argv[1]) || !check_file_existance(argv[1]))
+	{
+		printf("Error\nwrong file extension or file doesnt exist\n");
+		mlx_terminate(cub->mlx);
+		free(cub);
+		exit(0);
+	}
 	cub->map_path = argv[1];
 	cub->map = malloc(sizeof(char *) * 1024);
 	if (!cub->map)
 		return (0);
+	ft_bzero(cub->map, 1024);
 	cub->map_height = 0;
+	cub->map_flag = 1;
 	cub->map_width = 0;
 	cub->player_direction_x = 0;
 	cub->player_direction_y = 0;
 	cub->player_plane_x = 0;
 	cub->player_plane_y = 0;
-	cub->mouse_on_off = true;
+	cub->mouse_on_off = false;
 	init_data(cub);
 	return (1);
 }

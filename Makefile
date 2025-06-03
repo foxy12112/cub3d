@@ -6,7 +6,7 @@
 #    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/06/02 14:33:25 by ldick            ###   ########.fr        #
+#    Updated: 2025/06/03 14:50:41 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ GAME			=	$(addprefix game/, $(_GAME))
 _DRAWING		=	drawing_utils.c drawing.c
 DRAWING			=	$(addprefix drawing/, $(_DRAWING))
 
-_INIT			=	init_utils.c init.c parsing_utils.c parsing.c validate.c texture_utils.c
+_INIT			=	init_utils.c init.c parsing_utils.c parsing.c validate.c texture_utils.c parsing_utils_two.c
 INIT			=	$(addprefix init/, $(_INIT))
 
 _UTILS			=	utils.c

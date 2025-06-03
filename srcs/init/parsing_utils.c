@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:08:22 by ldick             #+#    #+#             */
-/*   Updated: 2025/06/03 11:19:22 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/03 15:25:29 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,20 @@ int	add_textures(t_cub_data *cub)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (ft_strncmp(line, "NO", 2) == 0)
-			cub->texture_north = correct_texture(line + 2);
-		if (ft_strncmp(line, "SO", 2) == 0)
-			cub->texture_south = correct_texture(line + 2);
-		if (ft_strncmp(line, "EA", 2) == 0)
-			cub->texture_east = correct_texture(line + 2);
-		if (ft_strncmp(line, "WE", 2) == 0)
-			cub->texture_west = correct_texture(line + 2);
-		if (ft_strncmp(line, "F", 1) == 0)
-			cub->floor = get_background(line + 1);
-		if (ft_strncmp(line, "C", 1) == 0)
-			cub->ceiling = get_background(line + 1);
+		if (line[0] == '\n')
+		{
+			free(line);
+			line = get_next_line(fd);
+			continue ;
+		}
+		if (ft_strchr("NSWE", rm_s(line)[0]) && (!check_png(rm_s(line + 2))
+			|| !check_image(line + 2)))
+			return (free(line), printf(PNG), 0);
+		if (add_textures_utils(cub, line) == 0)
+			break ;
 		counter(cub, line);
+		if (ft_strchr(" 01", line[0]))
+			return (free(line), printf(INVALID_DATA), 0);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -86,15 +87,13 @@ int	add_map(t_cub_data *cub)
 	line = get_next_line(fd);
 	while (line)
 	{
+		if (!ft_strchr("NSWEFC\n", line[0]))
+			cub->map[i++] = ft_strdup(line);
 		if (line[0] == '\n' && i > 0)
 		{
 			free(line);
-			free_split(cub->map);
-			cub->map = NULL;
-			return (close(fd), printf("Error\nempty line in map"), 0);
+			return (close(fd), printf("Error\nempty line in map\n"), 0);
 		}
-		if (!ft_strchr("NSWEFC\n", line[0]))
-			cub->map[i++] = ft_strdup(line);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -104,9 +103,9 @@ int	add_map(t_cub_data *cub)
 
 int	add_player(t_cub_data *cub)
 {
-	int		x;
-	int		y;
-	int		player_count;
+	int	x;
+	int	y;
+	int	player_count;
 
 	y = 0;
 	player_count = 0;

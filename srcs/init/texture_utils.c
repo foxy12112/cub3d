@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 15:36:40 by ldick             #+#    #+#             */
-/*   Updated: 2025/06/02 13:54:16 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/03 15:22:17 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ void	scale(mlx_texture_t *new, mlx_texture_t *old)
 		}
 		y++;
 	}
+}
+
+int	check_png(char *line)
+{
+	int	i;
+
+	i = ft_strlen(line) - 1;
+	printf("%s\n", line);
+	if (line[i] != 'g' || line[i - 1] != 'n'
+		|| line[i - 2] != 'p' || line[i - 3] != '.')
+		return (0);
+	return (1);
 }
 
 mlx_texture_t	*correct_texture(char *line)

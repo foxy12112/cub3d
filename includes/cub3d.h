@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/06/03 11:13:17 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/03 15:25:07 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 # define TEX_WIDTH 1024
 # define TEX_HEIGHT 1024
 # define MAX_MAP_LINES 1000
+# define PNG "png does not exist or has wrong file extension\n"
+# define INVALID_DATA "Error\ninvalid data:\tdata given after map\n"
 
 typedef struct s_minimap_data
 {
@@ -121,6 +123,7 @@ typedef struct s_cub_data
 	double					player_plane_y;
 	double					player_start_x;
 	double					player_start_y;
+	int						map_flag;
 	t_minimap_data			minimap;
 	t_drawing				draw;
 	bool					mouse_on_off;
@@ -176,5 +179,10 @@ void				movement_vertical(t_cub_data *cub);
 void				draw_player(t_cub_data *cub);
 t_raycasting		perform_dda(t_raycasting ray, t_cub_data *cub);
 void				free_texture(t_cub_data *cub);
+int					set_player(t_cub_data *cub, char c, int x, int y);
+int					add_textures_utils(t_cub_data *cub, char *line);
+void				freeall(t_cub_data *cub);
+int					check_png(char *line);
+int					check_image(char *line);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 12:28:25 by ldick             #+#    #+#             */
-/*   Updated: 2025/06/02 13:23:30 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/03 14:23:09 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,18 @@ void	correct_map(t_cub_data *cub)
 	y = 0;
 	while (cub->map[y])
 	{
+		if ((int)ft_strlen(cub->map[y]) > cub->map_width)
+			cub->map_width = (int)ft_strlen(cub->map[y]);
 		newline = ft_strchr(cub->map[y], '\n');
 		if (newline)
 			*newline = '\0';
 		y++;
+	}
+	cub->map_height = y;
+	if (cub->map_height * 22 > HEIGHT || cub->map_width * 22 > WIDHT)
+	{
+		cub->map_flag = 0;
+		printf("map too big, not drawing map\n");
 	}
 	cub->map[(int)cub->player_start_y][(int)cub->player_start_x] = '0';
 }

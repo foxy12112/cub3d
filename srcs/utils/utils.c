@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 12:51:03 by ldick             #+#    #+#             */
-/*   Updated: 2025/06/03 11:01:15 by psostari         ###   ########.fr       */
+/*   Updated: 2025/06/03 13:49:46 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,12 @@ void	free_split(char **split)
 	int	i;
 
 	i = 0;
+	if (!split)
+		return ;
 	while (split[i])
 	{
-		if (split[i])
-			free(split[i]);
+		free(split[i]);
+		split[i] = NULL;
 		i++;
 	}
 	free(split);

@@ -1,7 +1,7 @@
-NO textures/alexx.png
-SO textures/NB.png
-WE textures/arctic_Monkeys.png
-EA textures/cursed.png
+NO textures/north.png
+SO textures/south.png
+WE textures/west.png
+EA textures/east.png
 
 
 F 255,0,0
