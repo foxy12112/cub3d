@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:16:36 by ldick             #+#    #+#             */
-/*   Updated: 2025/05/31 16:59:42 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/03 11:01:33 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,3 @@ int	is_valid_location(t_cub_data *cub, double x, double y)
 	}
 	return (1);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psostari <psostari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:50:02 by foxy              #+#    #+#             */
-/*   Updated: 2025/06/02 13:54:56 by ldick            ###   ########.fr       */
+/*   Updated: 2025/06/03 10:07:33 by psostari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define WIDHT 1920
 # define TEX_WIDTH 1024
 # define TEX_HEIGHT 1024
+# define MAX_MAP_LINES 1000
 
 typedef struct s_minimap_data
 {
